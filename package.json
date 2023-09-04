@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build && storybook build",
-    "start": "next start && serve storybook",
+    "start": "next start && storybook",
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
