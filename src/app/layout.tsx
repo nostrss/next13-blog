@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google';
 import NavLink from '@/stories/NavLink';
 import Link from 'next/link';
 import { Fragment } from 'react';
+import QueryProviders from '@/context/queryProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -27,17 +28,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={inter.className}>
-        <header className='w-full min-w-360 h-16 px-4 flex flex-row justify-between items-center border-b border-gray-300 '>
-          <span>Logo</span>
-          <nav className='flex flex-row gap-2 items-center'>
-            {tabs.map(({ menu }, index) => (
-              <Fragment key={index}>{menu}</Fragment>
-            ))}
-          </nav>
-        </header>
-        {children}
-      </body>
+      <QueryProviders>
+        <body className={inter.className}>
+          <header className='w-full min-w-360 h-16 px-4 flex flex-row justify-between items-center border-b border-gray-300 '>
+            <span>Logo</span>
+            <nav className='flex flex-row gap-2 items-center'>
+              {tabs.map(({ menu }, index) => (
+                <Fragment key={index}>{menu}</Fragment>
+              ))}
+            </nav>
+          </header>
+          {children}
+        </body>
+      </QueryProviders>
     </html>
   );
 }
