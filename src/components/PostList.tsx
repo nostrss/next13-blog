@@ -1,5 +1,6 @@
 'use client';
 
+import PostCard from '@/stories/PostCard';
 import { useQuery } from '@tanstack/react-query';
 
 const fetchPostList = async () => {
@@ -10,18 +11,21 @@ const fetchPostList = async () => {
   return data.json();
 };
 
+type Post = {
+  title: string;
+  subTitle: string;
+  date: string;
+};
+
 export default function PostList() {
-  const { data } = useQuery(['posts'], fetchPostList);
+  const { data, isLoading } = useQuery(['posts'], fetchPostList);
 
   return (
     <>
+      {isLoading && <div>loading...</div>}
       {data &&
-        data.map((post: Record<string, string>, index: number) => (
-          <ol key={index}>
-            <li>{post.title}</li>
-            <li>{post.description} </li>
-            <li>{post.date}</li>
-          </ol>
+        data.map((post: Post, index: number) => (
+          <PostCard key={index} post={post} />
         ))}
     </>
   );
