@@ -2,12 +2,9 @@
 
 import React from 'react';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+import { IPropsChildren } from '@/type/common';
 
-type Props = {
-  children: React.ReactNode;
-};
-
-export default function QueryProviders({ children }: Props) {
+export default function QueryProviders({ children }: IPropsChildren) {
   const [client] = React.useState(
     new QueryClient({
       defaultOptions: {

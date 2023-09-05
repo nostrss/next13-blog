@@ -1,6 +1,7 @@
 'use client';
 
 import PostCard from '@/stories/PostCard';
+import { Post } from '@/type/common';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 const fetchPostList = async (page: number, limit: number) => {
@@ -8,12 +9,6 @@ const fetchPostList = async (page: number, limit: number) => {
     method: 'GET',
   });
   return data.json();
-};
-
-type Post = {
-  title: string;
-  subTitle: string;
-  date: string;
 };
 
 export default function PostList() {
@@ -24,8 +19,6 @@ export default function PostList() {
     getNextPageParam: (lastPage) => lastPage.nextPage,
   });
 
-  // const flatData = data?.pages.map(({ data }) => data).flat();
-
   return (
     <>
       {isLoading && <div>loading...</div>}
@@ -34,7 +27,7 @@ export default function PostList() {
           .map(({ data }) => data)
           .flat()
           .map((post: Post, index: number) => (
-            <PostCard key={index} post={post} />
+            <PostCard key={index} {...post} />
           ))}
       <button onClick={() => fetchNextPage()}>다음페이지</button>
     </>

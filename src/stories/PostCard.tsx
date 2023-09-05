@@ -1,17 +1,10 @@
 'use client';
 
+import { Post } from '@/type/common';
 import Link from 'next/link';
 
-type Props = {
-  post: {
-    title: string;
-    subTitle: string;
-    date: string;
-  };
-};
-
-export default function PostCard({ post }: Props) {
-  const { title, subTitle, date } = post;
+export default function PostCard({ title, subTitle, date }: Post) {
+  // const { title, subTitle, date } = post;
   return (
     <div className='w-full border rounded-xl border-gray-500'>
       <Link href={''}>

@@ -9,21 +9,19 @@ const meta = {
   },
 
   argTypes: {
-    post: {
-      title: {
-        control: {
-          type: 'text',
-        },
+    title: {
+      control: {
+        type: 'text',
       },
-      subTitle: {
-        control: {
-          type: 'text',
-        },
+    },
+    subTitle: {
+      control: {
+        type: 'text',
       },
-      date: {
-        control: {
-          type: 'text',
-        },
+    },
+    date: {
+      control: {
+        type: 'text',
       },
     },
   },
@@ -34,10 +32,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    post: {
-      title: 'Post Title',
-      subTitle: 'Post Description',
-      date: '2021-01-01',
-    },
+    title: 'Post Title',
+    subTitle: 'Post Description',
+    date: '2021-01-01',
   },
 };
