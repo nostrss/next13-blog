@@ -2,8 +2,18 @@ import DarkModeToggle from '@/stories/DarkModeToggle';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import NavLink from '@/stories/NavLink';
+import Link from 'next/link';
+import { Fragment } from 'react';
 
 const inter = Inter({ subsets: ['latin'] });
+
+const tabs = [
+  { menu: <DarkModeToggle /> },
+  { menu: <NavLink href=''>Blog</NavLink> },
+  { menu: <NavLink href=''>Project</NavLink> },
+  { menu: <NavLink href=''>About</NavLink> },
+];
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -21,9 +31,9 @@ export default function RootLayout({
         <header className='w-full min-w-360 h-16 px-4 flex flex-row justify-between items-center border-b border-gray-300 '>
           <span>Logo</span>
           <nav className='flex flex-row gap-2 items-center'>
-            <DarkModeToggle />
-            <span>BLOG</span>
-            <span>Project</span>
+            {tabs.map(({ menu }, index) => (
+              <Fragment key={index}>{menu}</Fragment>
+            ))}
           </nav>
         </header>
         {children}
