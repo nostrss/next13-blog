@@ -39,5 +39,9 @@ export async function GET(req: NextRequest) {
     })
     .slice((page - 1) * limit, page * limit);
 
-  return NextResponse.json(sortData);
+  return NextResponse.json({
+    data: sortData,
+    total: data.length,
+    nextPage: page + 1,
+  });
 }
