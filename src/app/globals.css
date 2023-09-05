@@ -9,7 +9,7 @@ body {
   overflow-x: hidden;
 }
 
-.dark {
+.darkmode {
   background-color: black;
   color: #fff;
   h1,

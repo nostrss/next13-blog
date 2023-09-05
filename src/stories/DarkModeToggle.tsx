@@ -11,9 +11,9 @@ export default function DarkModeToggle() {
     setIsDark(!isDark);
 
     if (!isDark) {
-      document.documentElement.classList.add('dark');
+      document.documentElement.classList.add('darkmode');
     } else {
-      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.remove('darkmode');
     }
   };
 
