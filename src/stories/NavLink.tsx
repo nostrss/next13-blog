@@ -7,7 +7,7 @@ type Props = {
 
 export default function NavLink({ children, href = '' }: Props) {
   return (
-    <Link href={href} className='hover:font-bold'>
+    <Link href={href} className='text-slate-500 hover:text-slate-900'>
       {children}
     </Link>
   );

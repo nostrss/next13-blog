@@ -1,9 +1,22 @@
-import Image from 'next/image';
+import { readdir, readFile } from 'fs/promises';
+import path from 'path';
 
-export default function Home() {
+export default async function Home() {
+  const filePath = path.join(process.cwd(), 'posts');
+  const fileList = await readdir(filePath);
+
+  const postData = await Promise.all(
+    fileList.map(async (file) => {
+      const data = await readFile(`${filePath}/${file}`, 'utf-8');
+      return data;
+    })
+  );
+
   return (
     <main>
-      <div>sss</div>
+      {postData.map((post, index) => (
+        <li key={index}>{post}</li>
+      ))}
     </main>
   );
 }
