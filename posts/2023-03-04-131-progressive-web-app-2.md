@@ -10,63 +10,112 @@ hidden:
 date: 2023-03-04
 ---
 
-## PWA 장점
+# A demo of `react-markdown`
 
-프로그레시브 웹 앱(Progressive Web App, PWA)은 웹과 네이티브 앱의 기능을 결합한 형태의 애플리케이션이다.
+`react-markdown` is a markdown component for React.
 
-PWA는 온라인에서 쉽게 접근 가능하며, 브라우저를 통해 실행이 가능하고, 다운로드도 가능하다.
-즉, 앱 스토어에서 다운로드 및 설치를 필요로 하지 않으므로, 개발자는 플랫폼의 종속성에서 벗어날 수 있다.
-그리고 Native App을 별도로 개발할 필요가 없는 장점이 있다.
+👉 Changes are re-rendered as you type.
 
-이렇게 장점만 보면 모든 기업들이 앞다투어 도입을 할 것 같지만, 어떤 이유 인지 도입이 그렇게 빠르게 되고 있다는 생각이 들지는 않는다.
-아무래도 각 플랫폼의 이해타산이 맞물려 있기 때문이 아닐까 싶다.
+👈 Try writing some markdown on the left.
 
-구글과 애플의 입장에선 인앱 결제를 통한 수수료 수익이 줄어들 가능성이 있기 때문이지 않을까 싶다.
+## Overview
 
-구글의 경우에는 그래도 크롬에서 지원하는 등의 노력이 보이는데, 애플은 아직 소극적인 느낌이다.
+- Follows [CommonMark](https://commonmark.org)
+- Optionally follows [GitHub Flavored Markdown](https://github.github.com/gfm/)
+- Renders actual React elements instead of using `dangerouslySetInnerHTML`
+- Lets you define your own components (to render `MyHeading` instead of `h1`)
+- Has a lot of plugins
 
-### PWA의 기술적 정의
+## Table of contents
 
-[What is a Progressive Web App?](https://adactio.medium.com/what-is-a-progressive-web-app-f1ca780f30e6)
+Here is an example of a plugin in action
+([`remark-toc`](https://github.com/remarkjs/remark-toc)).
+This section is replaced by an actual table of contents.
 
-제레미 키스(Jeremy Keith)는 PWA의 기술적 특징을 이렇게 설명한다
+## Syntax highlighting
 
-1. HTTPS
-2. Service-Worker
-3. Web App Manifest
+Here is an example of a plugin to highlight code:
+[`rehype-highlight`](https://github.com/rehypejs/rehype-highlight).
 
-이전 블로그 포스팅에서 나도 간단히 React 프로젝트에 PWA를 적용해봤는데, 저 내용을 보니 구현 과정이 조금 이해가 되는 듯 하다.
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import ReactMarkdown from 'react-markdown';
+import rehypeHighlight from 'rehype-highlight';
 
-![pwabuilder](https://user-images.githubusercontent.com/56717167/222913262-adc55a93-e498-49d1-8cba-ceff24f4ddf6.png)
+ReactDOM.render(
+  <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
+    {'# Your markdown here'}
+  </ReactMarkdown>,
+  document.querySelector('#content')
+);
+```
 
-> PWA-Builder에서 검사 항목들(https://www.pwabuilder.com)
+Pretty neat, eh?
 
-## HTTPS
+## GitHub flavored markdown (GFM)
 
-이건 굳이 말하지 않아도 보안 때문이지 않을까 하는 생각이 든다.
-(그리고 https가 아닐 경우 구글이 `안전하지 않음`이라는 문구를 노출하기 때문에..)
+For GFM, you can _also_ use a plugin:
+[`remark-gfm`](https://github.com/remarkjs/react-markdown#use).
+It adds support for GitHub-specific extensions to the language:
+tables, strikethrough, tasklists, and literal URLs.
 
-## Service-Worker
+These features **do not work by default**.
+👆 Use the toggle above to add the plugin.
 
-> 웹 브라우저의 네트워크 요청과 자원관리를 개발자가 중간에서 직접 제어하도록 해주는 강력한 기술이다. 서비스 워커를 이용하면 안정적이고, 빠르고, 오프라인 기능에서도 작동하는 웹페이지를 제작할 수 있다. - 프로그레시브 웹 앱 (제이슨 그릭스비)
+|    Feature | Support              |
+| ---------: | :------------------- |
+| CommonMark | 100%                 |
+|        GFM | 100% w/ `remark-gfm` |
 
-책에서는 위와 같이 설명을 하고 있는데, 조금 단순화해서 정리하면 App이 오프라인으로 전환되더라도 계속 작동하는 PWA를 만드는 JS파일(?)이라고 생각하면 될 듯하다.
-우리나라에 워낙 모바일 네트워크가 잘 구축되어 있기 때문에, 스마트폰은 항상 통신이 되어야 한다고 생각한다.
+~~strikethrough~~
 
-하지만 이건 우리나라가 특이한 경우고 해외의 경우 모바일 통신 상태가 불안정한 경우가 많다. 그리고 개발자들은 이를 고려해야 하는 경우도 있다.
+- [ ] task list
+- [x] checked item
 
-페이스북과 트위터가 라이트(lite)버전의 용량이 작은 앱을 별도로 출시 하는 것도 이런 이유일 것이다.
+https://example.com
 
-<img width="534" alt="스크린샷 2023-03-05 시간: 00 18 36" src="https://user-images.githubusercontent.com/56717167/222914281-0783569b-f595-49f6-bc92-29fcd9e5ed15.png">
+## HTML in markdown
 
-즉, 서비스 워커는 PWA의 로컬 캐시 전략을 정의하는 역할을 한다고 볼 수 있다.
+⚠️ HTML in markdown is quite unsafe, but if you want to support it, you can
+use [`rehype-raw`](https://github.com/rehypejs/rehype-raw).
+You should probably combine it with
+[`rehype-sanitize`](https://github.com/rehypejs/rehype-sanitize).
 
-## Web App Manifest
+<blockquote>
+  👆 Use the toggle above to add the plugin.
+</blockquote>
 
-`Manifest`
+## Components
 
-React 개발을 하다보면 어디선가 많이 봤을 법한 단어이다. 그렇다 public 폴더 안에 존재하는 `manifest.json` 파일을 말한다.
+You can pass components to change things:
 
-<img width="915" alt="스크린샷 2023-03-05 시간: 00 26 13" src="https://user-images.githubusercontent.com/56717167/222914577-29066a4a-ebfd-4658-b2a5-ca8709fe0f54.png">
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import ReactMarkdown from 'react-markdown';
+import MyFancyRule from './components/my-fancy-rule.js';
 
-사실 나는 `manifest.json` 파일이 프로젝트에 항상 있었지만 어떤 역할을 하는지 몰랐었다. 하지만 삭제를 하려고 해도 혹시 몰라서 항상 건드리지 않았던 파일이었는데, PWA에서는 중요한 역할을 하고 있었다..
+ReactDOM.render(
+  <ReactMarkdown
+    components={{
+      // Use h2s instead of h1s
+      h1: 'h2',
+      // Use a component instead of hrs
+      hr: ({ node, ...props }) => <MyFancyRule {...props} />,
+    }}
+  >
+    # Your markdown here
+  </ReactMarkdown>,
+  document.querySelector('#content')
+);
+```
+
+## More info?
+
+Much more info is available in the
+[readme on GitHub](https://github.com/remarkjs/react-markdown)!
+
+---
+
+A component by [Espen Hovlandsdal](https://espen.codes/)

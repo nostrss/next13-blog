@@ -46,7 +46,6 @@ export default function PostList() {
         ))}
       {isFetching && <div>loading...</div>}
       <div ref={ref}></div>
-      {/* <button onClick={() => fetchNextPage()}>다음페이지</button> */}
     </>
   );
 }
