@@ -41,5 +41,6 @@ export const Default: Story = {
     description: 'Post Description',
     date: '2021-01-01',
     currentPostId: '1',
+    tags: 'tag1 tag2',
   },
 };
