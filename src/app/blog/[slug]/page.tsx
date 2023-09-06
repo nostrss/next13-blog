@@ -22,3 +22,14 @@ export default async function BlogDetail({
     </article>
   );
 }
+
+export async function generateMetadata({
+  params: { slug },
+}: {
+  params: { slug: string };
+}) {
+  const { title } = await fetchBlogDetail(slug);
+  return {
+    title,
+  };
+}

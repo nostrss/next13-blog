@@ -7,9 +7,7 @@ export async function GET() {
   const fileList = await readdir(filePath);
   const params = fileList.map((file) => {
     return {
-      params: {
-        slug: file.replace('.md', ''),
-      },
+      slug: file.replace('.md', ''),
     };
   });
 
