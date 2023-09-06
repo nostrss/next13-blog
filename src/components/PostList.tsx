@@ -39,7 +39,7 @@ export default function PostList() {
   }, [hasNextPage]);
 
   return (
-    <section className='flex flex-col gap-4 items-center'>
+    <section className='flex flex-col gap-4 items-center px-4'>
       {renderData &&
         renderData.map((post: Post, index: number) => (
           <PostCard key={index} {...post} />

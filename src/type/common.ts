@@ -10,6 +10,7 @@ export type Post = PostIdPrevNext & {
   title: string;
   description: string;
   date: string;
+  tags: string;
 };
 
 export type IPropsNav = IPropsChildren & {
