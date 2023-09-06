@@ -21,27 +21,27 @@ export default function PostList() {
     getNextPageParam: (lastPage) => lastPage.nextPage,
   });
 
+  const renderData = data?.pages.map(({ data }) => data).flat();
+  console.log(renderData);
+
   useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        fetchNextPage();
+      }
+    });
+
     if (!ref.current) return;
     observer.observe(ref.current);
   }, []);
 
-  const observer = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting) {
-      fetchNextPage();
-    }
-  });
-
   return (
     <>
       {/* {isLoading && <div>loading...</div>} */}
-      {data &&
-        data?.pages
-          .map(({ data }) => data)
-          .flat()
-          .map((post: Post, index: number) => (
-            <PostCard key={index} {...post} />
-          ))}
+      {renderData &&
+        renderData.map((post: Post, index: number) => (
+          <PostCard key={index} {...post} />
+        ))}
       {isFetching && <div>loading...</div>}
       <div ref={ref}></div>
       <button onClick={() => fetchNextPage()}>다음페이지</button>
