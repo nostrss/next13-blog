@@ -1,6 +1,5 @@
 import { readFile, readdir } from 'fs/promises';
 import { NextRequest, NextResponse } from 'next/server';
-import next from 'next/types';
 import path from 'path';
 
 export async function GET(req: NextRequest) {
@@ -15,7 +14,7 @@ export async function GET(req: NextRequest) {
   const filePath = path.join(process.cwd(), 'posts');
 
   /**
-   * posts 폴더의 파일 목록 가져오기.
+   * posts 폴더의 파일 목록 가져와서 파일명 순으로 정렬
    */
   const fileList = (await readdir(filePath)).sort(function (a, b) {
     if (a > b) return -1;
@@ -27,7 +26,7 @@ export async function GET(req: NextRequest) {
     fileList.map(async (file, index) => {
       const content = await readFile(`${filePath}/${file}`, 'utf-8');
       /**
-       * post
+       * postId 정보를 담은 객체 생성.
        */
       const postIdList = {
         currentPostId: file.replace('.md', ''),
@@ -59,6 +58,10 @@ export async function GET(req: NextRequest) {
   return NextResponse.json({
     data: sortData,
     total: data.length,
-    nextPage: page + 1,
+    nextPage: getNextpage(page, limit, data.length),
   });
 }
+
+const getNextpage = (page: number, limit: number, length: number) => {
+  return page * limit < length ? page + 1 : null;
+};
