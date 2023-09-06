@@ -17,11 +17,13 @@ export default async function BlogDetail({
   const { data } = await fetchBlogDetail(slug);
 
   return (
-    <article className='w-full p-3'>
-      <h1 className='prose prose-2xl font-bold'>{data.title}</h1>
-      <MarkDownViewer content={data.content} />
-      <CommentList />
-    </article>
+    <section className='w-full flex flex-row justify-center'>
+      <article className='max-w-2xl p-3'>
+        <h1 className='prose prose-2xl font-bold'>{data.title}</h1>
+        <MarkDownViewer content={data.content} />
+        <CommentList />
+      </article>
+    </section>
   );
 }
 

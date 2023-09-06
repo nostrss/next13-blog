@@ -35,7 +35,7 @@ export default function MarkDownViewer({ content }: { content: string }) {
         },
         img: (image) => (
           <Image
-            className='w-auto h-auto object-cover'
+            className='w-full h-auto object-cover'
             src={image.src || ''}
             alt={image.alt || ''}
             width={500}

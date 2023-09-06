@@ -39,13 +39,13 @@ export default function PostList() {
   }, [hasNextPage]);
 
   return (
-    <>
+    <section className='flex flex-col gap-4 items-center'>
       {renderData &&
         renderData.map((post: Post, index: number) => (
           <PostCard key={index} {...post} />
         ))}
       {isFetching && <div>loading...</div>}
       <div ref={ref}></div>
-    </>
+    </section>
   );
 }

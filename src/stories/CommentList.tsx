@@ -1,23 +1,28 @@
 'use client';
 
-import Giscus from '@giscus/react';
+import Script from 'next/script';
 
 export default function CommentList() {
   return (
-    <Giscus
-      id='comments'
-      repo='nostrss/next13-blog'
-      repoId={process.env.NEXT_PUBLIC_REPO_ID || ''}
-      category='General'
-      categoryId={process.env.NEXT_PUBLIC_CATEGORY_ID || ''}
-      mapping='title'
-      term='댓글을 남겨주세요'
-      reactionsEnabled='1'
-      emitMetadata='0'
-      inputPosition='top'
-      theme='light'
-      lang='kr'
-      loading='lazy'
-    />
+    <div className='w-full'>
+      <Script
+        className='max-w-2xl p-3'
+        src='https://giscus.app/client.js'
+        data-repo='nostrss/next13-blog'
+        data-repo-id={process.env.NEXT_PUBLIC_REPO_ID}
+        data-category='General'
+        data-category-id={process.env.NEXT_PUBLIC_CATEGORY_ID}
+        data-mapping='title'
+        data-strict='0'
+        data-reactions-enabled='1'
+        data-emit-metadata='0'
+        data-input-position='top'
+        data-theme='light'
+        data-lang='ko'
+        data-loading='lazy'
+        crossOrigin='anonymous'
+        async
+      />
+    </div>
   );
 }
