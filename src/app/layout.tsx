@@ -6,14 +6,15 @@ import NavLink from '@/stories/NavLink';
 import { Fragment } from 'react';
 import QueryProviders from '@/context/queryProvider';
 import { IPropsChildren } from '@/type/common';
+import Link from 'next/link';
 
 const inter = Inter({ subsets: ['latin'] });
 
 const tabs = [
   { menu: <DarkModeToggle /> },
-  { menu: <NavLink href=''>Blog</NavLink> },
-  { menu: <NavLink href=''>Project</NavLink> },
-  { menu: <NavLink href=''>About</NavLink> },
+  { menu: <NavLink href='/'>Blog</NavLink> },
+  // { menu: <NavLink href=''>Project</NavLink> },
+  // { menu: <NavLink href=''>About</NavLink> },
 ];
 
 // https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadata-fields
@@ -94,7 +95,9 @@ export default function RootLayout({ children }: IPropsChildren) {
       <QueryProviders>
         <body className={inter.className}>
           <header className='w-full min-w-360 h-16 px-4 flex flex-row justify-between items-center border-b border-gray-300 '>
-            <span>Logo</span>
+            <Link href='/'>
+              <span>Logo</span>
+            </Link>
             <nav className='flex flex-row gap-2 items-center'>
               {tabs.map(({ menu }, index) => (
                 <Fragment key={index}>{menu}</Fragment>
