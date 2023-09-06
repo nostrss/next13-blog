@@ -24,6 +24,21 @@ const meta = {
         type: 'text',
       },
     },
+    currentPostId: {
+      control: {
+        type: 'text',
+      },
+    },
+    nextPostId: {
+      control: {
+        type: 'text',
+      },
+    },
+    prevPostId: {
+      control: {
+        type: 'text',
+      },
+    },
   },
 } satisfies Meta<typeof PostCard>;
 
@@ -35,5 +50,8 @@ export const Default: Story = {
     title: 'Post Title',
     subTitle: 'Post Description',
     date: '2021-01-01',
+    currentPostId: '1',
+    nextPostId: '2',
+    prevPostId: '0',
   },
 };
