@@ -5,7 +5,7 @@ import { Post } from '@/type/common';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 const fetchPostList = async (page: number, limit: number) => {
-  const data = await fetch(`/api/posts?page=${page}&limit=${limit}`, {
+  const data = await fetch(`/api/post?page=${page}&limit=${limit}`, {
     method: 'GET',
   });
   return data.json();
@@ -14,7 +14,7 @@ const fetchPostList = async (page: number, limit: number) => {
 export default function PostList() {
   const limit = 5;
   const { data, isLoading, fetchNextPage } = useInfiniteQuery({
-    queryKey: ['posts'],
+    queryKey: ['post'],
     queryFn: ({ pageParam = 1 }) => fetchPostList(pageParam, limit),
     getNextPageParam: (lastPage) => lastPage.nextPage,
   });

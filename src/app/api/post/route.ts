@@ -1,5 +1,6 @@
 import { readFile, readdir } from 'fs/promises';
 import { NextRequest, NextResponse } from 'next/server';
+import next from 'next/types';
 import path from 'path';
 
 export async function GET(req: NextRequest) {
@@ -8,7 +9,14 @@ export async function GET(req: NextRequest) {
   const page = Number(url.searchParams.get('page')) || 1;
   const limit = Number(url.searchParams.get('limit')) || 10;
 
+  /**
+   * posts 폴더의 경로 만들기.
+   */
   const filePath = path.join(process.cwd(), 'posts');
+
+  /**
+   * posts 폴더의 파일 목록 가져오기.
+   */
   const fileList = (await readdir(filePath)).sort(function (a, b) {
     if (a > b) return -1;
     else if (a < b) return 1;
@@ -16,8 +24,16 @@ export async function GET(req: NextRequest) {
   });
 
   const data = await Promise.all(
-    fileList.map(async (file) => {
+    fileList.map(async (file, index) => {
       const content = await readFile(`${filePath}/${file}`, 'utf-8');
+      /**
+       * post
+       */
+      const postIdList = {
+        currentPostId: file.replace('.md', ''),
+        nextPostId: fileList[index - 1]?.replace('.md', ''),
+        prevPostId: fileList[index + 1]?.replace('.md', ''),
+      };
 
       const contentInfo = content
         .split('---')[1]
@@ -27,8 +43,9 @@ export async function GET(req: NextRequest) {
           const [key, value] = item.split(':');
           return { [key.trim()]: value.trim() };
         });
+
       return {
-        ...contentInfo.reduce((acc, cur) => ({ ...acc, ...cur }), {}),
+        ...contentInfo.reduce((acc, cur) => ({ ...acc, ...cur }), postIdList),
       };
     })
   );

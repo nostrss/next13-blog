@@ -3,11 +3,15 @@
 import { Post } from '@/type/common';
 import Link from 'next/link';
 
-export default function PostCard({ title, subTitle, date }: Post) {
-  // const { title, subTitle, date } = post;
+export default function PostCard({
+  title,
+  subTitle,
+  date,
+  currentPostId,
+}: Post) {
   return (
     <div className='w-full border rounded-xl border-gray-500'>
-      <Link href={''}>
+      <Link href={`/blog/${currentPostId}`}>
         <article className='w-full h-full p-4 md:p-8'>
           <div className='flex items-center justify-between gap-2'>
             <div className='w-full text-xs text-gray-800'>{date}</div>
