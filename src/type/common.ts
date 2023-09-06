@@ -4,8 +4,6 @@ export type IPropsChildren = {
 
 export type PostIdPrevNext = {
   currentPostId?: string;
-  nextPostId?: string;
-  prevPostId?: string;
 };
 
 export type Post = PostIdPrevNext & {

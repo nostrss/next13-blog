@@ -12,12 +12,10 @@ export async function GET(req: NextRequest) {
   const fileList = await readdir(filePath);
 
   const markdowmMetaData = await Promise.all(
-    fileList.map(async (file, index) => {
+    fileList.map(async (file) => {
       const fileData = await readFile(`${filePath}/${file}`, 'utf-8');
       const postIdList = {
         currentPostId: file.replace('.md', ''),
-        nextPostId: fileList[index - 1]?.replace('.md', ''),
-        prevPostId: fileList[index + 1]?.replace('.md', ''),
       };
 
       return UTIL.getMarkDownMetaData(fileData, postIdList);

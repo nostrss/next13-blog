@@ -6,8 +6,25 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { materialDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import Image from 'next/image';
 import rehypeRaw from 'rehype-raw';
+// import { API_BASE_URL } from '@/constant';
+// import { useEffect, useState } from 'react';
 
 export default function MarkDownViewer({ content }: { content: string }) {
+  // const [result, setResult] = useState([]);
+
+  // useEffect(() => {
+  //   const loadList = async () => {
+  //     const data = await fetch(`${API_BASE_URL}/api/post/filelist`, {
+  //       method: 'GET',
+  //     });
+
+  //     setResult(await data.json());
+  //   };
+  //   loadList();
+  // }, []);
+
+  // console.log(result);
+
   return (
     <ReactMarkdown
       className='prose max-w-none'

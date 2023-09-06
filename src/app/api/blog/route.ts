@@ -19,3 +19,6 @@ export async function GET(req: NextRequest) {
     },
   });
 }
+
+// nextPostId: fileList[index - 1]?.replace('.md', ''),
+//         prevPostId: fileList[index + 1]?.replace('.md', ''),
