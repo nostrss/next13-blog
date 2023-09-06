@@ -1,5 +1,5 @@
 import { API_BASE_URL } from '@/constant';
-import MarkDownViewer from '@/stories/MarkDonwViewer';
+import MarkDownViewer from '@/stories/MarkDownViewer';
 
 const fetchBlogDetail = async (slug: string) => {
   const data = await fetch(`${API_BASE_URL}/api/blog?blogid=${slug}`, {
