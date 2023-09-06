@@ -1,4 +1,5 @@
 import { API_BASE_URL } from '@/constant';
+import CommentList from '@/stories/CommentList';
 import MarkDownViewer from '@/stories/MarkDownViewer';
 
 const fetchBlogDetail = async (slug: string) => {
@@ -19,6 +20,7 @@ export default async function BlogDetail({
     <article className='w-full p-3'>
       <h1 className='prose prose-2xl font-bold'>{data.title}</h1>
       <MarkDownViewer content={data.content} />
+      <CommentList />
     </article>
   );
 }

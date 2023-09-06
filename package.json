@@ -12,6 +12,7 @@
     "deploy-storybook": "storybook-to-ghpages"
   },
   "dependencies": {
+    "@giscus/react": "^2.3.0",
     "@tanstack/react-query": "^4.33.0",
     "@types/node": "20.5.9",
     "@types/react": "18.2.21",
