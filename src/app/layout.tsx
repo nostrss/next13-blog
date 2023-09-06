@@ -40,9 +40,9 @@ export const metadata: Metadata = {
   // metadataBase: new URL('https://nostrss.github.io/'),
   alternates: {
     canonical: '/',
-    languages: {
-      'en-US': '/en-US',
-    },
+    // languages: {
+    //   'en-US': '/en-US',
+    // },
   },
   openGraph: {
     title: `Nostrss's Dev Blog`,

@@ -15,11 +15,9 @@ export default async function BlogDetail({
 }) {
   const { data } = await fetchBlogDetail(slug);
 
-  console.log(data.tags);
-
   return (
     <article className='w-full p-3'>
-      <h1 className='mb-2 text-xl font-bold'>{data.title}</h1>
+      <h1 className='prose prose-2xl font-bold'>{data.title}</h1>
       <MarkDownViewer content={data.content} />
     </article>
   );
