@@ -1,3 +1,4 @@
+import { UTIL } from '@/util';
 import { readFile, readdir } from 'fs/promises';
 import { NextRequest, NextResponse } from 'next/server';
 import path from 'path';
@@ -7,61 +8,29 @@ export async function GET(req: NextRequest) {
 
   const page = Number(url.searchParams.get('page')) || 1;
   const limit = Number(url.searchParams.get('limit')) || 10;
-
-  /**
-   * posts 폴더의 경로 만들기.
-   */
   const filePath = path.join(process.cwd(), 'posts');
+  const fileList = await readdir(filePath);
 
-  /**
-   * posts 폴더의 파일 목록 가져와서 파일명 순으로 정렬
-   */
-  const fileList = (await readdir(filePath)).sort(function (a, b) {
-    if (a > b) return -1;
-    else if (a < b) return 1;
-    else return 0;
-  });
-
-  const data = await Promise.all(
+  const markdowmMetaData = await Promise.all(
     fileList.map(async (file, index) => {
-      const content = await readFile(`${filePath}/${file}`, 'utf-8');
-      /**
-       * postId 정보를 담은 객체 생성.
-       */
+      const fileData = await readFile(`${filePath}/${file}`, 'utf-8');
       const postIdList = {
         currentPostId: file.replace('.md', ''),
         nextPostId: fileList[index - 1]?.replace('.md', ''),
         prevPostId: fileList[index + 1]?.replace('.md', ''),
       };
 
-      const contentInfo = content
-        .split('---')[1]
-        .split('\n')
-        .filter(Boolean)
-        .map((item) => {
-          const [key, value] = item.split(':');
-          return { [key.trim()]: value.trim() };
-        });
-
-      return {
-        ...contentInfo.reduce((acc, cur) => ({ ...acc, ...cur }), postIdList),
-      };
+      return UTIL.getMarkDownMetaData(fileData, postIdList);
     })
   );
 
-  const sortData = data
-    .sort((a, b) => {
-      return new Date(b.date).getTime() - new Date(a.date).getTime();
-    })
-    .slice((page - 1) * limit, page * limit);
+  const sortDataByTitle = UTIL.sortByTitle(markdowmMetaData);
+  const sortDataByDate = UTIL.sortByDate(sortDataByTitle);
+  const sliceData = UTIL.slicePerPage(sortDataByDate, page, limit);
 
   return NextResponse.json({
-    data: sortData,
-    total: data.length,
-    nextPage: getNextpage(page, limit, data.length),
+    data: sliceData,
+    total: markdowmMetaData.length,
+    nextPage: UTIL.getNextpage(page, limit, markdowmMetaData.length),
   });
 }
-
-const getNextpage = (page: number, limit: number, length: number) => {
-  return page * limit < length ? page + 1 : null;
-};
