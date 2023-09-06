@@ -8,7 +8,7 @@ export type PostIdPrevNext = {
 
 export type Post = PostIdPrevNext & {
   title: string;
-  subTitle: string;
+  description: string;
   date: string;
 };
 

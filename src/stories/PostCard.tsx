@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function PostCard({
   title,
-  subTitle,
+  description,
   date,
   currentPostId,
 }: Post) {
@@ -20,7 +20,7 @@ export default function PostCard({
             {title}
           </h2>
           <p className='mt-4 leading-8 duration-150 text-gray-800 group-hover:text-zinc-300'>
-            {subTitle}
+            {description}
           </p>
         </article>
       </Link>

@@ -15,6 +15,8 @@ export default async function BlogDetail({
 }) {
   const { data } = await fetchBlogDetail(slug);
 
+  console.log(data.tags);
+
   return (
     <article className='w-full p-3'>
       <h1 className='mb-2 text-xl font-bold'>{data.title}</h1>
@@ -28,8 +30,29 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }) {
-  const { title } = await fetchBlogDetail(slug);
+  const { data } = await fetchBlogDetail(slug);
   return {
-    title,
+    title: data.title,
+    description: data.description,
+    keywords: data.tags.split(' '),
+    openGraph: {
+      title: data.title,
+      description: data.description,
+      // url: 'https://nextjs.org',
+      siteName: `Nostrss's Dev Blog`,
+      // images: [
+      //   {
+      //     url: 'https://nextjs.org/og.png',
+      //     width: 800,
+      //     height: 600,
+      //   },
+      //   {
+      //     url: 'https://nextjs.org/og-alt.png',
+      //     width: 1800,
+      //     height: 1600,
+      //     alt: 'My custom alt',
+      //   },
+      // ],
+    },
   };
 }

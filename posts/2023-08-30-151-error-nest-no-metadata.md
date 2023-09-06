@@ -1,6 +1,7 @@
 ---
 layout: post
 title: '[Nest] ERROR [ExceptionsHandler] No metadata'
+description: '[Nest] ERROR [ExceptionsHandler] No metadata'
 author: 'Nostrss'
 comments: true
 tags: nestjs typeorm express error repository datasource

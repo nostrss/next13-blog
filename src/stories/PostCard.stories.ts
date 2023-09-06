@@ -14,7 +14,7 @@ const meta = {
         type: 'text',
       },
     },
-    subTitle: {
+    description: {
       control: {
         type: 'text',
       },
@@ -38,7 +38,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     title: 'Post Title',
-    subTitle: 'Post Description',
+    description: 'Post Description',
     date: '2021-01-01',
     currentPostId: '1',
   },
