@@ -1,4 +1,4 @@
-import { API_BASE_URL } from '@/constant';
+import { BASE_URL } from '@/constant';
 import CommentList from '@/stories/CommentList';
 import MarkDownViewer from '@/stories/MarkDownViewer';
 import { useEffect, useState } from 'react';
@@ -54,7 +54,7 @@ export async function generateMetadata({
 }
 
 const fetchBlogDetail = async (slug: string) => {
-  const data = await fetch(`${API_BASE_URL}/api/blog?blogid=${slug}`, {
+  const data = await fetch(`${BASE_URL}/api/blog?blogid=${slug}`, {
     method: 'GET',
   });
   return data.json();

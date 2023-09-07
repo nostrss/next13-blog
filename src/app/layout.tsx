@@ -7,7 +7,7 @@ import { Fragment } from 'react';
 import QueryProviders from '@/context/queryProvider';
 import { IPropsChildren } from '@/type/common';
 import Link from 'next/link';
-import { defaultMetaData } from './defaulMetaData';
+import { defaultMetaData } from '../defaulMetaData';
 
 const inter = Inter({ subsets: ['latin'] });
 

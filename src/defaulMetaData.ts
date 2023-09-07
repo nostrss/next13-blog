@@ -1,19 +1,34 @@
 import { Metadata } from 'next';
+import {
+  DEFAULT_APP_NAME,
+  DEFAULT_GENERATOR,
+  DEFAULT_META_AUTHOR_NAME,
+  DEFAULT_META_AUTHOR_URL,
+  DEFAULT_META_DESCRIPTION,
+  DEFAULT_META_KEYWORDS,
+  DEFAULT_META_TITLE,
+  DEFAULT_REFERRER,
+  LIGHT_MODE,
+} from './constant';
 
 export const defaultMetaData: Metadata = {
   title: {
-    template: `%s | Nostrss's Dev Blog`,
-    default: `Nostrss's Dev Blog`,
+    template: `%s | ${DEFAULT_META_TITLE}`,
+    default: DEFAULT_META_TITLE,
   },
-  description: 'Nostrss Blog Post List',
-  generator: 'Next.js',
-  applicationName: 'Nostrss Dev Blog',
-  referrer: 'origin-when-cross-origin',
-  keywords: ['Next.js', 'React', 'JavaScript', 'TypeScript', 'Node.js'],
-  authors: [{ name: 'Nostrss', url: 'https://github.com/nostrss' }],
-  colorScheme: 'light',
-  creator: 'Nostrss',
-  publisher: 'Nostrss',
+  description: DEFAULT_META_DESCRIPTION,
+  generator: DEFAULT_GENERATOR,
+  applicationName: DEFAULT_APP_NAME,
+  referrer: DEFAULT_REFERRER,
+  keywords: DEFAULT_META_KEYWORDS,
+  authors: {
+    name: DEFAULT_META_AUTHOR_NAME,
+    url: DEFAULT_META_AUTHOR_URL,
+  },
+
+  colorScheme: LIGHT_MODE,
+  creator: DEFAULT_META_AUTHOR_NAME,
+  publisher: DEFAULT_META_AUTHOR_NAME,
   formatDetection: {
     email: true,
     address: false,
@@ -27,10 +42,10 @@ export const defaultMetaData: Metadata = {
     // },
   },
   openGraph: {
-    title: `Nostrss's Dev Blog`,
-    description: 'Nostrss Blog Post List',
+    title: DEFAULT_META_TITLE,
+    description: DEFAULT_META_DESCRIPTION,
     // url: 'https://nextjs.org',
-    siteName: `Nostrss's Dev Blog`,
+    siteName: DEFAULT_APP_NAME,
     // images: [
     //   {
     //     url: 'https://nextjs.org/og.png',

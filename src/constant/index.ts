@@ -1,8 +1,26 @@
-export const API_BASE_URL =
+export const BASE_URL =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:3000'
     : 'https://next13-blog-mu.vercel.app';
 
+export const POSTS_FILE_PATH = 'posts';
 export const DARK_MODE = 'dark';
 export const LIGHT_MODE = 'light';
 export const MODE_COOKIE_NAME = 'mode';
+
+export const DEFAULT_META_TITLE = "Nostrss's Dev Blog";
+export const DEFAULT_META_DESCRIPTION = 'Nostrss Blog Post List';
+export const DEFAULT_GENERATOR = 'Next.js';
+export const DEFAULT_APP_NAME = 'Nostrss Dev Blog';
+export const DEFAULT_REFERRER = 'origin-when-cross-origin';
+export const DEFAULT_META_KEYWORDS = [
+  'Next.js',
+  'React',
+  'JavaScript',
+  'TypeScript',
+  'Node.js',
+];
+
+export const DEFAULT_META_AUTHOR_NAME = 'Nostrss';
+export const DEFAULT_META_AUTHOR_EMAIL = 'jintagi@gmail.com';
+export const DEFAULT_META_AUTHOR_URL = 'https://github.com/nostrss';
