@@ -35,13 +35,17 @@ export async function generateMetadata({
       canonical: `${BASE_URL}/${slug}`,
     },
     openGraph: {
-      title: data.title,
-      description: data.description || data.title,
+      title: `${data.title} | og_page`,
+      description: `${data.description || data.title} | og_page`,
       url: `${BASE_URL}/${slug}`,
-      siteName: `Nostrss's Dev Blog`,
       alternates: {
         canonical: `${BASE_URL}/${slug}`,
       },
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${data.title} | twitter_page`,
+      description: `${data.description || data.title} | twitter_page`,
     },
   };
 }

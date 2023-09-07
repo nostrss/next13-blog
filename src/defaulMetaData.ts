@@ -51,10 +51,10 @@ export const defaultMetaData: Metadata = {
     },
   },
   openGraph: {
-    title: DEFAULT_META_TITLE,
-    description: DEFAULT_META_DESCRIPTION,
+    title: `${DEFAULT_META_TITLE} | og`,
+    description: `${DEFAULT_META_DESCRIPTION} | og`,
     url: BASE_URL,
-    siteName: DEFAULT_APP_NAME,
+    siteName: `{DEFAULT_APP_NAME} | og`,
     // images: [
     //   {
     //     url: 'https://nextjs.org/og.png',
@@ -95,7 +95,7 @@ export const defaultMetaData: Metadata = {
   // },
   twitter: {
     card: 'summary_large_image',
-    title: DEFAULT_META_TITLE,
-    description: DEFAULT_META_DESCRIPTION,
+    title: `${DEFAULT_META_TITLE} | twitter`,
+    description: `${DEFAULT_META_DESCRIPTION} | twitter`,
   },
 };
