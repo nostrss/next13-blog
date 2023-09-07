@@ -25,3 +25,14 @@ export default function CommentList() {
     </div>
   );
 }
+
+const getCookie = (cookieName: string): string => {
+  let result = '';
+  document.cookie.split(';').map((item) => {
+    const cookieItem = item.trim();
+    if (item.includes(cookieName)) {
+      result = cookieItem.split('=')[1];
+    }
+  });
+  return result;
+};

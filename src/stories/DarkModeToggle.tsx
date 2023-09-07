@@ -4,22 +4,21 @@ import { useEffect, useState } from 'react';
 import SunnyIcon from './Icons/SunnyIcon';
 import NightIcon from './Icons/NightIcon';
 import { usePathname } from 'next/navigation';
-import { UTIL } from '@/util';
 
 export default function DarkModeToggle() {
   const [isDark, setIsDark] = useState(false);
   const path = usePathname();
 
   useEffect(() => {
-    if (!UTIL.getCookie('mode')) {
+    if (!getCookie('mode')) {
       const prefersDarkMode = window.matchMedia(
         '(prefers-color-scheme: dark)'
       ).matches;
       prefersDarkMode ? setIsDark(true) : setIsDark(false);
       changeColorScheme(prefersDarkMode ? 'dark' : 'light');
-      UTIL.setCookie('mode', prefersDarkMode ? 'dark' : 'light', 720);
+      setCookie('mode', prefersDarkMode ? 'dark' : 'light', 720);
     } else {
-      const mode = UTIL.getCookie('mode');
+      const mode = getCookie('mode');
       mode === 'dark' ? setIsDark(true) : setIsDark(false);
       changeColorScheme(mode);
     }
@@ -31,7 +30,7 @@ export default function DarkModeToggle() {
       ?.getAttribute('content');
     changeColorScheme(mode === 'dark' ? 'light' : 'dark');
     mode === 'dark' ? setIsDark(false) : setIsDark(true);
-    UTIL.setCookie('mode', mode === 'dark' ? 'light' : 'dark', 720);
+    setCookie('mode', mode === 'dark' ? 'light' : 'dark', 720);
   };
 
   return (
@@ -52,4 +51,25 @@ const changeColorScheme = (mode: string) => {
   } else {
     colorScheme?.setAttribute('content', 'light');
   }
+};
+
+const setCookie = (
+  cookieName: string,
+  cookieValue: string,
+  expiresHour: number
+): void => {
+  const expired = new Date();
+  expired.setTime(expired.getTime() + expiresHour * 24 * 60 * 60 * 1000);
+  document.cookie = `${cookieName}=${cookieValue}; path=/; Expires=${expired}`;
+};
+
+const getCookie = (cookieName: string): string => {
+  let result = '';
+  document.cookie.split(';').map((item) => {
+    const cookieItem = item.trim();
+    if (item.includes(cookieName)) {
+      result = cookieItem.split('=')[1];
+    }
+  });
+  return result;
 };

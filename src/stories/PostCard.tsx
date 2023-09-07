@@ -2,7 +2,6 @@
 
 import { Post } from '@/type/common';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 export default function PostCard({
@@ -13,7 +12,6 @@ export default function PostCard({
   tags,
 }: Post) {
   const tagList = tags.split(' ');
-  const pathname = usePathname();
 
   useEffect(() => {
     const giscusIframe = document.querySelector('.giscus');
