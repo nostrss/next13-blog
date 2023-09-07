@@ -10,12 +10,13 @@ import rehypeRaw from 'rehype-raw';
 export default function MarkDownViewer({ content }: { content: string }) {
   return (
     <ReactMarkdown
-      className='prose max-w-none'
+      className='prose max-w-none dark:text-white'
       remarkPlugins={[remarkGfm]}
       rehypePlugins={[rehypeRaw]}
       components={{
         code({ node, inline, className, children, ...props }) {
           const match = /language-(\w+)/.exec(className || '');
+
           return !inline && match ? (
             <SyntaxHighlighter
               {...props}
@@ -41,6 +42,41 @@ export default function MarkDownViewer({ content }: { content: string }) {
             width={500}
             height={500}
           />
+        ),
+        h1: ({ children, ...props }) => (
+          <h1 className='prose text-2xl dark:text-white' {...props}>
+            {children}
+          </h1>
+        ),
+        h2: ({ children, ...props }) => (
+          <h2 className='prose text-xl dark:text-white' {...props}>
+            {children}
+          </h2>
+        ),
+        h3: ({ children, ...props }) => (
+          <h3 className='prose text-lg dark:text-white' {...props}>
+            {children}
+          </h3>
+        ),
+        p: ({ children, ...props }) => (
+          <p className='prose dark:text-white' {...props}>
+            {children}
+          </p>
+        ),
+        li: ({ children, ...props }) => (
+          <li className='prose dark:text-white' {...props}>
+            {children}
+          </li>
+        ),
+        strong: ({ children, ...props }) => (
+          <strong className='prose dark:text-white' {...props}>
+            {children}
+          </strong>
+        ),
+        a: ({ children, ...props }) => (
+          <a className='prose dark:text-blue-300' {...props}>
+            {children}
+          </a>
         ),
       }}
     >

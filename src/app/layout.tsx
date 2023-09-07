@@ -30,7 +30,7 @@ export default function RootLayout({ children }: IPropsChildren) {
         <body className={inter.className}>
           <header className='w-full min-w-360 h-16 px-4 flex flex-row justify-between items-center border-b border-gray-300 '>
             <Link href='/'>
-              <span>NOSTRSS</span>
+              <span className='text-xl font-bold'>NOSTRSS</span>
             </Link>
             <nav className='flex flex-row gap-2 items-center'>
               {tabs.map(({ menu }, index) => (

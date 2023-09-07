@@ -55,10 +55,13 @@ const changeColorScheme = (mode: string) => {
   const colorScheme = document.querySelector('meta[name="color-scheme"]');
   if (mode === DARK_MODE) {
     colorScheme?.setAttribute('content', DARK_MODE);
+    document.documentElement.classList.add(DARK_MODE);
   } else if (mode === LIGHT_MODE) {
     colorScheme?.setAttribute('content', LIGHT_MODE);
+    document.documentElement.classList.remove('dark');
   } else {
     colorScheme?.setAttribute('content', LIGHT_MODE);
+    document.documentElement.classList.remove('dark');
   }
 };
 
