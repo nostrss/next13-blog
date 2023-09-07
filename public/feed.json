@@ -2,6 +2,7 @@
     "version": "https://jsonfeed.org/version/1",
     "title": "Nostrss's Dev Blog",
     "home_page_url": "https://github.com/nostrss",
+    "feed_url": "https://next13-blog-mu.vercel.app/feed.json",
     "description": "Nostrss Blog Post List",
     "author": {
         "name": "Nostrss",

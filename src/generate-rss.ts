@@ -27,10 +27,11 @@ const feed = new Feed({
   favicon: '',
   copyright: '',
   generator: 'generate-rss',
-  // feedLinks: {
-  //   json: `${BASE_URL}/json`,
-  //   atom: `${BASE_URL}/atom`,
-  // },
+  feedLinks: {
+    json: `${BASE_URL}/feed.json`,
+    atom: `${BASE_URL}/rss-atom.xml`,
+    rss: `${BASE_URL}/rss.xml`,
+  },
   author: master,
 });
 
