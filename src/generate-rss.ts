@@ -1,7 +1,5 @@
 import { Feed } from 'feed';
 import { writeFileSync } from 'fs';
-
-// import PostJson from '../.contentlayer/generated/Post/_index.json';
 import {
   BASE_URL,
   DEFAULT_META_AUTHOR_EMAIL,
@@ -10,6 +8,9 @@ import {
   DEFAULT_META_DESCRIPTION,
   DEFAULT_META_TITLE,
 } from './constant';
+
+import fetch from 'node-fetch';
+import { json } from 'stream/consumers';
 
 const master = {
   name: DEFAULT_META_AUTHOR_NAME,
@@ -38,37 +39,26 @@ const getAllPostData = async () => {
   const data = await fetch(`${BASE_URL}/api/post/all`, {
     method: 'GET',
   });
-  data.json().then((jsonArray) => {
+
+  const jsonData: any = await data.json();
+
+  jsonData.forEach((json: JsonPost) => {
     feed.addItem({
-      title: jsonArray.title,
-      id: jsonArray.currentPostId,
-      link: `${BASE_URL}/${jsonArray.currentPostId}`,
-      description: jsonArray.description,
-      content: jsonArray.content,
+      title: json.title,
+      id: json.currentPostId,
+      link: `${BASE_URL}/${json.currentPostId}`,
+      description: json.description,
+      content: json.content,
       author: [master],
       contributor: [master],
-      date: new Date(jsonArray.date),
+      date: new Date(json.date),
       // image: post.image,
-      category: jsonArray.tags.map((tag: string) => ({ name: tag })),
+      category: json.tags.split(' ').map((tag: string) => ({ name: tag })),
     });
   });
 };
 
-// PostJson.forEach((post) => {
-//   feed.addItem({
-//     title: post.title,
-//     id: post.slug,
-//     link: `${siteConfig.url}${post.slug}`,
-//     description: post.description,
-//     content: post.body.raw,
-//     author: [master],
-//     contributor: [master],
-//     date: new Date(post.date),
-//     image: post.image,
-//     category: post.tags.map((tag) => ({ name: tag })),
-//   });
-// });
-
+getAllPostData();
 feed.addCategory('Technologies');
 
 // Output: RSS 2.0
@@ -77,3 +67,14 @@ writeFileSync('out/rss.xml', feed.rss2(), 'utf-8');
 writeFileSync('out/rss-atom.xml', feed.atom1(), 'utf-8');
 // Output: JSON Feed 1.0
 writeFileSync('out/feed.json', feed.json1(), 'utf-8');
+
+type JsonPost = {
+  currentPostId: string;
+  title: string;
+  description: string;
+  date: string;
+  tags: string;
+  content: string;
+};
+
+type JsonPostList = JsonPost[];
