@@ -26,7 +26,6 @@ export default function MarkDownViewer({ content }: { content: string }) {
               style={materialDark}
               language={match[1]}
               PreTag='article'
-              wrapLongLines={true}
               showLineNumbers={true}
             >
               {String(children).replace(/\n$/, '')}

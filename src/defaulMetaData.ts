@@ -40,7 +40,7 @@ export const defaultMetaData: Metadata = {
   },
   metadataBase: new URL(BASE_URL),
   alternates: {
-    canonical: '/',
+    canonical: BASE_URL,
     // languages: {
     //   'en-US': '/en-US',
     // },
@@ -53,7 +53,7 @@ export const defaultMetaData: Metadata = {
   openGraph: {
     title: DEFAULT_META_TITLE,
     description: DEFAULT_META_DESCRIPTION,
-    url: 'https://nextjs.org',
+    url: BASE_URL,
     siteName: DEFAULT_APP_NAME,
     // images: [
     //   {
@@ -97,9 +97,5 @@ export const defaultMetaData: Metadata = {
     card: 'summary_large_image',
     title: DEFAULT_META_TITLE,
     description: DEFAULT_META_DESCRIPTION,
-    // siteId: '1467726470533754880',
-    // creator: '@nextjs',
-    // creatorId: '1467726470533754880',
-    // images: ['https://nextjs.org/og.png'],
   },
 };

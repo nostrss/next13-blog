@@ -1,7 +1,6 @@
 import { BASE_URL } from '@/constant';
 import CommentList from '@/stories/CommentList';
 import MarkDownViewer from '@/stories/MarkDownViewer';
-import { useEffect, useState } from 'react';
 
 export default async function BlogDetail({
   params: { slug },
@@ -34,21 +33,11 @@ export async function generateMetadata({
     openGraph: {
       title: data.title,
       description: data.description,
-      // url: 'https://nextjs.org',
+      url: `${BASE_URL}/${slug}`,
       siteName: `Nostrss's Dev Blog`,
-      // images: [
-      //   {
-      //     url: 'https://nextjs.org/og.png',
-      //     width: 800,
-      //     height: 600,
-      //   },
-      //   {
-      //     url: 'https://nextjs.org/og-alt.png',
-      //     width: 1800,
-      //     height: 1600,
-      //     alt: 'My custom alt',
-      //   },
-      // ],
+      alternates: {
+        canonical: `${BASE_URL}/${slug}`,
+      },
     },
   };
 }
