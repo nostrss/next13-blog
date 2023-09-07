@@ -43,7 +43,6 @@ const getAllPostData = async () => {
   // console.log(jsonData.data);
 
   jsonData.data.forEach((json: JsonPost) => {
-    console.log(json);
     feed.addItem({
       title: json.title,
       id: json.currentPostId,
