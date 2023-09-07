@@ -10,7 +10,6 @@ import {
 } from './constant';
 
 import fetch from 'node-fetch';
-import { json } from 'stream/consumers';
 
 const master = {
   name: DEFAULT_META_AUTHOR_NAME,
@@ -28,10 +27,10 @@ const feed = new Feed({
   favicon: '',
   copyright: '',
   generator: 'generate-rss',
-  feedLinks: {
-    json: `${BASE_URL}/json`,
-    atom: `${BASE_URL}/atom`,
-  },
+  // feedLinks: {
+  //   json: `${BASE_URL}/json`,
+  //   atom: `${BASE_URL}/atom`,
+  // },
   author: master,
 });
 
@@ -41,8 +40,10 @@ const getAllPostData = async () => {
   });
 
   const jsonData: any = await data.json();
+  // console.log(jsonData.data);
 
-  jsonData.forEach((json: JsonPost) => {
+  jsonData.data.forEach((json: JsonPost) => {
+    console.log(json);
     feed.addItem({
       title: json.title,
       id: json.currentPostId,
@@ -56,17 +57,17 @@ const getAllPostData = async () => {
       category: json.tags.split(' ').map((tag: string) => ({ name: tag })),
     });
   });
+
+  // Output: RSS 2.0
+  writeFileSync('out/rss.xml', feed.rss2(), 'utf-8');
+  // Output: Atom 1.0
+  writeFileSync('out/rss-atom.xml', feed.atom1(), 'utf-8');
+  // Output: JSON Feed 1.0
+  writeFileSync('out/feed.json', feed.json1(), 'utf-8');
 };
 
 getAllPostData();
 feed.addCategory('Technologies');
-
-// Output: RSS 2.0
-writeFileSync('out/rss.xml', feed.rss2(), 'utf-8');
-// Output: Atom 1.0
-writeFileSync('out/rss-atom.xml', feed.atom1(), 'utf-8');
-// Output: JSON Feed 1.0
-writeFileSync('out/feed.json', feed.json1(), 'utf-8');
 
 type JsonPost = {
   currentPostId: string;
