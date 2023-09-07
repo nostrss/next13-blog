@@ -17,9 +17,8 @@ export default function CommentList() {
         data-reactions-enabled='1'
         data-emit-metadata='1'
         data-input-position='top'
-        data-theme='light'
+        data-theme='dark'
         data-lang='ko'
-        data-loading='lazy'
         crossOrigin='anonymous'
         async
       />
