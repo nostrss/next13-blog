@@ -15,6 +15,10 @@ export default function DarkModeToggle() {
       prefersDarkMode ? setIsDark(true) : setIsDark(false);
       changeColorScheme(prefersDarkMode ? 'dark' : 'light');
       setCookie('mode', prefersDarkMode ? 'dark' : 'light', 720);
+    } else {
+      const mode = getCookie('mode');
+      mode === 'dark' ? setIsDark(true) : setIsDark(false);
+      changeColorScheme(mode);
     }
   }, []);
 
