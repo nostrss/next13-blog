@@ -3,7 +3,7 @@ import type { Config } from 'tailwindcss';
 const config: Config = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   plugins: [require('@tailwindcss/typography')],
-  darkMode: 'class',
+  darkMode: 'media',
   theme: {
     extend: {
       typography: {

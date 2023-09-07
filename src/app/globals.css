@@ -9,7 +9,26 @@ body {
   overflow-x: hidden;
 }
 
-.darkmode {
-  background-color: black;
-  color: #fff;
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --background: #202b38;
+    --text: #dbdbdb;
+    --heading-text: #fff;
+    --anchor-text: #0076d1;
+    --code-background: #161f27;
+    --code-text: #ffbe85;
+  }
 }
+
+body {
+  background-color: var(--background);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--heading-text);
+} */

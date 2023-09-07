@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   referrer: 'origin-when-cross-origin',
   keywords: ['Next.js', 'React', 'JavaScript', 'TypeScript', 'Node.js'],
   authors: [{ name: 'Nostrss', url: 'https://github.com/nostrss' }],
-  // colorScheme: 'dark',
+  colorScheme: 'light',
   creator: 'Nostrss',
   publisher: 'Nostrss',
   formatDetection: {
