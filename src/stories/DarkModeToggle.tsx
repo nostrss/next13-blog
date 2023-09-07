@@ -4,22 +4,27 @@ import { useEffect, useState } from 'react';
 import SunnyIcon from './Icons/SunnyIcon';
 import NightIcon from './Icons/NightIcon';
 import { usePathname } from 'next/navigation';
+import { DARK_MODE, LIGHT_MODE, MODE_COOKIE_NAME } from '@/constant';
 
 export default function DarkModeToggle() {
   const [isDark, setIsDark] = useState(false);
   const path = usePathname();
 
   useEffect(() => {
-    if (!getCookie('mode')) {
+    if (!getCookie(MODE_COOKIE_NAME)) {
       const prefersDarkMode = window.matchMedia(
-        '(prefers-color-scheme: dark)'
+        `(prefers-color-scheme: ${DARK_MODE})`
       ).matches;
       prefersDarkMode ? setIsDark(true) : setIsDark(false);
-      changeColorScheme(prefersDarkMode ? 'dark' : 'light');
-      setCookie('mode', prefersDarkMode ? 'dark' : 'light', 720);
+      changeColorScheme(prefersDarkMode ? DARK_MODE : LIGHT_MODE);
+      setCookie(
+        MODE_COOKIE_NAME,
+        prefersDarkMode ? DARK_MODE : LIGHT_MODE,
+        720
+      );
     } else {
-      const mode = getCookie('mode');
-      mode === 'dark' ? setIsDark(true) : setIsDark(false);
+      const mode = getCookie(MODE_COOKIE_NAME);
+      mode === DARK_MODE ? setIsDark(true) : setIsDark(false);
       changeColorScheme(mode);
     }
   }, [path]);
@@ -28,9 +33,13 @@ export default function DarkModeToggle() {
     const mode = document
       .querySelector('meta[name="color-scheme"]')
       ?.getAttribute('content');
-    changeColorScheme(mode === 'dark' ? 'light' : 'dark');
-    mode === 'dark' ? setIsDark(false) : setIsDark(true);
-    setCookie('mode', mode === 'dark' ? 'light' : 'dark', 720);
+    changeColorScheme(mode === DARK_MODE ? LIGHT_MODE : DARK_MODE);
+    mode === DARK_MODE ? setIsDark(false) : setIsDark(true);
+    setCookie(
+      MODE_COOKIE_NAME,
+      mode === DARK_MODE ? LIGHT_MODE : DARK_MODE,
+      720
+    );
   };
 
   return (
@@ -44,12 +53,12 @@ export default function DarkModeToggle() {
 
 const changeColorScheme = (mode: string) => {
   const colorScheme = document.querySelector('meta[name="color-scheme"]');
-  if (mode === 'dark') {
-    colorScheme?.setAttribute('content', 'dark');
-  } else if (mode === 'light') {
-    colorScheme?.setAttribute('content', 'light');
+  if (mode === DARK_MODE) {
+    colorScheme?.setAttribute('content', DARK_MODE);
+  } else if (mode === LIGHT_MODE) {
+    colorScheme?.setAttribute('content', LIGHT_MODE);
   } else {
-    colorScheme?.setAttribute('content', 'light');
+    colorScheme?.setAttribute('content', LIGHT_MODE);
   }
 };
 
