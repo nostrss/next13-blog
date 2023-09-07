@@ -7,6 +7,9 @@ import { materialDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import Image from 'next/image';
 import rehypeRaw from 'rehype-raw';
 
+const blurDataUrl =
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOMCwurBwADrwGLBfLO1QAAAABJRU5ErkJggg==';
+
 export default function MarkDownViewer({ content }: { content: string }) {
   return (
     <ReactMarkdown
@@ -41,6 +44,8 @@ export default function MarkDownViewer({ content }: { content: string }) {
             alt={image.alt || ''}
             width={500}
             height={500}
+            placeholder='blur'
+            blurDataURL={blurDataUrl}
           />
         ),
         h1: ({ children, ...props }) => (
