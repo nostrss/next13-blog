@@ -54,7 +54,7 @@ export const defaultMetaData: Metadata = {
     title: `${DEFAULT_META_TITLE} | og`,
     description: `${DEFAULT_META_DESCRIPTION} | og`,
     url: BASE_URL,
-    siteName: `{DEFAULT_APP_NAME} | og`,
+    siteName: `${DEFAULT_APP_NAME} | og`,
     // images: [
     //   {
     //     url: 'https://nextjs.org/og.png',
