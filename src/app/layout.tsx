@@ -8,14 +8,17 @@ import QueryProviders from '@/context/queryProvider';
 import { IPropsChildren } from '@/type/common';
 import Link from 'next/link';
 import { defaultMetaData } from '../defaulMetaData';
+import RssIcon from '@/stories/Icons/RssIcon';
+import AtomIcon from '@/stories/Icons/AtomIcon';
+import JsonIcon from '@/stories/Icons/JsonIcon';
 
 const inter = Inter({ subsets: ['latin'] });
 
 const tabs = [
   { menu: <DarkModeToggle /> },
-  { menu: <NavLink href='/'>Blog</NavLink> },
-  // { menu: <NavLink href=''>Project</NavLink> },
-  // { menu: <NavLink href=''>About</NavLink> },
+  { menu: <RssIcon /> },
+  { menu: <AtomIcon /> },
+  { menu: <JsonIcon /> },
 ];
 
 // https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadata-fields

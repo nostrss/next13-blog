@@ -16,3 +16,9 @@ export type Post = PostIdPrevNext & {
 export type IPropsNav = IPropsChildren & {
   href: string;
 };
+
+export type IconProps = {
+  size?: number;
+  color?: string;
+  url?: string;
+};
