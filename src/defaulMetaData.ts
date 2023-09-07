@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import {
+  BASE_URL,
   DEFAULT_APP_NAME,
   DEFAULT_GENERATOR,
   DEFAULT_META_AUTHOR_NAME,
@@ -9,6 +10,9 @@ import {
   DEFAULT_META_TITLE,
   DEFAULT_REFERRER,
   LIGHT_MODE,
+  RSS_ATOM_URL,
+  RSS_JSON_URL,
+  RSS_XML_URL,
 } from './constant';
 
 export const defaultMetaData: Metadata = {
@@ -34,17 +38,22 @@ export const defaultMetaData: Metadata = {
     address: false,
     telephone: false,
   },
-  // metadataBase: new URL('https://nostrss.github.io/'),
+  metadataBase: new URL(BASE_URL),
   alternates: {
     canonical: '/',
     // languages: {
     //   'en-US': '/en-US',
     // },
+    types: {
+      'application/rss+xml': RSS_XML_URL,
+      'application/atom+xml': RSS_ATOM_URL,
+      'application/json': RSS_JSON_URL,
+    },
   },
   openGraph: {
     title: DEFAULT_META_TITLE,
     description: DEFAULT_META_DESCRIPTION,
-    // url: 'https://nextjs.org',
+    url: 'https://nextjs.org',
     siteName: DEFAULT_APP_NAME,
     // images: [
     //   {
@@ -84,4 +93,13 @@ export const defaultMetaData: Metadata = {
   //     url: '/apple-touch-icon-precomposed.png',
   //   },
   // },
+  twitter: {
+    card: 'summary_large_image',
+    title: DEFAULT_META_TITLE,
+    description: DEFAULT_META_DESCRIPTION,
+    // siteId: '1467726470533754880',
+    // creator: '@nextjs',
+    // creatorId: '1467726470533754880',
+    // images: ['https://nextjs.org/og.png'],
+  },
 };

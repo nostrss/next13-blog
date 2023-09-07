@@ -24,3 +24,7 @@ export const DEFAULT_META_KEYWORDS = [
 export const DEFAULT_META_AUTHOR_NAME = 'Nostrss';
 export const DEFAULT_META_AUTHOR_EMAIL = 'jintagi@gmail.com';
 export const DEFAULT_META_AUTHOR_URL = 'https://github.com/nostrss';
+
+export const RSS_XML_URL = `${BASE_URL}/rss.xml`;
+export const RSS_ATOM_URL = `${BASE_URL}/rss-atom.xml`;
+export const RSS_JSON_URL = `${BASE_URL}/feed.json`;
