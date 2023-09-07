@@ -9,8 +9,8 @@ export default function AtomicIcon({
   url = `${BASE_URL}/rss-atom.xml`,
 }: IconProps) {
   return (
-    <Link href={url}>
+    <a href={url} target='_blank' title='rss-atom.xml'>
       <BiAtom size={size} className={`${color} dark:text-white`} />
-    </Link>
+    </a>
   );
 }

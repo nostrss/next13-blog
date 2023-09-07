@@ -9,7 +9,7 @@ export default function JsonIcon({
   url = `${BASE_URL}/feed.json`,
 }: IconProps) {
   return (
-    <Link href={url}>
+    <Link href={url} target='_blank' title='feed.json'>
       <BsFiletypeJson size={size} className={`${color} dark:text-white`} />
     </Link>
   );

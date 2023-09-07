@@ -44,7 +44,10 @@ export default function DarkModeToggle() {
 
   return (
     <>
-      <button onClick={chageDarkMode}>
+      <button
+        onClick={chageDarkMode}
+        title={isDark ? '일반모드로 변경' : '다크모드로 변경'}
+      >
         {isDark ? <SunnyIcon color='white' /> : <NightIcon />}
       </button>
     </>
