@@ -58,24 +58,11 @@ const getAllPostData = async () => {
   });
 
   // Output: RSS 2.0
-  const isDir = existsSync('./out');
-  if (!isDir) {
-    mkdirSync('./out');
-    writeFile('./out/feed.json', '', (err) => {
-      console.error(err);
-    });
-    writeFile('./out/rss-atom.xml', '', (err) => {
-      console.error(err);
-    });
-    writeFile('./out/rss.xml', '', (err) => {
-      console.error(err);
-    });
-  }
-  writeFileSync('out/rss.xml', feed.rss2(), 'utf-8');
+  writeFileSync('public/rss.xml', feed.rss2(), 'utf-8');
   // Output: Atom 1.0
-  writeFileSync('out/rss-atom.xml', feed.atom1(), 'utf-8');
+  writeFileSync('public/rss-atom.xml', feed.atom1(), 'utf-8');
   // Output: JSON Feed 1.0
-  writeFileSync('out/feed.json', feed.json1(), 'utf-8');
+  writeFileSync('public/feed.json', feed.json1(), 'utf-8');
 };
 
 getAllPostData();

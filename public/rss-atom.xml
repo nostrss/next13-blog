@@ -1,0 +1,3014 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://github.com/nostrss</id>
+    <title>Nostrss's Dev Blog</title>
+    <updated>2023-09-07T11:58:44.624Z</updated>
+    <generator>generate-rss</generator>
+    <author>
+        <name>Nostrss</name>
+        <email>jintagi@gmail.com</email>
+        <uri>https://github.com/nostrss</uri>
+    </author>
+    <link rel="alternate" href="https://github.com/nostrss"/>
+    <subtitle>Nostrss Blog Post List</subtitle>
+    <category term="Technologies"/>
+    <entry>
+        <title type="html"><![CDATA[Next.js 13 프로젝트 yarn berry로 전환하기]]></title>
+        <id>2023-09-04-154-next-yarnberry</id>
+        <link href="https://next13-blog-mu.vercel.app/2023-09-04-154-next-yarnberry"/>
+        <updated>2023-10-01T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Next.js 13 프로젝트를 yarn berry로 전환하는 방법]]></summary>
+        <content type="html"><![CDATA[
+
+## 설치 환경 버전 정보
+
+> node : 18.13.0
+
+> yarn : 3.6.3
+
+> next : 13.4.19
+
+## next.js 프로젝트 생성
+
+먼저 `next.js` 프로젝트를 생성하자.
+
+일반적으로 가장 많이 설치하는 `npx create-next-app`을 사용하여 설치했다.
+
+```bash
+npx create-next-app@latest yarnberry-next13
+```
+
+<img width="727" alt="스크린샷 2023-09-04 오전 11 38 16" src="https://github.com/nostrss/nostrss.github.io/assets/56717167/7ef88b1c-161d-4b6d-87e8-33e4d670c6fe">
+
+## node_modules 삭제
+
+설치가 완료되면 next.js 프로젝트를 `vscode`로 열어보자.
+
+`yarnberry`를 사용하면 앞으로 `node_modules`를 사용하지 않게 되기 때문에, 기존에 설치된 `node_modules`를 삭제해줬다.
+
+<img width="1392" alt="스크린샷 2023-09-04 오전 11 40 56" src="https://github.com/nostrss/nostrss.github.io/assets/56717167/d9ddd389-4f1e-4030-952b-6f63f074bd49">
+
+## yarnberry 버전으로 전환
+
+이제 `yarn berry` 버전으로 전환해보자. 아래의 명령어를 실행해줬다.
+
+```bash
+yarn set version berry
+```
+
+위 커맨드를 실행하면 아래와 같이 실행되면서 `yarnberry` 버전으로 전환된다.
+
+조금은 생소한 실행화면과 함께 아래와 같이 진행된다.
+
+<img width="771" alt="스크린샷 2023-09-04 오전 11 45 30" src="https://github.com/nostrss/nostrss.github.io/assets/56717167/7415fb32-01e7-4830-98c5-18304098c1b4">
+
+## yarnberry 모드에서 패키지 재설치
+
+자 이제 삭제한 패키지를 `yarnberry` 모드에서 재설치 해보자. 설치 명령어는 기존과 동일하다.
+
+```bash
+yarn install
+```
+
+<img width="771" alt="스크린샷 2023-09-04 오전 11 49 26" src="https://github.com/nostrss/nostrss.github.io/assets/56717167/90370a8b-cddc-4633-8262-e562837313be">
+
+설치가 완료되어 `vscode`를 다시 확인해봤다.
+
+이제는 패키지를 설치하여도 `node_modules`가 생성되지 않는 것을 확인할 수 있었다.
+
+그리고 생성된 `.yarn/cache` 폴더를 살펴봤다.
+
+<img width="1392" alt="스크린샷 2023-09-04 오후 12 12 40" src="https://github.com/nostrss/nostrss.github.io/assets/56717167/9058cfb3-e1be-49c7-a443-c85c89a07ab0">
+
+패키지들이 압축파일로 저장되어 있는 것을 확인할 수 있었다.
+
+기존에는 `node_modules` 폴더 용량이 커서 `github`에 푸쉬하지 않는것이 일반적이었다.
+
+그렇기 때문에 공동작업자가 있을 경우, 소스코드를 받아서 실행하기 위해서는 패키지를 npm에서 재설치 해야했다.
+
+그리고 만약 이 과정에서 npm 패키지에서 사라진 것이 있다면, 소스코드를 실행할 수 없는 상황이 발생할 수도 있었다.
+
+_**하지만 `yarnberry` 모드에서 패키지들은 압축되어 용량이 작기 때문에, github에 설치된 패키지들을 함께 푸쉬한다고 한다. 이로서 공동작업자는 소스코드를 받아서 바로 실행할 수 있는 것이다.**_
+
+## gitignore에 코드 추가
+
+`yarnberry` 모드에 맞게 `gitignore`에 코드를 추가해줬다.
+
+```
+# yarn berry
+
+.yarn/\*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+```
+
+## typescript 설정
+
+> 이 부분은 링크의 도움을 받아 진행했다.
+
+> [🔗 리멤버 웹 서비스 좌충우돌 Yarn Berry 도입기 바로가기 🔗](https://blog.dramancompany.com/2023/02/%EB%A6%AC%EB%A9%A4%EB%B2%84-%EC%9B%B9-%EC%84%9C%EB%B9%84%EC%8A%A4-%EC%A2%8C%EC%B6%A9%EC%9A%B0%EB%8F%8C-yarn-berry-%EB%8F%84%EC%9E%85%EA%B8%B0/)
+
+현재 상태에서 작성되어 있는 코드를 보면 `typescript` 에러가 발생하고 있었다.
+
+<img width="1392" alt="스크린샷 2023-09-04 오전 11 53 27" src="https://github.com/nostrss/nostrss.github.io/assets/56717167/a7fdb8fb-116f-4b11-ab08-97ea6b7403d6">
+
+기존에 node_modules에서 모듈을 가져오던 방식이 아닌, yarnberry에서 모듈을 가져오는 방식으로 변경되었기 때문에 발생하는 에러이다.
+
+```bash
+yarn dlx @yarnpkg/sdks vscode
+```
+
+위의 커맨드를 실행하면 아래와 같이 vscode 오른쪽 하단에 얼럿이 뜬다.
+
+<img width="1392" alt="스크린샷 2023-09-04 오전 11 56 06" src="https://github.com/nostrss/nostrss.github.io/assets/56717167/e1a2ceda-30cc-4bca-8fb0-b2ccb63186db">
+
+여기서 허용을 해줘도 되고 아래처럼 별도로 `타입스크립트 버전`을 설정해줘도 된다.
+
+> 타입스크립트 버전 검색
+
+<img width="1270" alt="스크린샷 2023-09-04 오전 11 57 59" src="https://github.com/nostrss/nostrss.github.io/assets/56717167/89563e54-fb93-452e-8cec-77e071afb374">
+
+> 타입스크립트 버전 선택
+
+<img width="1295" alt="스크린샷 2023-09-04 오전 11 58 07" src="https://github.com/nostrss/nostrss.github.io/assets/56717167/fd654e17-37ef-4ca1-9de9-e5e047c0e008">
+
+## 테스트
+
+### 개발모드 테스트 (yarn dev) : 성공
+
+<img width="771" alt="스크린샷 2023-09-04 오후 12 24 16" src="https://github.com/nostrss/nostrss.github.io/assets/56717167/9786c876-1c0b-40f1-8de0-1a5cf6bbd61b">
+
+### 빌드 테스트 (yarn build) : 성공
+
+<img width="771" alt="스크린샷 2023-09-04 오후 12 24 43" src="https://github.com/nostrss/nostrss.github.io/assets/56717167/9322c76c-239c-488d-b20d-741c9fe67a4a">
+
+### 공동 작업자 시점에서 테스트
+
+먼저 생성한 프로젝트를 github에 푸쉬해 두었다.
+
+> [🔗 yarnberry-next13 레파지토리 바로가기 🔗](https://github.com/nostrss/yarnberry-next13)
+
+이제 공동작업자 입장에서 소스코드를 받아서 실행해보자.
+
+위 레파지토리를 `git clone` 받고, `yarn dev`를 실행해봤다.
+
+<img width="727" alt="스크린샷 2023-09-04 오후 12 34 31" src="https://github.com/nostrss/yarnberry-next13/assets/56717167/89cbf714-6fce-46cc-9eca-419c7019fd29">
+
+터미널에서 정상적으로 실행이 되고 local:3000에서도 정상적으로 실행이 되는 것을 확인할 수 있었다.
+]]></content>
+        <author>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </author>
+        <category label="nextjs"/>
+        <category label="yarnberry"/>
+        <category label="migration"/>
+        <contributor>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[Nest] DTO, 그게 뭐야? 왜쓰는데? 어떻게 쓰는데?]]></title>
+        <id>2023-09-01-153-nestjs-dto</id>
+        <link href="https://next13-blog-mu.vercel.app/2023-09-01-153-nestjs-dto"/>
+        <updated>2023-09-01T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Nest.js에서 DTO를 사용하는 이유와 사용법]]></summary>
+        <content type="html"><![CDATA[
+
+## DTO(Data Transfer Object)란?
+
+nest.js를 공부하면서 생소한 용어들이 있었는데, 그중 하나가 바로 DTO(Data Transfer Object)였다.
+
+> 데이터 전송 객체(data transfer object, DTO)는 프로세스 간에 데이터를 전달하는 객체이다. 프로세스 간 통신이 일반적으로 원격 인터페이스(예: 웹 서비스)로 재정렬하면서 이루어지게 되는데 여기에서 각 호출의 비용이 많다는 점을 동기로 하여 이용하게 된다. 각 호출의 비용이 큰 것이 클라이언트와 서버 간 왕복 시간과 관련되기 때문에 호출의 수를 줄이기 위해 여러 호출에 의해 전송되는 데이터를 축적하면서 오직 하나의 호출만으로 서비스되는 객체인 DTO를 사용하는 것이다.
+
+> [🔗 위키피디아 바로가기 🔗](https://ko.wikipedia.org/wiki/%EB%8D%B0%EC%9D%B4%ED%84%B0_%EC%A0%84%EC%86%A1_%EA%B0%9D%EC%B2%B4)
+
+즉, 클라이언트, 서버, 데이터베이스 간에 통신하기 전에 `유효성` 검사를 하고, `데이터`를 변환하는 역할을 하는 것 같다.
+
+프론트 개발자 입장에서 이해를 해보면 `interface`로 `타입`만 지정해주는 것이 아니라, 요청을 보내거나 받을 때 `interface`로 지정된 타입으로 `형변환`까지 해주는 역할을 한다고 생각하면 될 것 같다.
+
+## DTO를 사용하는 이유
+
+> [🔗 관련글 바로가기 🔗](https://dev.to/bivor/why-dtos-are-a-must-have-in-nestjs-api-development-3j2j)
+
+위 링크의 글을 읽어보니 DTO를 사용하는 이유는 아래와 같다.
+
+> - DTO는 클라이언트와 서버 간의 문제를 명확하게 분리할 수 있다.
+> - API의 복잡성을 줄이고 유지 관리를 더 쉽게 만드는 데 도움이 될 수 있다.
+
+리액트에서 타입스크립트를 사용하는 것과 비슷한 이유라고 생각하면 될 것 같다.
+
+좀 더 안정적이고, 통신간에 타입으로 인한 오류를 사전에 방지할 수 있는 장점이 있기 때문에 사용하는 것으로 보인다.
+
+## DTO 예시
+
+```ts
+import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty, IsNumber } from 'class-validator';
+
+export class CreateBoardDto {
+  @IsNumber()
+  @IsNotEmpty()
+  @ApiProperty({
+    description: '작성자 아이디',
+    required: true,
+    example: '1',
+  })
+  userId: number;
+
+  @IsNotEmpty()
+  @ApiProperty({
+    description: '내용',
+    required: true,
+    example: '안녕하세요',
+  })
+  content: string;
+}
+```
+
+위의 코드에서 `CreateBoardDto`는 `userId`와 `content`라는 두개의 속성을 가지고 있는데, 위 코드를 React 코드로 표현하면 아래와 비슷할 것 같다.
+
+```ts
+interface ICreateBoardDto {
+  userId: number;
+  content: string;
+}
+
+export default function CreateBoardDto(dto: ICreateBoardDto) {
+  return {
+    userId: Number(dto.userId),
+    content: String(dto.content),
+  };
+}
+```
+
+그리고 Service 코드에서는 위에 지정한 DTO의 형식으로 데이터를 가져 올수 있게 된다.
+
+```ts
+async create(data: CreateBoardDto) {
+    return this.boardRepository.save(data);
+  }
+```
+
+## class-validator와 class-transformer
+
+위의 역할을 하기 위해서는 추가적인 npm 패키지가 필요하다.
+
+찾아보니 아래 2개의 패키지를 많이 사용하는 것 같다.
+
+> [🔗 npm class-validator 바로가기 🔗](https://www.npmjs.com/package/class-validator)
+
+> [🔗 npm class-transformer 바로가기 🔗](https://www.npmjs.com/package/class-transformer)
+
+`class-validator`는 `DTO`의 유효성 검사를 해주고, `class-transformer`는 `DTO`의 형변환을 해주는 역할을 한다.
+
+위의 패키지를 설치하고, `main.ts`에 아래와 같이 ValidationPipe를 설정해주면 DTO에서 지정한 유효성 검사와 형변환을 자동으로 해준다.
+
+```ts
+import { ValidationPipe } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+
+async function bootstrap() {
+  const port = 3000;
+  const app = await NestFactory.create(AppModule);
+
+  // ValidationPipe 전역 적용
+  app.useGlobalPipes(
+    new ValidationPipe({
+      // class-transformer 적용
+      transform: true,
+    })
+  );
+
+  await app.listen(port);
+  console.info(`listening on port ${port}`);
+}
+bootstrap();
+```
+]]></content>
+        <author>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </author>
+        <category label="nestjs"/>
+        <category label="dto"/>
+        <category label="validator"/>
+        <category label="transformer"/>
+        <contributor>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[NEXT] Middleware와 Edge Functions]]></title>
+        <id>2023-08-31-152-nextjs-middleware-edge</id>
+        <link href="https://next13-blog-mu.vercel.app/2023-08-31-152-nextjs-middleware-edge"/>
+        <updated>2023-08-31T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Next.js Middleware를 사용하면서 발생한 문제점과 해결방법]]></summary>
+        <content type="html"><![CDATA[
+
+얼마 전 팀프로젝트에 `Next.js`의 `Middleware` 파일을 사용하여 github 로그인 관련 기능을 구현하려고 했었다.
+
+> [🔗 Next.js Middleware 공식문서 🔗](https://nextjs.org/docs/pages/building-your-application/routing/middleware)
+
+기능 설명
+
+- 로그인 버튼 클릭
+- 깃헙에서 리다이렉트 url로 페이지를 다시 보내준다.
+- 리다이렉트 url 쿼리스트링 중에서 code값을 받아온다.
+- 받아온 code값을 이용하여 api 통신을 하여 토큰 값을 받아온다.
+- 토큰 값으로 쿠키를 생성한다.
+
+## 구현코드
+
+`root` 위치에 `middleware.ts` 파일을 생성하고 아래와 같이 작성해주었다.
+
+```tsx
+// middleware.ts
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import {
+  BLOGRASS_API_BASE_URL,
+  BLOGRASS_AUTH_GET_TOKEN,
+} from './constants/api';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from './constants/common';
+
+// This function can be marked `async` if using `await` inside
+export async function middleware(request: NextRequest) {
+  const url = new URL(request.url);
+  const code = new URLSearchParams(url.search).get('code') || '';
+  let accessToken = request.cookies.get(ACCESS_TOKEN)?.value;
+  let refreshToken = request.cookies.get(REFRESH_TOKEN)?.value;
+
+  const getAuthToken = async () => {
+    const data = await fetch(
+      `${BLOGRASS_API_BASE_URL}${BLOGRASS_AUTH_GET_TOKEN}${code}`
+    );
+    const jsonData = await data.json();
+    return jsonData.result[0];
+  };
+
+  if (code && !accessToken && !refreshToken) {
+    const data = await getAuthToken();
+    accessToken = data.accessToken;
+    refreshToken = data.refreshToken;
+    const response = NextResponse.next();
+    if (accessToken && refreshToken) {
+      response.cookies.set(ACCESS_TOKEN, accessToken);
+      response.cookies.set(REFRESH_TOKEN, refreshToken);
+    }
+    return response;
+  }
+}
+
+export const config = {
+  matcher: '/',
+};
+```
+
+## 문제 발생
+
+개발모드에서는 상관없었는데, 배포 후에 문제가 발생했다.
+
+`vercel`을 프론트 서버로 사용하고 있는데, 배포 후에 `edge runtime` 에러가 발생해서 롤백을 한 적이 있다.
+
+그래서 `edge runtime`에 대해서 알아보았다.
+
+## Edge runtime이란?
+
+`Next`에서 런타임은 2가지가 존재한다.
+
+- `Node.js Runtime`(우리가 일반적으로 사용하는 런타임)
+- `Edge Runtime`
+
+Next.js에서 `Edge` 런타임은 경량화된 `Node.js` `API`의 *하위 집합*이라 `Node.js` `API`의 일부 기능만 사용할 수 있다.
+
+사용가능한 `API`는 아래 링크에서 확인할 수 있다.
+
+> [🔗 edgeruntime api 바로가기 🔗](https://nextjs.org/docs/pages/api-reference/edge)
+
+링크에서 보듯 사용할 수 있는 API가 한정되어 있으며 _npm 패키지를 사용할 수 없다_.
+
+> 그래서 `edge runtime`에서는 `axios`를 사용할 수 없었다.
+
+또한 vercel에서도 사용할 때 여러가지 제약이 있다.
+
+> [🔗 vercel edge function 제한 바로가기 🔗](https://vercel.com/docs/functions/edge-functions/limitations)
+
+그래서 개발모드에서는 작동을 했으나 vercel에 배포 후에는 에러가 발생한 것으로 추측이 된다.
+
+## 결론
+
+> - next.js middleware는 edge runtime에서 작동한다.
+> - edge runtime은 경량화된 node.js API의 하위 집합이다.
+> - edge runtime에서는 npm 패키지를 사용할 수 없다.
+> - 그리고 vercel에서도 사용할 때 여러가지 제약이 있다.
+> - middleware에서는 간단한 로직만 사용하는 것이 좋을 것 같다.
+]]></content>
+        <author>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </author>
+        <category label="nestjs"/>
+        <category label="edge"/>
+        <category label="vercel"/>
+        <category label="runtime"/>
+        <category label="middleware"/>
+        <contributor>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA['[Nest] ERROR [ExceptionsHandler] No metadata']]></title>
+        <id>2023-08-30-151-error-nest-no-metadata</id>
+        <link href="https://next13-blog-mu.vercel.app/2023-08-30-151-error-nest-no-metadata"/>
+        <updated>2023-08-30T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA['[Nest] ERROR [ExceptionsHandler] No metadata']]></summary>
+        <content type="html"><![CDATA[
+
+`Nest.js`에서 `typeorm`을 연결하여 사용하려고 하던 중 아래와 같은 에러가 발생했다.
+
+```bash
+[Nest] 87109  - 2023. 08. 29. 오후 9:41:15   ERROR [ExceptionsHandler] No metadata for "Board" was found.
+EntityMetadataNotFoundError: No metadata for "Board" was found.
+    at DataSource.getMetadata (/Users/jintaekwoo/github/private/fastcampus/simple-board/src/data-source/DataSource.ts:444:30)
+    at Repository.get metadata [as metadata] (/Users/jintaekwoo/github/private/fastcampus/simple-board/src/repository/Repository.ts:53:40)
+    at Repository.find (/Users/jintaekwoo/github/private/fastcampus/simple-board/src/repository/Repository.ts:524:39)
+    at BoardService.findAll (/Users/jintaekwoo/github/private/fastcampus/simple-board/src/board/board.service.ts:35:33)
+    at BoardController.findAll (/Users/jintaekwoo/github/private/fastcampus/simple-board/src/board/board.controller.ts:24:30)
+    at /Users/jintaekwoo/github/private/fastcampus/simple-board/node_modules/@nestjs/core/router/router-execution-context.js:38:29
+    at InterceptorsConsumer.intercept (/Users/jintaekwoo/github/private/fastcampus/simple-board/node_modules/@nestjs/core/interceptors/interceptors-consumer.js:11:20)
+    at /Users/jintaekwoo/github/private/fastcampus/simple-board/node_modules/@nestjs/core/router/router-execution-context.js:46:60
+    at /Users/jintaekwoo/github/private/fastcampus/simple-board/node_modules/@nestjs/core/router/router-proxy.js:9:23
+    at Layer.handle [as handle_request] (/Users/jintaekwoo/github/private/fastcampus/simple-board/node_modules/express/lib/router/layer.js:95:5)
+```
+
+## 해결을 위한 시도
+
+### @Entity() 누락
+
+- `entitiy` 파일에 `@Entity()` 데코레이터가 누락여부 확인
+- `Module`에 해당 `Entity`가 등록되어있는지 확인
+- `typeorm` 버전 낮추기(0.3.17 => 0.2.X)
+  - 버전을 낮추지 않고 수정해보기 위해 변경하지 않았다.
+- typeorm `DataSource`의 entities 경로가 잘못되었는지 확인
+
+### 해결(app.module.ts 수정)
+
+```ts
+// app.module.ts
+// 변경전
+
+@Module({
+  imports: [
+    ConfigModule(),
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: 'localhost',
+      port: 5432,
+      username: 'admin',
+      password: '**********',
+      database: 'postgres',
+      entities: [__dirname + '/**/*.entity.{.ts,.js}'],
+      synchronize: false,
+    }),
+    BoardModule,
+  ],
+    controllers: [AppController],
+  providers: [AppService],
+})
+
+// 변경후
+@Module({
+  imports: [
+    ConfigModule(),
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT),
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      synchronize: false,
+      logging: true,
+    }),
+    BoardModule,
+  ],
+  controllers: [AppController],
+  providers: [AppService],
+})
+
+```
+
+위와 같이 환경변수를 사용하도록 수정하니 정상적으로 동작하였다.
+
+## 해결 됐지만 여전한 궁금증
+
+> 환경변수를 사용하는 것과 하드코딩하는 것의 차이는 무엇일까
+]]></content>
+        <author>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </author>
+        <category label="nestjs"/>
+        <category label="typeorm"/>
+        <category label="express"/>
+        <category label="error"/>
+        <category label="repository"/>
+        <category label="datasource"/>
+        <contributor>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA['[NEXT] TOAST Editor에서 작성한 글정보 불러오기(useRef) ']]></title>
+        <id>2023-08-25-147-toast-next-2</id>
+        <link href="https://next13-blog-mu.vercel.app/2023-08-25-147-toast-next-2"/>
+        <updated>2023-08-25T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+
+> - [1.TOAST Editor에 사용하기](https://nostrss.github.io/2023-08-25/146-toast-next-1)
+> - [2.TOAST Editor에 작성한 글정보 불러오기(useRef)](https://nostrss.github.io/2023-08-25/147-toast-next-2)
+> - [3.TOAST Editor에서 이미지 업로드하기(hooks)](https://nostrss.github.io/2023-08-25/148-toast-next-3)
+> - [4.TOAST Editor Viewer 사용하기](https://nostrss.github.io/2023-08-25/149-toast-next-4)
+> - [5.TOAST Editor customHTMLSanitizer 사용하기](https://nostrss.github.io/2023-08-25/150-toast-next-5)
+
+## Toast Editor에 작성한 글 내용을 불러오기
+
+```
+src
+ ┣ components
+ ┃ ┣ newpost
+ ┃ ┃ ┗ PostEditor.tsx // 에디터 컴포넌트
+ ┣ pages
+ ┃ ┣ newpost
+ ┃ ┃ ┗ index.tsx // 에디터의 내용을 api 요청으로 서버에 전송
+ ┃ ┗ index.tsx
+```
+
+에디터에 글을 작성하고, 서버에 저장하기 위해서는 먼저 에디터에 작성된 글 내용을 불러와야 한다.
+
+```tsx
+// src/pages/newpost/index.tsx
+const editorRef = useRef<Editor>(null);
+
+const onSubmitNewPost = (e: FormEvent) => {
+  e.preventDefault();
+  // 마크다운 형식으로 작성한 글 내용을 불러온다.
+  const markDownContent = editorRef.current?.getInstance().getMarkdown();
+  console.log(markDownContent);
+};
+
+return (
+  <section>
+    <form onSubmit={onSubmitNewPost}>
+      <PostEditor editorRef={editorRef} />
+    </form>
+  </section>
+);
+```
+
+`useRef`를 사용하여 `editorRef`를 선언하였고, `editorRef`를 `PostEditor`에 `Props`로 전달하게 되면 유저가 작성한 글정보가 `editorRef`에 담기게 될 것이다.
+
+> `useState`가 아닌 `useRef`를 사용한 이유는, `useState`를 사용하면 `onChange` 이벤트가 발생할 때마다 렌더링이 일어나기 때문에, 글자를 입력하는 동안에도 렌더링이 일어나게 될 것이다. 이를 방지하고자 `useRef`를 사용하였다.
+
+`editorRef`에서 작성된 글 내용을 뽑아내기 위해서는 `getInstance()`를 사용하였다.
+
+여기서 `Toast Editor`는 2가지 모드를 제공하는데, `markdown`과 `wysiwyg`이다.
+
+- `markdown` : README.md 파일처럼 작성하는 에디터이다. 이런 형식으로 불러오기 위해서는 getMarkdown()을 사용하면된다.
+- `wysiwyg` : 일반적인 글쓰기 편집기 형식의 에디터이다. 이런 형식으로 불러오기 위해서는 getHtml()을 사용하면 된다.
+
+나는 마크다운 형식만 사용할 것이기 때문에 `getMarkdown()`을 사용하였다.
+
+이제는 `Props`를 받는 `PostEditor` 컴포넌트를 수정해야겠다.
+
+```tsx
+//src/components/newpost/PostEditor.tsx
+import { Editor } from '@toast-ui/react-editor';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import '@toast-ui/editor/dist/i18n/ko-kr';
+import { RefObject } from 'react';
+
+export default function PostEditor({
+  editorRef,
+}: {
+  editorRef: RefObject<Editor>;
+}) {
+  return (
+    <Editor
+      ref={editorRef}
+      previewStyle='vertical'
+      height='800px'
+      initialEditType='markdown'
+      placeholder='Write Something'
+      hideModeSwitch={true}
+      language='ko-KR'
+    />
+  );
+}
+```
+
+`Props`로 전달받은 `editorRef`를 `Editor` 컴포넌트의 `ref`로 전달해주었다.
+
+이제 테스트를 해보자.
+
+<img width="1273" alt="스크린샷 2023-08-26 오전 11 22 41" src="https://github.com/nostrss/nostrss.github.io/assets/56717167/ff50c414-eaf8-4a00-b67f-d6088b870c04">
+
+콘솔에 정상적으로 글 내용이 출력되는 것을 확인할 수 있었다.
+]]></content>
+        <author>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </author>
+        <category label="nextjs"/>
+        <category label="react"/>
+        <category label="javascript"/>
+        <category label="typescript"/>
+        <category label="toast"/>
+        <category label="editor"/>
+        <contributor>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA['[NEXT] TOAST Editor에서 이미지 업로드하기(hooks)']]></title>
+        <id>2023-08-25-148-toast-next-3</id>
+        <link href="https://next13-blog-mu.vercel.app/2023-08-25-148-toast-next-3"/>
+        <updated>2023-08-25T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+
+> - [1.TOAST Editor에 사용하기](https://nostrss.github.io/2023-08-25/146-toast-next-1)
+> - [2.TOAST Editor에 작성한 글정보 불러오기(useRef)](https://nostrss.github.io/2023-08-25/147-toast-next-2)
+> - [3.TOAST Editor에서 이미지 업로드하기(hooks)](https://nostrss.github.io/2023-08-25/148-toast-next-3)
+> - [4.TOAST Editor Viewer 사용하기](https://nostrss.github.io/2023-08-25/149-toast-next-4)
+> - [5.TOAST Editor customHTMLSanitizer 사용하기](https://nostrss.github.io/2023-08-25/150-toast-next-5)
+
+## Toast Editor에서 이미지 업로드 하기
+
+`Toast Editor`는 이미지 업로드를 위한 UI를 아래와 같이 제공하고 있다.
+
+<img width="1091" alt="스크린샷 2023-08-26 오전 11 35 09" src="https://github.com/nostrss/nostrss.github.io/assets/56717167/bc66b175-a33f-4a8c-bff4-344824869395">
+
+그리고 이미지를 선택하고 OK 버튼을 누르면 이미지가 아래와 같이 노출되게 된다.
+
+<img width="1091" alt="스크린샷 2023-08-26 오전 11 34 58" src="https://github.com/nostrss/nostrss.github.io/assets/56717167/9b394896-a3ca-4efc-a933-74dbe0700f57">
+
+좌측에 노출된 복잡한 코드는 base64로 인코딩된 이미지 코드인데,유저가 이렇게 실사용하기는 어려울 것 같다.
+
+그래서 아래와 같이 수정을 해보려고 한다.
+
+> 1.  업로드할 이미지를 선택한다.
+> 2.  OK버튼을 누르면 선택한 이미지를 서버에 업로드한다.
+> 3.  업로드가 완료되면, 업로드된 이미지의 주소를 받는다.
+> 4.  업로드 된 이미지의 주소를 에디터에 노출한다.
+
+1번은 이미 구현되어 있다. 2번부터 직접 구현해보도록 하자.
+
+## OK버튼을 누르면 이미지 업로드 함수를 실행하기
+
+그런데 OK 버튼을 눌렀을 때 내가 작성한 이미지 업로드 함수가 바로 실행되도록 어떻게 해야할까?
+
+이전에 `EditorOptions`의 문서에서 `hooks`라는 `Props`를 본적이 있었다.
+
+> [🔗 EditorOptions 문서 바로가기 🔗](https://nhn.github.io/tui.editor/latest/ToastUIEditorCore)
+
+<img width="965" alt="스크린샷 2023-08-26 오전 11 53 49" src="https://github.com/nostrss/nostrss.github.io/assets/56717167/1c29dcf3-73ca-48e5-a615-1b6b45336392">
+
+설명에 이미지 업로드를 위한 `hooks`라고 당당히 기재되어 있는 것을 볼 수 있다. 역시 문서는 잘 써놓은 것 같다.
+
+`hooks`를 사용하면 되지 않을까 예상은 되는데 사용하는 방법은 어떻게 될까?
+
+조금 더 알아봐야겠다.
+
+```ts
+// node_modules/@toast-ui/editor/types/editor.d.ts
+export interface EditorOptions {
+ (...)
+  hooks?: HookMap;
+  (...)
+}
+
+export type HookMap = {
+  addImageBlobHook?: (blob: Blob | File, callback: HookCallback) => void;
+};
+
+type HookCallback = (url: string, text?: string) => void;
+```
+
+`hooks`에 대한 타입을 확인해보니, `addImageBlobHook`이라는 함수가 있고, 이 함수는 `blob`과 `callback`을 인자로 받는다.
+
+그리고 `callback`은 `url`과 `text`를 인자로 받는다.
+
+이제 `blob`과 `callback`을 인자로 받는 이미지 업로드 함수를 만들어서 연결 해주면 될 것 같다.
+
+### 이미지 업로드 함수
+
+```ts
+export const imageAPI = {
+  postUploadImage: async (image: File | Blob, callback: HookCallback) => {
+    // 이미지 업로드를 위한 formData 생성
+    const formData = new FormData();
+    formData.append('file', image);
+
+    try {
+      // 이미지 업로드 후 이미지 id 받기
+      const result = await axios({
+        method: 'post',
+        url: BLOGRASS_IMAGE_UPLOAD,
+        data: formData,
+      });
+
+      // 이미지 id를 이용하여 이미지 url 생성
+      const imageUrl =
+        await `${BLOGRASS_IMAGE_BUCKET_URL}/${result.data.result[0]}`;
+
+      // callback에 이미지 url과 alt_text를 인자로 넣어준다.
+      callback(imageUrl, 'alt_text');
+    } catch (error) {
+      console.error(error);
+    }
+  },
+};
+```
+
+> 1. `image`와 `callback`을 인자로 받는다.
+> 2. `image`를 서버에 업로드 한다.
+> 3. 업로드가 완료되면, 업로드된 이미지의 `URL`을 받는다.
+> 4. `callback`에 이미지의 `URL`과 텍스트를 인자로 넣어준다.
+
+### hooks에 이미지 업로드 함수 연결하기
+
+아래와 같이 `hooks`에 이미지 업로드 함수를 연결해주면 된다.
+
+```tsx
+export default function PostEditor({
+  editorRef,
+}: {
+  editorRef: RefObject<Editor>;
+}) {
+  return (
+    <Editor
+      ref={editorRef}
+      previewStyle='vertical'
+      height='800px'
+      initialEditType='markdown'
+      placeholder='Write Something'
+      hideModeSwitch={true}
+      language='ko-KR'
+      hooks={{ addImageBlobHook: imageAPI.postUploadImage }}
+    />
+  );
+}
+```
+
+<img width="467" alt="스크린샷 2023-08-26 오후 6 38 19" src="https://github.com/nostrss/nostrss.github.io/assets/56717167/957adff0-3396-47ea-a87f-6964687ab0e3">
+
+코드 블럭에 `hooks`를 추가해주었다.(왜 안보이지..?)
+
+> 테스트를 해보니 아래와 같이 이미지가 업로드 되는 것을 확인 할 수 있었다.
+
+<img width="1258" alt="스크린샷 2023-08-26 오후 12 13 27" src="https://github.com/nostrss/nostrss.github.io/assets/56717167/12e593d1-5e4c-47d1-b5a9-c5680eeff5cd">
+]]></content>
+        <author>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </author>
+        <category label="nextjs"/>
+        <category label="react"/>
+        <category label="javascript"/>
+        <category label="typescript"/>
+        <category label="toast"/>
+        <category label="editor"/>
+        <contributor>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA['[NEXT] TOAST Editor 사용하기 ']]></title>
+        <id>2023-08-25-146-toast-next-1</id>
+        <link href="https://next13-blog-mu.vercel.app/2023-08-25-146-toast-next-1"/>
+        <updated>2023-08-25T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+
+> - [1.TOAST Editor에 사용하기](https://nostrss.github.io/2023-08-25/146-toast-next-1)
+> - [2.TOAST Editor에 작성한 글정보 불러오기(useRef)](https://nostrss.github.io/2023-08-25/147-toast-next-2)
+> - [3.TOAST Editor에서 이미지 업로드하기(hooks)](https://nostrss.github.io/2023-08-25/148-toast-next-3)
+> - [4.TOAST Editor Viewer 사용하기](https://nostrss.github.io/2023-08-25/149-toast-next-4)
+> - [5.TOAST Editor customHTMLSanitizer 사용하기](https://nostrss.github.io/2023-08-25/150-toast-next-5)
+
+## 버전 정리
+
+- `Next.js` : 13.4.10
+  - `pages Router`를 사용하였다.
+- `@toast-ui/editor` - 3.2.2
+- `@toast-ui/react-editor` - 3.2.3
+
+## 대략적인 폴더 구조
+
+```
+src
+ ┣ components
+ ┃ ┣ newpost
+ ┃ ┃ ┗ PostEditor.tsx
+ ┣ pages
+ ┃ ┣ newpost
+ ┃ ┃ ┗ index.tsx
+ ┃ ┗ index.tsx
+```
+
+## 사용법 익히기
+
+> [🔗 Toast Editor 소개 바로가기 🔗](https://ui.toast.com/tui-editor)
+
+`Toast Editor`는 `NHN`이 만든 오픈소스 에디터이다.
+
+그래서 한국에서 많이 사용하고, 검색 시에도 한국어 결과가 많이 나오는 편이었다.
+
+나는 Next.js를 사용하고 있기 때문에 React 버전의 사용법을 찾아보았다.
+
+> [🔗 @toast-ui/react-editor 깃허브 바로가기 🔗](https://github.com/nhn/tui.editor/tree/master/apps/react-editor#-usage)
+
+위의 링크에서 소개한 사용법은 아래와 같았다.
+
+```tsx
+import '@toast-ui/editor/dist/toastui-editor.css';
+
+import { Editor } from '@toast-ui/react-editor';
+
+const MyComponent = () => (
+  <Editor
+    initialValue='hello react editor world!'
+    previewStyle='vertical'
+    height='600px'
+    initialEditType='markdown'
+    useCommandShortcut={true}
+  />
+);
+```
+
+위와 같이 `Editor`를 `import`하고 컴포넌트에 필요한 props를 전달해 주면 된다.
+
+그렇다면 `Editor`컴포넌트는 어떤 `props`를 가지고 있을까?
+
+## Editor 컴포넌트 살펴보기
+
+```ts
+// node_modules/@toast-ui/react-editor/index.d.ts
+export class Editor extends Component<EditorProps> {
+  getInstance(): ToastuiEditor;
+
+  getRootElement(): HTMLElement;
+}
+```
+
+`Editor` 컴포넌트는 `Component<EditorProps>`타입을 상속받고 `getInstance`와 `getRootElement`라는 메서드를 가지고 있었다.
+
+`props`를 알아보기 위해서 이번엔 상속받은 `EditorProps`를 살펴보았다.
+
+```ts
+// node_modules/@toast-ui/react-editor/index.d.ts
+export type EditorProps = Omit<EditorOptions, 'el'> & Partial<EventMapping>;
+```
+
+1. `Omit<EditorOptions, 'el'>`는 `EditorOptions`에서 `el`을 제외한 나머지 속성들을 상속받는다는 뜻이다.
+
+2. `Partial<EventMapping>`는 `EventMapping`의 속성들을 선택적으로 상속받는다는 뜻이다.
+
+3. 그리고 위의 두 타입을 합쳐서 `EditorProps`를 만들었다.
+
+이중에 `EditorOptions`를 먼저 살펴보았다.
+
+### EditorOptions
+
+```ts
+// node_modules/@toast-ui/editor/types/editor.d.ts
+export interface EditorOptions {
+  el: HTMLElement; // 이건 제외하고 상속을 받는다.
+  height?: string;
+  minHeight?: string;
+  initialValue?: string;
+  previewStyle?: PreviewStyle;
+  initialEditType?: EditorType;
+  events?: EventMap;
+  hooks?: HookMap;
+  language?: string;
+  useCommandShortcut?: boolean;
+  usageStatistics?: boolean;
+  toolbarItems?: (string | ToolbarItemOptions)[][];
+  hideModeSwitch?: boolean;
+  plugins?: EditorPlugin[];
+  extendedAutolinks?: ExtendedAutolinks;
+  placeholder?: string;
+  linkAttributes?: LinkAttributes;
+  customHTMLRenderer?: CustomHTMLRenderer;
+  customMarkdownRenderer?: ToMdConvertorMap;
+  referenceDefinition?: boolean;
+  customHTMLSanitizer?: Sanitizer;
+  previewHighlight?: boolean;
+  frontMatter?: boolean;
+  widgetRules?: WidgetRule[];
+  theme?: string;
+  autofocus?: boolean;
+  viewer?: boolean;
+}
+```
+
+엄청나게 많은 옵션들이 있다.
+
+하지만 다행히 문서로 잘 정리가 되어 있어서 각 옵션들이 어떤 역할을 하는지 확인할 수 있었다.
+
+> [🔗 EditorOptions 문서 바로가기 🔗](https://nhn.github.io/tui.editor/latest/ToastUIEditorCore)
+
+위의 링크를 보면서 나에게 필요한 옵션들이 무엇인지 알 수 있었다.
+
+### EventMapping
+
+```ts
+// node_modules/@toast-ui/react-editor/index.d.ts
+export interface EventMapping {
+  onLoad: EventMap['load'];
+  onChange: EventMap['change'];
+  onCaretChange: EventMap['caretChange'];
+  onFocus: EventMap['focus'];
+  onBlur: EventMap['blur'];
+  onKeydown: EventMap['keydown'];
+  onKeyup: EventMap['keyup'];
+  onBeforePreviewRender: EventMap['beforePreviewRender'];
+  onBeforeConvertWysiwygToMarkdown: EventMap['beforeConvertWysiwygToMarkdown'];
+}
+
+export interface EventMap {
+  load?: (param: Editor) => void;
+  change?: (editorType: EditorType) => void;
+  caretChange?: (editorType: EditorType) => void;
+  focus?: (editorType: EditorType) => void;
+  blur?: (editorType: EditorType) => void;
+  keydown?: (editorType: EditorType, ev: KeyboardEvent) => void;
+  keyup?: (editorType: EditorType, ev: KeyboardEvent) => void;
+  beforePreviewRender?: (html: string) => string;
+  beforeConvertWysiwygToMarkdown?: (markdownText: string) => string;
+}
+```
+
+`EventMapping`이라는 단어 그대로 사용 가능한 이벤트 함수와 이벤트 함수의 파라미터 타입을 정의하고 맵핑한 것 이었다.
+
+## 컴포넌트 만들기
+
+글작성 페이지는 `pages/newpost/index.tsx` 경로에 만들려고 한다.
+
+하지만 `index.tsx` 파일이 너무 커질것 같아 `components/newpost/PostEditor.tsx`파일에 `PostEditor`라는 컴포넌트를 별도로 만들고, `index.tsx`에서 import 하여 사용하려고 한다.
+
+`PostEditor` 컴포넌트는 아래와 같이 작성했다.
+
+```tsx
+// components/newpost/PostEditor.tsx
+import { Editor } from '@toast-ui/react-editor';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import '@toast-ui/editor/dist/i18n/ko-kr';
+
+export default function PostEditor() {
+  return (
+    <Editor
+      previewStyle='vertical'
+      height='800px'
+      initialEditType='markdown'
+      placeholder='Write Something'
+      hideModeSwitch={true}
+      language='ko-KR'
+    />
+  );
+}
+```
+
+그리고 `pages/newpost/index.tsx`에 import해서 사용하였다.
+
+> 📌 Toast에디터는 ssr을 지원하지 않기 때문에 `next/dynamic`을 사용하여 ssr을 하지 않도록 설정해주었다. 아마 React로 작업하는 경우에는 사용할 필요가 없을 것 같다.
+
+```tsx
+import dynamic from 'next/dynamic';
+
+const PostEditor = dynamic(() => import('@/components/newpost/PostEditor'), {
+  ssr: false,
+});
+```
+
+<img width="1273" alt="스크린샷 2023-08-26 오전 2 56 31" src="https://github.com/nostrss/nostrss.github.io/assets/56717167/ea6f52f2-bf76-4cd6-9f25-d0f71ed0d9e6">
+
+정상적으로 잘 나오는 것을 확인할 수 있었다.
+]]></content>
+        <author>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </author>
+        <category label="nextjs"/>
+        <category label="react"/>
+        <category label="javascript"/>
+        <category label="typescript"/>
+        <category label="toast"/>
+        <category label="editor"/>
+        <contributor>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA['[NEXT] TOAST Editor customHTMLSanitizer 사용하기']]></title>
+        <id>2023-08-25-150-toast-next-5</id>
+        <link href="https://next13-blog-mu.vercel.app/2023-08-25-150-toast-next-5"/>
+        <updated>2023-08-25T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA['[NEXT] TOAST Editor customHTMLSanitizer 사용하기']]></summary>
+        <content type="html"><![CDATA[
+
+> - [1.TOAST Editor에 사용하기](https://nostrss.github.io/2023-08-25/146-toast-next-1)
+> - [2.TOAST Editor에 작성한 글정보 불러오기(useRef)](https://nostrss.github.io/2023-08-25/147-toast-next-2)
+> - [3.TOAST Editor에서 이미지 업로드하기(hooks)](https://nostrss.github.io/2023-08-25/148-toast-next-3)
+> - [4.TOAST Editor Viewer 사용하기](https://nostrss.github.io/2023-08-25/149-toast-next-4)
+> - [5.TOAST Editor customHTMLSanitizer 사용하기](https://nostrss.github.io/2023-08-25/150-toast-next-5)
+
+## TOAST Editor customHTMLSanitizer 사용하기
+
+에디터의 경우 유저가 악의적인 용도로 스크립트를 삽입하여 공격할 위험이 있다.
+
+이를 방지하기 위해서는 HTML 요소에 공격을 하는 스크립트등을 삭제해야 한다.
+
+이런 기능을 하는 npm 패키지가 있는데, `Dompurify`이다.
+
+> [🔗 dompurify npm 페이지 바로가기 🔗](https://www.npmjs.com/package/dompurify?activeTab=readme)
+
+## TOAST Editor 자체적인 Sanitizer
+
+앞서 EditorOptions을 살펴봤을때 `customHTMLSanitizer`라는 Props가 존재하는 것을 확인할 수 있었다.
+
+> [🔗 EditorOptions 문서 바로가기 🔗](https://nhn.github.io/tui.editor/latest/ToastUIEditorCore)
+
+> [🔗 customHTMLSanitizer 옵션 기능 추가 🔗](https://ui.toast.com/weekly-pick/ko_monthly_202004)
+
+```ts
+// node_modules/@toast-ui/editor/types/editor.d.ts
+export interface EditorOptions {
+  (...)
+  customHTMLSanitizer?: Sanitizer;
+  (...)
+}
+```
+
+`customHTMLSanitizer`라는 표현이 있는 것으로 보아 이런 생각이 들었다.
+
+> 혹시 Toast Editor에는 이미 Sanitizer가 적용되어 있는게 아닐까
+
+테스트를 해봐야겠다.
+
+`dompurify` 페이지에 샘플코드가 있어서 이를 가져와서 테스트를 해봤다.
+`Markdown`, `wysiwyg` 모드 둘다 테스트를 해봤다.
+
+```tsx
+const onSubmitNewPost = (e: FormEvent) => {
+  e.preventDefault();
+  const markDownContent = editorRef.current?.getInstance().getMarkdown();
+  const htmlContent = editorRef.current?.getInstance().getHTML();
+  console.log('1️⃣', markDownContent);
+  console.log('2️⃣', htmlContent);
+};
+```
+
+에디터에 샘플코드를 입력하고 어떻게 값이 반환되는지 확인해보았다.
+
+```javascript
+DOMPurify.sanitize('<img src=x onerror=alert(1)//>');
+// dompurify : <img src="x">
+// Markdown :  <img src=x onerror=alert(1)//>
+// wysiwyg : <p><img src="x" contenteditable="false"><br></p>
+
+DOMPurify.sanitize('<svg><g/onload=alert(2)//<p>');
+// dompurify : <svg><g></g></svg>
+// Markdown : <svg><g/onload=alert(2)//<p>
+// wysiwyg : <p>&lt;g/onload=alert(2)//</p>
+
+DOMPurify.sanitize('<p>abc<iframe//src=jAva&Tab;script:alert(3)>def</p>');
+// dompurify : <p>abc</p>
+// Markdown : <p>abc<iframe//src=jAva&Tab;script:alert(3)>def</p>
+// wysiwyg : <p>abc</p>
+
+DOMPurify.sanitize('<math><mi//xlink:href="data:x,<script>alert(4)</script>">');
+// dompurify : <math><mi></mi></math>
+// Markdown : <math><mi//xlink:href="data:x,<script>alert(4)</script>">
+// wysiwyg : <p>&lt;mi//xlink:href="data:x,alert(4)"&gt;</p>
+
+DOMPurify.sanitize('<TABLE><tr><td>HELLO</tr></TABL>');
+// dompurify : <table><tbody><tr><td>HELLO</td></tr></tbody></table>
+// Markdown : <TABLE><tr><td>HELLO</tr></TABL>
+// wysiwyg : <table><thead><tr><td><p>HELLO</p></td></tr></thead><tbody><tr></tr></tbody></table>
+
+DOMPurify.sanitize('<UL><li><A HREF=//google.com>click</UL>');
+// dompurify : <ul><li><a href="//google.com">click</a></li></ul>
+// Markdown : <UL><li><A HREF=//google.com>click</UL>
+// wysiwyg : <ul><li><p><a href="//google.com">click</a></p></li></ul>
+```
+
+`dompurify`와 방식은 다르지만 `wysiwyg` 모드에서는 Toast 에디터 자체적으로 `Sanitizer`가 적용되어 있는 것을 확인할 수 있었다.
+
+## Custom Sanitizer 사용하기
+
+이제는 customHTMLSanitizer를 사용해보려고 한다.
+
+```ts
+export type Sanitizer = (content: string) => string;
+```
+
+`customHtmlSanitizer`는 `Sanitizer`라는 타입을 가지고 있고, `Sanitizer`는 `content`라는 `string`을 받아서 `string`을 반환하는 함수이다.
+
+일단 간단히 테스트를 해보기 위해서 아래와 같이 함수를 하나 작성하여 `customHTMLSanitizer`와 연결해보았다.
+
+```tsx
+export default function PostEditor({
+  editorRef,
+}: {
+  editorRef: RefObject<Editor>;
+}) {
+  // 테스트용 Sanitizer 함수
+  const testSanitizer = (text: string) => {
+    console.log(text);
+    return text;
+  };
+
+  return (
+    <Editor
+      ref={editorRef}
+      previewStyle='vertical'
+      height='800px'
+      initialEditType='markdown'
+      placeholder='Write Something'
+      hideModeSwitch={true}
+      language='ko-KR'
+      customHTMLSanitizer={testSanitizer}
+    />
+  );
+}
+```
+
+`testSanitizer` 함수가 잘 연결되어 작동을 한다면, `console.log(text)`가 실행되어 콘솔에 `text`가 출력될 것이다.
+
+<img width="1277" alt="스크린샷 2023-08-27 오후 2 33 05" src="https://github.com/nostrss/nostrss.github.io/assets/56717167/b5a15924-3b87-4089-9cad-92dcd7daba24">
+
+텍스트를 입력할때 마다 직접 생성한 `testSanitizer` 함수를 실행하는 것을 확인할 수 있었다.
+
+> 즉, Toast Editor에는 이미 Sanitizer가 적용되어 있다. 그리고 별도의 Sanitizer를 적용하려면 customHTMLSanitizer에 string을 매개변수로 받아서 string을 반환하는 함수를 넣어주면 된다.
+
+## dompurify 적용하기
+
+Toast Editor 자체적으로 Sanitizer가 적용되어 있지만, `dompurify`를 적용해보기로 했다.
+
+일단 글을 작성하는 에디터에 적용을 해주었다. 방법은 간단했다.
+
+```tsx
+// dompurify Import
+import * as DOMPurify from 'dompurify';
+
+export default function PostEditor({
+  editorRef,
+}: {
+  editorRef: RefObject<Editor>;
+}) {
+  const customSanitizer = DOMPurify.sanitize;
+
+  return (
+    <Editor
+      ref={editorRef}
+      previewStyle='vertical'
+      height='800px'
+      initialEditType='markdown'
+      placeholder='Write Something'
+      hideModeSwitch={true}
+      language='ko-KR'
+      // customHTMLSanitizer에 dompurify 적용
+      customHTMLSanitizer={customSanitizer}
+    />
+  );
+}
+```
+
+그리고 `Viewer`에도 동일하게 적용을 해주었다.
+
+작성할때 이미 dompurify가 적용되어 있긴 하지만, `Viewer`에서도 `dompurify`를 적용해주는 것이 보안에 좋을 것 같아서 적용해주었다.
+
+```tsx
+import { Viewer } from '@toast-ui/react-editor';
+import * as DOMPurify from 'dompurify';
+
+export default function EditorViewer({
+  initialValue,
+}: {
+  initialValue: string;
+}) {
+  const customSanitizer = DOMPurify.sanitize;
+
+  return (
+    <Viewer initialValue={initialValue} customHTMLSanitizer={customSanitizer} />
+  );
+}
+```
+]]></content>
+        <author>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </author>
+        <category label="nextjs"/>
+        <category label="react"/>
+        <category label="javascript"/>
+        <category label="typescript"/>
+        <category label="toast"/>
+        <category label="dompurify"/>
+        <contributor>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA['[NEXT] TOAST Editor Viewer 사용하기']]></title>
+        <id>2023-08-25-149-toast-next-4</id>
+        <link href="https://next13-blog-mu.vercel.app/2023-08-25-149-toast-next-4"/>
+        <updated>2023-08-25T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+
+> - [1.TOAST Editor에 사용하기](https://nostrss.github.io/2023-08-25/146-toast-next-1)
+> - [2.TOAST Editor에 작성한 글정보 불러오기(useRef)](https://nostrss.github.io/2023-08-25/147-toast-next-2)
+> - [3.TOAST Editor에서 이미지 업로드하기(hooks)](https://nostrss.github.io/2023-08-25/148-toast-next-3)
+> - [4.TOAST Editor Viewer 사용하기](https://nostrss.github.io/2023-08-25/149-toast-next-4)
+> - [5.TOAST Editor customHTMLSanitizer 사용하기](https://nostrss.github.io/2023-08-25/150-toast-next-5)
+
+## TOAST Editor Viewer 사용하기
+
+예전에 `React Quill`의 경우에는 `Viewer`를 따로 제공하지 않고, `readOnly` 속성을 통해 편집기와 뷰어를 구분하여 사용할 수 있었다.
+
+하지만 `TOAST Editor`의 경우에는 아예 `Viewer`를 따로 제공하고 있었다.
+
+문서에서는 찾지 못했는데, 타입에 아래와 같이 정의가 되어 있어서 사용해봤다.
+
+```ts
+export class Viewer extends Component<ViewerProps> {
+  getInstance(): ToastuiEditorViewer;
+
+  getRootElement(): HTMLElement;
+}
+```
+
+이제 상세 페이지에 Viewer를 적용해보자.
+
+```tsx
+import { Viewer } from '@toast-ui/react-editor';
+
+export default function EditorViewer({
+  initialValue,
+}: {
+  initialValue: string;
+}) {
+  return <Viewer initialValue={initialValue} />;
+}
+```
+
+상위 컴포넌트에서 `Props`로 `initialValue`에 컨텐츠 정보를 받아오고, 이것을 단순히 `Viewer`에 전달해주기만 하면 된다.
+
+`Viewer`의 경우에도 `import`시 아래와 같이 `dynamic import`를 사용해야한다.
+
+```tsx
+const EditorViewer = dynamic(() => import('@/components/post/EditorViewer'), {
+  ssr: false,
+});
+```
+
+적용한 결과는 아래와 같다.
+
+<img width="772" alt="스크린샷 2023-08-26 오후 6 28 23" src="https://github.com/nostrss/nostrss.github.io/assets/56717167/bbef8fa5-73cf-492a-a01e-df5d5c3e8d46">
+]]></content>
+        <author>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </author>
+        <category label="nextjs"/>
+        <category label="react"/>
+        <category label="javascript"/>
+        <category label="typescript"/>
+        <category label="toast"/>
+        <category label="editor"/>
+        <contributor>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA['PostgresSQL 설치 시 "/tmp/.s.PGSQL.5432" 에러']]></title>
+        <id>2023-08-24-145-postgre-install-error</id>
+        <link href="https://next13-blog-mu.vercel.app/2023-08-24-145-postgre-install-error"/>
+        <updated>2023-08-24T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+
+Nest.js를 공부하면서 Brew로 PostgresSQL을 설치하고 DB를 연결하려고 했는데 아래와 같은 에러가 발생했다.
+
+```bash
+psql postgres
+
+psql: error: connection to server on socket "/tmp/.s.PGSQL.5432" failed: No such file or directory
+```
+
+검색을 해보니 다양한 결과들이 나왔다.
+
+- 삭제 후 재설치 하는 방법
+- 재부팅 하는 방법
+- postgresql@13을 설치하는 방법(나는 14버전을 사용하고 싶었다.)
+
+chatgpt도 사용해봤으나 전부 실패했다.
+
+그러다 stackoverflow에서 아래와 같은 답변을 찾았다.
+
+[stack overflow 원본링크](https://stackoverflow.com/questions/69754628/psql-error-connection-to-server-on-socket-tmp-s-pgsql-5432-failed-no-such)
+
+위의 링크 중간에 보면 아래와 같은 답변이 있었다.
+
+```bash
+brew services start postgresql
+```
+
+위의 명령어를 실행하고 다시 psql을 실행하니 정상적으로 실행되었다.
+
+```
+psql postgres
+```
+
+개발은 처음에 설치와 환경설정이 제일 어렵다..
+]]></content>
+        <author>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </author>
+        <category label="nestjs"/>
+        <category label="node"/>
+        <category label="express"/>
+        <category label="javascript"/>
+        <category label="typescript"/>
+        <contributor>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA['[Nest.js] - 소개']]></title>
+        <id>2023-08-23-144-nestjs</id>
+        <link href="https://next13-blog-mu.vercel.app/2023-08-23-144-nestjs"/>
+        <updated>2023-08-23T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+
+> [Nest.js 공식 문서](https://docs.nestjs.com/)를 참고하였습니다.
+
+## Nest.js란?
+
+- Node.js 서버 측 애플리케이션을 구축하기 위한 프레임 워크
+
+## 특징
+
+- `Angular`와 비슷한 구조이며 이에 영감을 받은 것으로 알려져 있습니다.
+- `Typescript`를 기본 언어로 사용합니다.
+- `Express`를 기본값으로 사용하며 `Fastify`도 사용할 수 있습니다.
+- 객체지향 개념을 도입하였습니다.
+
+## 장점
+
+### Angular와 비슷한 구조
+
+- 모듈/컴포넌트 기반으로 프로그램을 작성함으로써 재사용성을 높여줍니다.
+  > 프론트 엔드를 먼저 시작한 나로서는 모듈기반이라는 말이 잘 와닿지 않았다.
+
+### Express의 단점을 보완
+
+- expresss는 훌륭한 프레임워크이지만, 과도한 유연함으로 인해 SW의 품질이 일정하지 않고 알맞은 라이브러리를 찾기 위해 사용자가 많은 시간을 할애해야 합니다.
+
+- 하지만 Nest.js는 데이터베이스, ORM, 설정(Configuration), 유효성 검사 등 수많은 기능을 기본 제공하고 있다. 그러면서도 필요한 라이브러리를 쉽게 설치하여 기능을 확장할 수 있는 Node.js 장점은 그대로 가지고 있다고 한다.
+
+> 즉, Express는 React, Nest.js는 Next.js, Nuxt.js와 같은 프론트엔드 프레임워크와 비슷한 역할을 한다고 이해하면 될 것 같다.
+
+## 설치 및 설정
+
+아래 2개의 명령어를 터미널에서 실행하여 설치와 새 프로젝트를 설정 할 수 있다.
+
+```bash
+npm i -g @nestjs/cli
+nest new project-name
+
+```
+
+### 핵심 파일
+
+설치를 완료하면 src 폴더에 아래와 같은 파일들이 생성된다.
+
+|                          |                                                                                                                                                             |
+| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `app.controller.ts`      | 클라이언트로 부터 들어오는 요청을 `service`애 위임하고 처리된 결과를 다시 클라이언트에게 반환하는 일을 담당한다. HTTP 요청 메서드(GET, POST 등)를 정의한다. |
+| `app.controller.spec.ts` | 컨트롤러에 대한 단위 테스트 파일 이다.                                                                                                                      |
+| `app.module.ts`          | 애플리케이션의 루트 모듈. Nest.js에서는 모듈을 사용하여 애플리케이션을 구성한다. 모듈은 기능과 비즈니스 로직을 담당하는 컴포넌트의 집합이라 할 수 있다.     |
+| `app.service.ts`         | `controller`로부터 위임받은 요청을 실제로 처리하고 반환하는 역할을 한다. 즉,비즈니스 로직을 구현하는 역할이라고 볼 수 있다.                                 |
+| `main.ts`                | Nest.js의 진입점, NestFactory핵심 기능을 사용하여 Nest 애플리케이션 인스턴스를 생성하는 애플리케이션의 항목 파일이다. HTTP 서버를 시작하는 역할을 한다.     |
+
+## 실행
+
+```bash
+npm run start
+npm run start:dev // 개발 모드
+```
+]]></content>
+        <author>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </author>
+        <category label="nestjs"/>
+        <category label="node"/>
+        <category label="express"/>
+        <category label="javascript"/>
+        <category label="typescript"/>
+        <contributor>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA['reduce 사용법 정리']]></title>
+        <id>2023-07-11-142-javascript-reduce</id>
+        <link href="https://next13-blog-mu.vercel.app/2023-07-11-142-javascript-reduce"/>
+        <updated>2023-07-11T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+
+좀 처럼 프론트엔드 실무를 하면서는 자주 사용할 기회가 없었던 메소드가 바로 reduce였다.
+
+얼마 전 지인의 코드를 수정해주다가 reduce를 사용한 부분이 있어서 정리해봤다.
+
+## 등차수열
+
+갑자기 등차수열이 왜 나오냐고? 라고 생각할 수 있지만, reduce를 사용하면서 등차수열을 공식과 연관지어 생각하니 이해가 쉬워져서 예시를 들었다.
+
+### 등차수열 공식
+
+```text
+a(n) = a(1) + (n - 1) * d
+```
+
+등차 수열의 공식은 위와 같다.
+
+수열의 첫 항 a(1)이 있고 공차 d가 있다면, n번째 항은 위와 같이 구할 수 있다.
+
+이것을 reduce와 비교해보자.
+
+### reduce
+
+리듀스의 구문은 아래와 같다.
+
+```js
+ arr.reduce(callback[, initialValue])
+```
+
+callback은 필수값이고, initialValue는 옵션이다.
+
+reduce 메소드는 initialValue 값에 callback 함수를 적용하여 하나의 결과값을 만들어낸다.
+
+즉, 등차수열의 첫항 a(1)이 initialValue이고, 공차 d가 callback 함수라고 생각하면 이해가 쉽다.
+
+mdn에 나와 있는 예시를 통해 살펴보자.
+
+[mdn reduce 예시 ](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
+
+```js
+[0, 1, 2, 3, 4].reduce(function (
+  accumulator,
+  currentValue,
+  currentIndex,
+  array
+) {
+  return accumulator + currentValue;
+},
+10);
+```
+
+|  callback  | accumulator | currentValue | currentIndex |      array      | return value |
+| :--------: | :---------: | :----------: | :----------: | :-------------: | :----------: |
+| 1번째 호출 |     10      |      0       |      0       | [0, 1, 2, 3, 4] |      10      |
+| 2번째 호출 |     10      |      1       |      1       | [0, 1, 2, 3, 4] |      11      |
+| 3번째 호출 |     11      |      2       |      2       | [0, 1, 2, 3, 4] |      13      |
+| 4번째 호출 |     13      |      3       |      3       | [0, 1, 2, 3, 4] |      16      |
+| 5번째 호출 |     16      |      4       |      4       | [0, 1, 2, 3, 4] |      20      |
+
+위의 표를 보면 이해가 쉽다.
+
+initialValue가 10이고, callback 함수가 accumulator에 currentValue를 더해주는 형태이다.
+
+즉, 등차수열에서 공차 d가 1이라고 생각하면, initialValue는 a(1)이고, callback 함수는 d가 된다.
+
+물론 reduce가 등차수열로만 적용되는 것은 아니고 다양한 용도로 사용할 수 있지만, 이렇게 이해들 해두고 나머지는 응용을 하면 되겠다.
+]]></content>
+        <author>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </author>
+        <category label="javascript"/>
+        <category label="reduce"/>
+        <contributor>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA['[NEXT] page.js (with App Router)']]></title>
+        <id>2023-07-11-141-next-page-app-router</id>
+        <link href="https://next13-blog-mu.vercel.app/2023-07-11-141-next-page-app-router"/>
+        <updated>2023-07-11T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+
+## Props
+
+NEXT.JS에서는 기본적으로 컴포넌트에 Props로 params와 searchParams를 전달해준다.
+
+상위 컴포넌트에서 아무런 Props를 전달하지 않아도 params와 searchParams를 사용할 수 있다.
+
+```js
+export default function Page({
+  params,
+  searchParams,
+}: {
+  params: { slug: string }
+  searchParams: { [key: string]: string | string[] | undefined }
+}) {
+  return <h1>My Page</h1>
+}
+```
+
+## params
+
+`params`: URL의 path에 있는 동적 경로 파라미터를 담고 있는 객체이다.
+
+예를 들면 아래와 같다.
+
+| Example                            | URL       | params                       |
+| :--------------------------------- | :-------- | :--------------------------- |
+| app/shop/[slug]/page.js            | /shop/1   | { slug: '1' }                |
+| app/shop/[category]/[item]/page.js | /shop/1/2 | { category: '1', item: '2' } |
+| app/shop/[...slug]/page.js         | /shop/1/2 | { slug: ['1', '2'] }         |
+
+예전에 나는 useRouter를 사용해서 params를 가져왔었는데, 이제는 이렇게 간단하게 가져올 수 있다.
+
+## searchParams
+
+`searchParams`: URL의 query string에 있는 파라미터를 담고 있는 객체
+
+| URL           | searchParams       |
+| :------------ | :----------------- |
+| /shop?a=1     | { a: '1' }         |
+| /shop?a=1&b=2 | { a: '1', b: '2' } |
+| /shop?a=1&a=2 | { a: ['1', '2'] }  |
+
+## useRouter 변경사항
+
+그리고 이와 관련하여 몇가지 달라진 점이 있다. 특히 내가 많이 사용하던 것들 중에 달라진 사항이 있어 정리해봤다.
+
+> 새로운 useRouter는 import시 next/navigation에서 가져와야한다.(기존 next/router)
+
+> 문자열 pathname은 usePathname()으로 대체되었다.
+
+> 문자열 query는 useQuery()로 대체되었다.
+]]></content>
+        <author>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </author>
+        <category label="nextjs"/>
+        <category label="react"/>
+        <category label="app-router"/>
+        <category label="pagejs"/>
+        <contributor>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA['React server component와 Next.js']]></title>
+        <id>2023-07-11-143-react-nextjs-server-component</id>
+        <link href="https://next13-blog-mu.vercel.app/2023-07-11-143-react-nextjs-server-component"/>
+        <updated>2023-07-11T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+
+React 18 버전에서 새로 추가된 기능 중 하나가 바로 server component이다.
+
+아직 많이 쓰이는 것 같지는 않지만, Next.js에서도 app router가 정식 버전으로 나오면서 server component를 지원한다고 한다.
+
+그래서 이에 대해 조금 공부해보았다.
+
+## React server component는 왜 나왔을까?
+
+### 번들 사이즈 최적화
+
+React18 이전의 리액트 컴포넌트는 한마디로 '클라이언트' 컴포넌트였다.
+
+그래서 모든 것이 브라우저에서 실행되었다.(CSR인 경우)
+
+코드를 다운로드 하고, DOM에 렌더링하고, Data를 fetch하고, 이벤트를 처리하는 것까지 모두 브라우저에서 수행되었다.
+
+이는 번들 사이즈가 커지는 원인이 되었다.
+
+하지만 서버에서 렌더링을 할 수 있게 된다면, 브라우저에서 수행할 작업을 줄일 수 있고, 번들 사이즈를 줄일 수 있게 된다.
+
+즉, 그동안 브라우저에서 하던 일을 서버와 브라우저가 나눠서 작업을 할 수 있게 되는 것이다.
+
+### 서버 리소스 리소스 접근
+
+서버는 데이터 베이스, GraphQL, 파일시스템 등 데이터 리소스에 빠르게 접근할 수 있고, 이를 클라이언트 컴포넌트에 Props로 전달할 수 있다.
+
+### 서버 컴포넌트와 SSR
+
+나도 착각 했던 것 중 하나인데 RSC는 SSR과는 다르다.
+
+`server`라는 단어가 둘다 들어가서 딱 착각하기 좋은 듯하다.
+
+좋은 내용이 있어서 아래에 인용해봤다.
+
+> Does this(RSC) replace SSR?
+
+> No, they’re complementary. SSR is primarily a technique to quickly display a non-interactive version of client components. You still need to pay the cost of downloading, parsing, and executing those Client Components after the initial HTML is loaded.
+> You can combine Server Components and SSR, where Server Components render first, with Client Components rendering into HTML for fast non-interactive display while they are hydrated. When combined in this way you still get fast startup, but you also dramatically reduce the amount of JS that needs to be downloaded on the client.
+
+## Next.js에서의 RSC
+
+얼마전에 app router가 정식 버전으로 나왔다.
+
+많은 변화가 있었지만 가장 큰 변화는 아마 app 폴더가 생긴 것이 아닐까 싶다.
+
+기존 버전의 Next.js에서는 pages 폴더에 있는 컴포넌트를 전부 클라이언트 컴포넌트로 취급하였다.
+
+그리고 이번 버전에 추가된 app 폴더는 디폴트로 모든 컴포넌트를 서버 컴포넌트 취급을 한다.
+
+> 당분간은 pages폴더와 app폴더를 같이 사용할 수 있다고 한다.
+
+### 무엇이 달라지는가?
+
+서버 컴포넌트와 클라이언트 컴포넌트를 구분하여 사용할 줄 알아야 할 것 같다.
+
+서버 컴포넌트는 Node.js 환경에서 실행되고, 클라이언트 컴포넌트는 브라우저 환경에서 실행된다.
+
+그렇기 때문에 서버 컴포넌트에서는 기존에 우리가 사용했던 Browser APIs, 이벤트, React Lifecycle Effect, Hooks 등을 사용할 수 없다.
+
+기존처럼 사용하기 위해서는 아래와 같이 최상단에 `use client`를 선언해주면 된다.
+
+```js
+'use client';
+
+import { useState } from 'react';
+
+export default function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>Click me</button>
+    </div>
+  );
+}
+```
+
+## Reference
+
+- [https://github.com/reactjs/rfcs/blob/main/text/0188-server-components.md](https://github.com/reactjs/rfcs/blob/main/text/0188-server-components.md)
+- [https://tech.kakaopay.com/post/react-server-components/](https://tech.kakaopay.com/post/react-server-components/)
+- [https://yceffort.kr/2022/01/how-react-server-components-work](https://yceffort.kr/2022/01/how-react-server-components-work)
+]]></content>
+        <author>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </author>
+        <category label="react"/>
+        <category label="rsc"/>
+        <category label="next.js"/>
+        <contributor>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA['렌더링의 종류와 용어 정리']]></title>
+        <id>2023-07-10-140-frontend-of-term</id>
+        <link href="https://next13-blog-mu.vercel.app/2023-07-10-140-frontend-of-term"/>
+        <updated>2023-07-10T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+
+# 렌더링의 종류와 용어 정리
+
+현업에서 CSR만 사용해봐서 다른 렌더링 방식에 대해서 알아보다가 용어 정리가 좀 필요한 것 같아서 정리해봤다.
+
+## CSR : client side rendering
+
+- 렌더링의 주체 : Browser
+- 렌더링의 과정
+  - 빈 HTML 파일을 받아온다
+  - JS 파일을 받아온다
+  - JS 파일을 실행한다
+  - 데이터를 받아온다
+  - DOM Tree를 만든다
+  - HTML을 렌더링한다
+
+### 장점
+
+- 한번만 로딩(HTML, JS)이 되면 이후에는 빠르게 렌더링이 가능하다
+- 서버의 부하가 적다
+- 변경되는 일부분만 렌더링이 가능하다
+
+### 단점
+
+- TTV, FCP 시간이 길다.
+
+  > TTV : time to view, 유저가 화면을 볼때까지의 시간
+  > FCP : first contentful paint, 유저가 화면에 처음으로 무언가를 볼 수 있는 시간
+
+- SEO 최적화가 어렵다.
+
+## SSG : static site generation
+
+- 렌더링의 과정 : 빌드할 때 HTML 파일을 렌더링하여 정적 사이트를 생성한다.
+
+### 장점
+
+- 페이지 로딩이 빠르다.
+- SEO 최적화가 가능하다.
+
+### 단점
+
+- 데이터가 정적이고 실시간 데이터가 아니다.
+
+## ISR : incremental static regeneration
+
+- 렌더링 과정 - SSG 처럼 빌드 시 HTML 파일을 렌더링하여 정적 사이트를 생성한다. 그리고 정해진 주기에 따라 정적 사이트를 재생성한다.
+
+### 장점
+
+- SSG + 데이터가 업데이트 된다.
+- SEO 최적화가 가능하다.
+
+### 단점
+
+- 하지만 실시간 데이터가 아니다.
+
+## SSR : server side rendering
+
+- 렌더링의 주체 : Server
+- 렌더링의 과정
+  - 유저의 요청을 받는다.
+  - Server가 요청을 받아서 데이터를 받아온다.
+  - Server가 HTML을 렌더링한다.
+  - Server가 렌더링된 HTML을 유저에게 전달한다.
+
+### 장점
+
+- TTV, FCP 시간이 짧다.
+- SEO 최적화가 가능하다.
+- 실시간 데이터를 사용한다.
+
+### 단점
+
+- SSG, ISR과 비교했을 때 비교적 느릴 수 있다
+- 서버의 부하(Overhead)가 크다.
+]]></content>
+        <author>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </author>
+        <category label="rendering"/>
+        <category label="csr"/>
+        <category label="isr"/>
+        <category label="ssg"/>
+        <category label="ssr"/>
+        <contributor>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA['[알고리즘]최대공약수와 최소공배수']]></title>
+        <id>2023-06-23-139-algorithm</id>
+        <link href="https://next13-blog-mu.vercel.app/2023-06-23-139-algorithm"/>
+        <updated>2023-06-23T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+
+최근 알고리즘 문제를 풀다가 최대공약수와 최소공배수를 활용하는 문제가 있었다.
+
+문제를 풀긴 풀었지만, 최대공약수와 최소공배수의 경우에는 공식이 이미 존재하기 때문에
+
+잘 알아두면 시간을 절약하기 좋을 것 같아서 정리해 보았다.
+
+## 최대 공약수(greatest common divisor)
+
+유클리드 호제법을 이용하여 최대 공약수를 구하는 방법을 코드로 구현해 보았다.
+
+```javascript
+const getGcd = (a, b) => {
+  while (b > 0) {
+    let temp = b;
+    b = a % b;
+    a = temp;
+  }
+  return a;
+};
+```
+
+재귀적으로도 구현 가능할 것 같아 작성을 해봤다.
+
+```javascript
+const getGcd = (a, b) => {
+  if (b === 0) {
+    return a;
+  }
+  return getGcd(b, a % b);
+};
+```
+
+## 최소 공배수(least common multiple)
+
+최소 공배수는 위의 최대 공약수를 이용하면 쉽게 구할 수 있다.
+
+```javascript
+const lcm = (a, b) => {
+  return (a * b) / gcd(a, b);
+};
+```
+]]></content>
+        <author>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </author>
+        <category label="algorithm"/>
+        <category label="javascript"/>
+        <category label="gcd"/>
+        <category label="lcm"/>
+        <contributor>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA['[책읽기]refactoring - 챕터 1']]></title>
+        <id>2023-05-07-138-refactoring-1</id>
+        <link href="https://next13-blog-mu.vercel.app/2023-05-07-138-refactoring-1"/>
+        <updated>2023-05-07T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+
+## 샘플 코드
+
+- [리팩토링 전 코드](https://github.com/nostrss/book-refactoring/tree/ef7e94134633027ad7a61d140184751e64422a16/chapter-01)
+
+- [리팩토링 후 코드](https://github.com/nostrss/book-refactoring/tree/main/chapter-01)
+
+## 챕터 1
+
+저자는 자기가 명명한 리팩터링의 규칙과 기법(?)을 의거하며 샘플 코드를 리팩토링을 하는 법을 단계별로 보여준다.
+
+예시를 통해서 리팩터링이 무엇인지 감을 잡는 챕터이다. 하지만..
+
+> 아니 챕터1 부터 왜 이렇게 복잡하지?
+
+라는 생각이 들게 한다.
+
+그리고 눈으로만 코드를 보니 괄호가 눈에 잘 들어오지 않아서, 나는 저자의 코드를 직접 작성하면서 책을 정독했다.
+
+챕터1만 보는데 반나절은 걸린 것 같다...
+
+## 리팩터링 기법
+
+저자는 앞으로 뒷장에서 더 자세히 리팩터링의 기법에 대해서 다룰 예정이라고 했지만, 몇가지 인상적인 내용이 있었다.
+
+### 변수 인라인하기
+
+**리팩터링 전**
+
+```javascript
+for (let perf of invoice.performances) {
+  const play = playFor(perf);
+  let thisAmout = amountFor(perf, play);
+}
+```
+
+**리팩터링 후**
+
+```javascript
+for (let perf of invoice.performances) {
+  // const play = playFor(perf);
+  let thisAmout = amountFor(perf, playFor(perf));
+}
+```
+
+저자는 위의 방식 대신 아래의 방식으로 리팩터링을 진행하며 이를 `변수 인라인하기`라고 부른다.
+
+변수 `play`가 하나 제거 되기는 장점이 있긴 한데, 개인적으로는 그동안 위의 방식이 보기 좋아서 많이 사용했던 방식이었다.
+
+왜 저자가 이렇게 수정을 하는지 궁금해지는 부분이다.
+
+### 조건부 로직을 다형성으로 바꾸기
+
+**리팩터링 전**
+
+```javascript
+function amountFor(aPerformance) {
+  let result = 0;
+  switch (aPerformance.play.type) {
+    case 'tragedy': // 비극
+      result = 40000;
+      if (aPerformance.audience > 30) {
+        result += 1000 * (aPerformance.audience - 30);
+      }
+      break;
+    case 'comedy': // 희극
+      result = 30000;
+      if (aPerformance.audience > 20) {
+        result += 10000 + 500 * (aPerformance.audience - 20);
+      }
+      result += 300 * aPerformance.audience;
+      break;
+    default:
+      throw new Error(`알 수 없는 장르: ${aPerformance.play.type}`);
+  }
+  return result;
+}
+```
+
+**리팩터링 후**
+
+```javascript
+class PerformanceCalculator {
+  constructor(aPerformance, aPlay) {
+    this.performance = aPerformance;
+    this.play = aPlay;
+  }
+
+  get amount() {
+    throw new Error('서브클래스에서 처리하도록 설계되었습니다.');
+  }
+
+  get volumeCredits() {
+    return Math.max(this.performance.audience - 30, 0);
+  }
+}
+
+class TragedyCalculator extends PerformanceCalculator {
+  get amount() {
+    let result = 40000;
+    if (this.performance.audience > 30) {
+      result += 1000 * (this.performance.audience - 30);
+    }
+    return result;
+  }
+}
+class ComedyCalculator extends PerformanceCalculator {
+  get amount() {
+    let result = 30000;
+    if (this.performance.audience > 20) {
+      result += 10000 + 500 * (this.performance.audience - 20);
+    }
+    result += 300 * this.performance.audience;
+    return result;
+  }
+  get volumeCredits() {
+    return super.volumeCredits + Math.floor(this.performance.audience / 5);
+  }
+}
+```
+
+저자는 switch를 이용한 조건부 로직을 다형성(polymorphism)을 활용하여 수정하였다.
+
+현업에서도 조건에 따른 분기마다 별도의 로직을 적용해야 하는경우가 아주 많다.
+
+그럴때면 if else 의 지옥에 빠져 엄청나게 긴 코드를 봐야 하는 경우가 많았다.
+
+class 문법이 익숙하지 않은 나지만 현실적으로 아주 와 닿는 리팩터링 방법이었다.
+
+## 후기
+
+생각보다 단계별로 설명이 알차게 되어 있다. 무언가 책이 단단하고 알찬 느낌이다.
+
+오래 걸릴 것 같긴한데 완독 해보자 ㅎㅎ
+]]></content>
+        <author>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </author>
+        <category label="book"/>
+        <category label="refactoring"/>
+        <category label="javascript"/>
+        <contributor>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA['[책읽기]refactoring']]></title>
+        <id>2023-05-05-137-refactoring-0</id>
+        <link href="https://next13-blog-mu.vercel.app/2023-05-05-137-refactoring-0"/>
+        <updated>2023-05-05T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+
+## 좋은 코드란 어떤걸까?
+
+회사를 다니기 전에 좋은 코드에 대한 나의 생각은 아래와 같았다.
+
+> 짧고 간결한 코드
+
+> 최적화가 잘 되어 있는 코드
+
+하지만 회사를 다니면서 추가된 내용이 있다.
+
+> 알아보기 쉬운 코드
+
+> 유지 보수가 쉬운 코드
+
+> 기능 추가가 쉬운 코드
+
+기존의 생각과는 조금 다른 방향성이 생겨 난 것이다.
+
+### 왜?
+
+혼자 개발을 한다면 이런 생각이 들지 않았을 것 같다.
+
+하지만 회사에서 동료들과 함께 일을 하다보니 누군가가 작성한 코드를 봐야 하는 일이 자주 생겼다. 그리고 반대로 내가 작성한 코드를 다른 사람이 수정해야 하는 일도 있었다.
+
+이때 서로 다른 스타일의 코드를 보면서 분석하는데 많은 시간을 들였던 기억이 있다.
+
+또한 동료가 작성한 코드를 수정하다 보면 예상치 못한 사이드 이펙트가 발생하는 경우가 발생하는 일도 많았다. 여기에 정말 간단한 기능을 추가하는데, 예상보다 수정의 범위가 넓어져서 당황스러운 경우도 있었다.
+
+회사에 시니어 개발자가 없다 보니 이에 대한 갈증이 생겨날 수 밖에 없었는데 마땅한 해결방법을 찾기 어려웠다. chat-gpt, 구글검색, 유튜브를 아무리 들여봐도 깊이가 느껴지지 않았고, 정보를 탐색하는 시간만 길어지는 느낌이 들었다.
+
+## 책 한번 읽어 볼까?
+
+그러다 회사 업무 때문에 대표님이 얇은 책 한 권을 읽어 오라고 했다.
+
+[프로그레시브 웹 앱](http://www.yes24.com/Product/UsedShopHub/Hub/92456411)
+
+<img width="240" alt="프로그레시브 웹 앱" src="http://image.yes24.com/Goods/92456411/XL">
+
+정말 오랜 만에 읽는 책을 읽어 봤는데, 그래서 인지 느낌이 남달랐다. 유튜브나, 블로그와 달리 작가의 내공이 느껴졌다고 해야할까?
+
+책이 앏야서, 아니면 작가의 필력이 좋아서 그랬을지 모르지만 그 느낌이 너무 좋았다.
+
+그래서 이번에는 조금 더 두껍고 어려운 책을 읽어 보려고 한다.
+
+### 리팩터링
+
+[리팩터링 2판](http://www.yes24.com/Product/UsedShopHub/Hub/89649360)
+
+<img width="240" alt="프로그레시브 웹 앱" src="http://image.yes24.com/Goods/89649360/XL">
+
+이 책을 선택한 이유
+
+- 유튜브에서 추천 영상이 많았다..
+- 1판의 경우 java로 예제 코드가 작성되어 있었는데, 2판에서는 javascript로 되어 있다.
+- 1판에 대한 좋은 평가 글이 많았다.
+
+자, 책은 준비했고 한번 읽어보자.
+]]></content>
+        <author>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </author>
+        <category label="book"/>
+        <category label="refactoring"/>
+        <category label="javascript"/>
+        <contributor>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA['typedoc으로 프론트엔드 문서 만들기']]></title>
+        <id>2023-03-13-136-typedoc-gh-pages</id>
+        <link href="https://next13-blog-mu.vercel.app/2023-03-13-136-typedoc-gh-pages"/>
+        <updated>2023-03-13T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+
+회사에서든, 개인적으로 집에서 코드를 볼 때마다
+
+> 이 변수는 뭐지?
+
+> 이 함수는 무슨 작동을 하는거지?
+
+라는 생각을 하면서 코드를 살펴보곤 한다.
+
+그래서 다음에 볼때는 좀 더 알아 보기 쉽게 하려고 주석을 열심히 달기도 한다.
+
+그러다 API 명세처럼 프론트 소스코드들도 문서화 해주는 방법이 없을까 해서 알아보다가 typedoc을 통해서 문서화 할 수 있는 방법을 찾아서 적용해 봤다.
+
+## typedoc이란?
+
+[typedoc 공식 홈페이지 바로가기](https://typedoc.org/)
+
+[typedoc 예제](https://typedoc.org/example/)
+
+typedoc은 소스코드에 포함된 주석으로 html 문서를 만들어주는 패키지이다.
+
+별도로 문서를 작성하는 시간을 들일 필요없이 소스코드에 작성하면 바로 빌드하여 문서화 할 수 있는 장점이 있다.
+
+## typedoc 설치하기
+
+```bash
+// Install
+
+npm install --save-dev typedoc
+```
+
+## typedoc 설정하기
+
+tsconfig.json에 아래와 같이 entryPoints를 지정해줘야 한다.
+
+entryPoints는 TypeDoc이 문서화할 TypeScript 파일의 진입점을 지정하는 데 사용되고, 진입점이 여러 곳일 경우에는 배열로 여러개 지정해줄 수 있다.
+
+out은 빌드파일이 생성될 경로이다.
+
+```json
+ "typedocOptions": {
+    "entryPoints": ["src/pages/index.tsx"],
+    "out": "docs"
+  }
+```
+
+## typedoc 문서 생성하기
+
+문서를 생성하는 명령어는 아래와 같다.
+
+```bash
+npx typedoc src/index.ts
+```
+
+하지만, 위와 같이 작성하면 하위에 있는 소스코드 파일의 주석들은 문서로 만들어지지 않는 단점이 있었다.
+
+그래서 찾은 방법이 아래의 명령어이다. 이렇게 입력하면, entrypoints부터 시작하여 하위 폴더의 파일들까지 전부 문서로 만들어 준다.
+
+```bash
+npx typedoc --entryPointStrategy expand ./src
+```
+
+## 결과물
+
+나 같은 경우 빌드된 문서를 언제든지 웹에서 볼 수 있도록 gh-pages를 이용해 git-hub page에 배포를 해두었다.
+
+[typedoc 으로 생성한 문서 보기](https://nostrss.github.io/nextjs-blog/)
+]]></content>
+        <author>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </author>
+        <category label="react"/>
+        <category label="nextjs"/>
+        <category label="typedoc"/>
+        <contributor>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA['나만의 Boilerplate를 github template로 만들기 ']]></title>
+        <id>2023-03-12-135-github-template</id>
+        <link href="https://next13-blog-mu.vercel.app/2023-03-12-135-github-template"/>
+        <updated>2023-03-12T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+
+매번 새로운 프로젝트를 시작할 때 마다 똑같이 반복해서 작업하는 일이 있다.
+
+```bash
+// 설치하기..
+npx create-react-app
+npx create-next-app
+npx eslint init
+(등등등)
+
+// 설정하기
+package.json
+tsconfig.json
+.eslintrc.js
+.gitignore
+next.config.js
+(등등등)
+```
+
+이렇게 setting 하는 것도 사실 한 번에 잘 되지 않으면 상당히 시간을 소모하는 작업이 되는 경우가 있다. (바로 오늘 내가 그랬다..)
+
+그래서 나만의 boilerplate를 만들어서 git-hub에 템플릿으로 만들어두고 사용해보려고 한다.
+
+## Boilerplate 준비하기
+
+> boilerplate는 다른 프로젝트에서 재사용할 수 있는 코드와 파일들의 집합입니다. 예를 들어, React 프로젝트를 시작할 때마다 같은 파일들을 만들어야 한다면, 이 파일들을 boilerplate에 추가하여 다음에 프로젝트를 시작할 때 boilerplate를 사용하면 됩니다. 이렇게 boilerplate를 사용하면 새로운 프로젝트를 시작할 때 시간을 절약할 수 있습니다.
+
+내가 만들 Boilerplate 내용은 아래와 같다
+
+- Next.js
+- typescript
+- eslint : airbnb
+- prettier
+
+최소한의 세팅 내용이다.
+
+css, 상태관리 라이브러리 등등은 상황을 보면서 추가할 예정이다.
+
+준비가 된 코드는 github에 푸쉬해 두자.
+
+[Boilerplate 소스코드 보러가기](https://github.com/nostrss/next-lint-airbnb)
+
+## Github Template Repository 설정하기
+
+- Repository > setting
+
+<img width="896" alt="스크린샷 2023-03-12 오후 3 29 52" src="https://user-images.githubusercontent.com/56717167/224528416-52760c3d-5bbc-48b7-a621-5895b33d5645.png">
+
+- Template Repository 체크박스 On
+
+<img width="896" alt="스크린샷 2023-03-12 오후 3 31 51" src="https://user-images.githubusercontent.com/56717167/224528454-ee44b6d9-6130-4c74-b9a5-c00e8bf42405.png">
+
+이게 끝이다. 앞으로 이 Repository를 Template로 바로 사용할 수 있다.
+
+## Template 사용하기
+
+새로운 Repository를 생성해보자.
+
+그때 select box를 클릭 해보면, 방금 설정한 Template Repository가 옵션으로 나오게 된다.
+
+<img width="896" alt="스크린샷 2023-03-12 오후 3 34 34" src="https://user-images.githubusercontent.com/56717167/224528579-56d922bb-ecbe-489e-bf96-05adf896b723.png">
+
+옵션을 선택하고 Repository를 만들게 되면 똑같은 Repository가 생성이 되고 바로 이어서 추가 설정 및 작업을 시작 하면 된다.
+
+## fork와의 차이점
+
+Repolistory를 fork해서 그냥 사용하는 것과 차이가 없게 느껴질 수 있는데, 몇가지 다른 점이 있다.
+
+- 새 포크에는 부모 리포지토리의 전체 커밋 기록이 포함되며 템플릿에서 만든 리포지토리는 단일 커밋으로 시작합니다.
+- 포크에 대한 커밋은 기여 그래프에 표시되지 않지만 템플릿에서 만든 리포지토리에 대한 커밋은 기여 그래프에 표시됩니다.
+- 포크는 템플릿에서 리포지토리를 만들면 새 프로젝트를 빠르게 시작하는 동시에 기존 프로젝트에 코드를 기여하는 임시 방법이 될 수 있습니다.
+
+[자세한 내용보러가기](https://docs.github.com/ko/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)
+]]></content>
+        <author>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </author>
+        <category label="github"/>
+        <category label="template"/>
+        <category label="boilerplate"/>
+        <contributor>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA['Next.js SSR, SSG를 Vercel에 배포하기(3)']]></title>
+        <id>2023-03-11-134-nextjs-vercel-3</id>
+        <link href="https://next13-blog-mu.vercel.app/2023-03-11-134-nextjs-vercel-3"/>
+        <updated>2023-03-11T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+
+[전체 소스코드](https://github.com/nostrss/next-render)
+
+[DEMO](https://next-render-hjuyogs9h-nostrss.vercel.app/)
+
+이제 소스코드를 `vercel`에 배포해 볼 차례이다.
+
+먼저 지금까지의 소스코드를 Git-hub에 `Push` 해두도록 하자.
+
+## Vercel 회원가입
+
+[Vercel 바로가기](https://vercel.com/)
+
+## Git-hub 계정 연결, Repository 연결하기
+
+먼저 자신의 Git-Hub 계정을 연결,선택 해준다.
+
+그러면 아래와 같이 Git-hub에 있는 나의 Repository들이 쭉 나오게 된다.
+
+<img width="719" alt="스크린샷 2023-03-11 시간: 17 01 41" src="https://user-images.githubusercontent.com/56717167/224472922-42ca6284-e54d-49aa-bc65-a4994734769c.png">
+
+그 중에 배포하고자 하는 Repository를 선택, import 해보자.
+
+### Repository가 보이지 않는 경우
+
+깃허브에서 Vercel Application 설정을 확인해보자
+
+- Github > setting > applications > Configure
+
+<img width="1130" alt="스크린샷 2023-03-11 시간: 17 10 45" src="https://user-images.githubusercontent.com/56717167/224473134-2e92f816-a6a7-4c3a-a6fc-1cab6946d03d.png">
+
+나 같은 경우에는 여기서 `All Repositories`에 접근 가능하도록 허용하니 해결이 되었다.
+
+<img width="817" alt="스크린샷 2023-03-11 시간: 17 12 12" src="https://user-images.githubusercontent.com/56717167/224473168-2ba0fee4-e912-47b0-9252-ee2aa1a792ea.png">
+
+## Build & Deploy
+
+위와 같이 설정을 하면 화면이 바뀌면서 자동으로 배포가 진행되기 시작한다.
+
+배포가 완료되면 아래 사진과 같이 결과를 볼 수 있다.
+
+<img width="1259" alt="스크린샷 2023-03-11 시간: 16 56 34" src="https://user-images.githubusercontent.com/56717167/224473392-592499ba-d9a2-4c01-a2c3-9474b31db0fe.png">
+
+배포 결과를 볼수 있는 url, 연결된 branch 등을 확인 할 수 있다.
+
+나 같은 경우에는 현재 main 브랜치를 연결해 두었다.
+
+## 후속 배포
+
+Vercel에 연결되어 있는 branch에 소스코드가 푸쉬되는 순간 vercel에서 자동으로 빌드하여 배포가 진행된다.
+
+별도로 사용자가 npm run build 와 같은 명령어를 사용할 필요가 없다.
+
+터미널에서 빌드 오류가 나듯 vercel에서도 빌드 오류가 발생 하면 배포가 진행되지 않으니, 코드를 push 하고 build와 배포가 끝까지 완료 되었는지 확인 할 필요가 있다.
+]]></content>
+        <author>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </author>
+        <category label="Next"/>
+        <category label="ssr"/>
+        <category label="ssg"/>
+        <category label="vercel"/>
+        <category label="deploy"/>
+        <contributor>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA['Next.js SSR, SSG를 Vercel에 배포하기(2)']]></title>
+        <id>2023-03-05-133-nextjs-vercel-2</id>
+        <link href="https://next13-blog-mu.vercel.app/2023-03-05-133-nextjs-vercel-2"/>
+        <updated>2023-03-05T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+
+[전체 소스코드](https://github.com/nostrss/next-render)
+
+[DEMO](https://next-render-hjuyogs9h-nostrss.vercel.app/)
+
+작품 리스트를 `SSR`로 구현해봤으니, 이번에는 `SSG`를 구현해보려고 한다.
+
+리스트 중에 하나를 클릭 했을 때 상세 화면으로 넘어가고
+
+상세화면은 `SSG`로 렌더링 되도록 할 예정이다.
+
+## 작품 상세 페이지 SSG 구현
+
+### API
+
+> 사용할 API : [Art Institute of Chicago API](https://api.artic.edu/docs/)
+
+### SSG 구현 코드
+
+> [SSG로 구현된 전체 소스코드](https://github.com/nostrss/next-render/blob/main/src/pages/%5Bid%5D/index.jsx)
+
+## 구현 내용
+
+### getStaticProps
+
+[getStaticProps 문서 보러가기](https://nextjs.org/docs/basic-features/data-fetching/get-static-props)
+
+- `getStaticProps`는 빌드 시 api 통신 응답값을 받아 미리 html 파일을 생성해둔다.
+- 즉, 운영에 배포 되면 유저는 백엔드 서버와의 통신 결과물을 보는 것이 아니라, 이미 빌드되어 있는 `html` 정적파일을 브라우저로 다운 받아 보는 것이다
+- 따라서 빌드시 api 통신이 성공하지 않으면 당연히 빌드 에러가 발생한다.
+- 그리고 해당 페이지 접속 시 로딩이 엄청나게 빠르다.(당연히 이미 렌더링되어 있었으니깐..)
+- 또 당연하지만 페이지 소스를 보면 api응답 값들이 이미 채워져 있다.
+
+```javascript
+export async function getStaticProps(context) {
+  const id = context.params.id;
+  const apiUrl = `https://api.artic.edu/api/v1/artworks/${id}`;
+  const res = await fetch(apiUrl);
+  const data = await res.json();
+  return {
+    props: {
+      detailData: data.data,
+    },
+  };
+}
+```
+
+위의 코드는 빌드 시 api 통신 응답값을 클라이언트 컴포넌트에 props로 전달하는 역할을 한다.
+
+`SSR`과 다른 점은 이것이 `빌드(build)`시 이루어진다는 것이다.
+
+`npm run build` 또는 `yarn build` 커맨드를 입력하는 순간 이미 페이지가 만들어지는 것이다.
+
+하지만 내가 작성한 코드에서는 위와 같이 작성하면 에러가 발생하였다.
+
+이유는 getStaticProps가 `dynamic routing`페이지는 렌더링 하지 못하기 때문이다.
+
+이 때 필요한 것이 `getStaticPaths`이다.
+
+### getStaticPaths
+
+[getStaticPaths 문서 보러가기](https://nextjs.org/docs/basic-features/data-fetching/get-static-paths)
+
+- `getStaticPaths`는 `dynamic routing`으로 동적으로 변하는 path 정보를 `getStaticProps`에 전달하는 역할을 한다.
+- 이 path 정보로 `getStaticProps`는 빌드 시 api를 호출하고 응답값을 받아 정적인 페이지를 생성하는 것이다.
+
+```javascript
+export async function getStaticPaths() {
+  return {
+    paths: [
+      { params: { id: '14556' } },
+      { params: { id: '11434' } },
+      { params: { id: '16487' } },
+    ],
+    fallback: true,
+  };
+}
+```
+
+위의 코드를 보면 id 3개를(14556, 11434, 16487) path 정보로 `getStaticProps`에 전달하고 있다.
+그렇다면 빌드 시 `getStaticProps`는 3개의 id로 api 통신을 하고 응답값을 받아 정적인 페이지를 생성할 것이다.
+
+빌드를 해보자.
+
+<img width="653" alt="빌드결과" src="https://user-images.githubusercontent.com/56717167/223434906-0b966c54-52b2-4203-8dce-d04545523d62.png">
+
+정적 페이지 3개가 빌드 되었다고 빌드 결과에서 확인 할 수 있다.
+
+실제 빌드 폴더에서 확인해보자.
+
+<img width="311" alt="빌드결과" src="https://user-images.githubusercontent.com/56717167/223431594-d1ab3bdb-9b3d-4e44-b23f-e115ee450e5f.png">
+
+빌드 폴더에 내가 지정한 14556, 11434, 16487 html 파일이 생성된 것을 볼 수 있었다.
+
+그렇다면 여기서 또 다른 의문이 생기게 된다...
+
+> 작품의 개수가 100개라면, getStaticPaths에 100개의 정보를 입력해야 하는건가?
+
+#### fallback(Generating paths on-demand)
+
+다시 한번 `getStaticPaths` 코드를 살펴보자.
+
+```javascript
+    fallback: true, // 이건 무엇을 하는 걸까??
+```
+
+`Next.js`에서는 우리의 이런 요구를 예상한듯 이미 준비를 해두었는데, 바로 `fallback`을 이용하는 것이다.
+
+모든 페이지를 전부 빌드하는 것이 아니라 필요할 때 마다 정적 페이지를 생성하는 것이다.
+
+위의 코드를 다시 풀어서 설명하면
+
+> id 3개는 미리 페이지를 정적 생성하고
+
+> 나머지 dynamic routing 페이지는 유저가 접속하면 그때 그때 페이지를 생성해줘
+
+라는 의미로 이해하면 된다.
+
+여기서 `fallback:true`는 필요할 때마다 정적 페이지를 생성한다라는 옵션인 것이다.
+
+실제로 생성 되는 지 확인 해보자.
+
+빌드 후 `Production` 모드로 실행을 하자
+
+> yarn build
+
+> yarn start
+
+그리고 몇몇 페이지를 방문해봤다.
+
+<img width="285" alt="falback설정후" src="https://user-images.githubusercontent.com/56717167/223436734-fc917c7d-0082-40a5-a5fb-40a0bb9ceba5.png">
+
+내가 지정한 3개의 id외 2개의 페이지가 새롭게 생겨난 것을 볼 수 있었다.
+
+신기한 기능이긴 한데 몇가지 의문점이 들었다.
+
+> 서비스를 운영하다 보니 약 10,000개의 정적 페이지들이 생겼다.
+
+> 용량적으로 문제는 없는 건가?
+
+> 만약 새롭게 build를 하게 되는 경우 기존에 쌓여있던 정적 페이지들은 전부 사라지는 건가?
+
+실무에서는 SSG를 어떻게 쓰고 있을까..
+]]></content>
+        <author>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </author>
+        <category label="Next"/>
+        <category label="ssr"/>
+        <category label="ssg"/>
+        <category label="vercel"/>
+        <category label="deploy"/>
+        <contributor>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA['Next.js SSR, SSG를 Vercel에 배포하기(1)']]></title>
+        <id>2023-03-05-132-nextjs-vercel</id>
+        <link href="https://next13-blog-mu.vercel.app/2023-03-05-132-nextjs-vercel"/>
+        <updated>2023-03-05T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+
+[전체 소스코드](https://github.com/nostrss/next-render)
+
+[DEMO](https://next-render-hjuyogs9h-nostrss.vercel.app/)
+
+최근 공부의 목적에 대해 갈팡질팡하다가 rendering에 대해 부쩍 관심이 생겼다.
+
+그래서 공부할 겸 Next.js의 SSR(server siede rendering)과 SSG 렌더링을 간단히 구현해서 배포를 해봤다.
+
+## 프로젝트 준비하기
+
+### API
+
+먼저 렌더링할 데이터를 fetch할 api가 필요했다.
+
+최대한 간단히 구현하고 싶어서 auth,cors를 신경 쓸 필요 없는 api를 하나 찾았다.
+
+> 사용할 API : [Art Institute of Chicago API](https://api.artic.edu/docs/)
+
+### 구현할 페이지
+
+- 작품 리스트 페이지 : SSR
+- 작품 상세 페이지 : SSG
+
+이렇게 2개의 페이지만 있으면 될 듯 하다.
+
+페이지 1개는 SSR, 다른 나머지 페이지는 SSG로 구현해볼 생각이다.
+
+## 작품 리스트 페이지 SSR 구현
+
+> [SSR로 구현된 전체 소스코드](https://github.com/>nostrss/next-render/blob/main/src/pages/index.js)
+
+### SSR 구현 전 코드
+
+```javascript
+import Head from 'next/head';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+
+export default function Home() {
+  const router = useRouter();
+  const [dataList, setDataList] = useState([]);
+
+  useEffect(() => {
+    fetch(`https://api.artic.edu/api/v1/artworks?limit=20`)
+      .then((res) => res.json())
+      .then((data) => {
+        setDataList([...data.data]);
+      });
+  }, []);
+
+  const onClickItem = (id) => () => {
+    router.push(`/${id}`);
+  };
+
+  return (
+    <>
+      {dataList === undefined ? (
+        <div>loading...</div>
+      ) : (
+        <>
+          <Head>
+            <title>Next.js Rendering Test</title>
+            <meta
+              name='description'
+              content='Next Server Sider Rendering Page'
+            />
+            <meta
+              name='viewport'
+              content='width=device-width, initial-scale=1'
+            />
+            <link rel='icon' href='/favicon.ico' />
+          </Head>
+          <main>
+            <h1>This page is implemented with SSR</h1>
+            {dataList?.map((item) => (
+              <fieldset
+                key={item.id}
+                onClick={onClickItem(item.id)}
+                style={{ cursor: 'pointer' }}
+              >
+                <legend>Artwork {item.id}</legend>
+                <ul>
+                  <li>title : {item.title}</li>
+                </ul>
+              </fieldset>
+            ))}
+          </main>
+        </>
+      )}
+    </>
+  );
+}
+```
+
+위 코드의 과정을 간단히 설명하면 아래와 같다
+
+> - useEffect로 페이지가 최초 로딩 될 때 작품 리스트 api를 호출 한다.
+> - 응답값을 useState로 dataList에 저장한다.
+> - dataList의 작품 리스트를 보여준다
+
+이 코드를 SSR로 렌더링하기 위해 아래와 같이 변경 했다.
+
+- useEffect로 페이지가 최초 로딩 될 때 작품 리스트 api를 호출 한다.
+
+  > getServerSideProps로 서버에서 api를 호출한다.
+
+- 응답값을 useState로 dataList에 저장한다.
+  > 응답값을 props로 전달한다.
+
+```javascript
+export async function getServerSideProps() {
+  // useEffect가 아니라 서버에서 api를 호출한다.
+  const res = await fetch(`https://api.artic.edu/api/v1/artworks?limit=20`);
+  const data = await res.json();
+
+  // Props로 응답값을 전달한다.
+  return {
+    props: {
+      dataList: data.data,
+    },
+  };
+}
+```
+
+```javascript
+// 서버에서 props로 api 응답값을 전달 받는다.
+export default function Home({ dataList }) {
+(...생략)
+```
+
+## SSR 확인하기
+
+페이지의 외관만 보면 SSR을 적용하기 전과 동일하게 보이기 때문에 제대로 적용이 된건지 알 수가 없다.
+
+이럴 땐 브라우저에서 cmd + opt + u(윈도우 ctrl + u)를 눌러보자.
+
+(또는 마우스 우클릭 > 페이지 소스 보기)
+
+SSR을 적용하기 전과 후의 차이점이 보이는가?
+
+> SSR 적용 전
+
+<img width="956" alt="스크린샷 2023-03-06 시간: 22 57 20" src="https://user-images.githubusercontent.com/56717167/223130866-9d953e25-3e92-4ae9-af2d-534dcc16495e.png">
+
+SSR을 적용하기 전에는 api 응답으로 받은 작품 리스트의 내용이 보이지 않는다.
+
+> SSR 적용 후
+
+<img width="983" alt="스크린샷 2023-03-06 시간: 22 58 25" src="https://user-images.githubusercontent.com/56717167/223130879-35552121-0fcb-4631-9b36-2a7565e90e7f.png">
+
+SSR을 적용 한 뒤에는 api 응답값으로 받은 작품 타이틀명이 페이지 소스에 보이는 것을 확인 할 수 있다.
+]]></content>
+        <author>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </author>
+        <category label="Next"/>
+        <category label="ssr"/>
+        <category label="ssg"/>
+        <category label="vercel"/>
+        <category label="deploy"/>
+        <contributor>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA['React PWA 만들기(2)']]></title>
+        <id>2023-03-04-131-progressive-web-app-2</id>
+        <link href="https://next13-blog-mu.vercel.app/2023-03-04-131-progressive-web-app-2"/>
+        <updated>2023-03-04T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+
+# A demo of `react-markdown`
+
+`react-markdown` is a markdown component for React.
+
+👉 Changes are re-rendered as you type.
+
+👈 Try writing some markdown on the left.
+
+## Overview
+
+- Follows [CommonMark](https://commonmark.org)
+- Optionally follows [GitHub Flavored Markdown](https://github.github.com/gfm/)
+- Renders actual React elements instead of using `dangerouslySetInnerHTML`
+- Lets you define your own components (to render `MyHeading` instead of `h1`)
+- Has a lot of plugins
+
+## Table of contents
+
+Here is an example of a plugin in action
+([`remark-toc`](https://github.com/remarkjs/remark-toc)).
+This section is replaced by an actual table of contents.
+
+## Syntax highlighting
+
+Here is an example of a plugin to highlight code:
+[`rehype-highlight`](https://github.com/rehypejs/rehype-highlight).
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import ReactMarkdown from 'react-markdown';
+import rehypeHighlight from 'rehype-highlight';
+
+ReactDOM.render(
+  <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
+    {'# Your markdown here'}
+  </ReactMarkdown>,
+  document.querySelector('#content')
+);
+```
+
+Pretty neat, eh?
+
+## GitHub flavored markdown (GFM)
+
+For GFM, you can _also_ use a plugin:
+[`remark-gfm`](https://github.com/remarkjs/react-markdown#use).
+It adds support for GitHub-specific extensions to the language:
+tables, strikethrough, tasklists, and literal URLs.
+
+These features **do not work by default**.
+👆 Use the toggle above to add the plugin.
+
+|    Feature | Support              |
+| ---------: | :------------------- |
+| CommonMark | 100%                 |
+|        GFM | 100% w/ `remark-gfm` |
+
+~~strikethrough~~
+
+- [ ] task list
+- [x] checked item
+
+https://example.com
+
+## HTML in markdown
+
+⚠️ HTML in markdown is quite unsafe, but if you want to support it, you can
+use [`rehype-raw`](https://github.com/rehypejs/rehype-raw).
+You should probably combine it with
+[`rehype-sanitize`](https://github.com/rehypejs/rehype-sanitize).
+
+<blockquote>
+  👆 Use the toggle above to add the plugin.
+</blockquote>
+
+## Components
+
+You can pass components to change things:
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import ReactMarkdown from 'react-markdown';
+import MyFancyRule from './components/my-fancy-rule.js';
+
+ReactDOM.render(
+  <ReactMarkdown
+    components={{
+      // Use h2s instead of h1s
+      h1: 'h2',
+      // Use a component instead of hrs
+      hr: ({ node, ...props }) => <MyFancyRule {...props} />,
+    }}
+  >
+    # Your markdown here
+  </ReactMarkdown>,
+  document.querySelector('#content')
+);
+```
+
+## More info?
+
+Much more info is available in the
+[readme on GitHub](https://github.com/remarkjs/react-markdown)!
+
+---
+
+A component by [Espen Hovlandsdal](https://espen.codes/)
+]]></content>
+        <author>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </author>
+        <category label="react"/>
+        <category label="pwa"/>
+        <contributor>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA['React PWA 만들기(1)']]></title>
+        <id>2023-03-04-130-progressive-web-app</id>
+        <link href="https://next13-blog-mu.vercel.app/2023-03-04-130-progressive-web-app"/>
+        <updated>2023-03-04T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[
+
+## PWA란?
+
+- Progressive Web Apps의 약자이다.
+- html,css,javascript와 같은 웹기술로 만드는 App이라고 생각하면 된다. 마치 Web과 App의 경계사이에 있는 느낌이다.
+- 바탕화면에 웹페이지를 즐겨찾기 해둔 것처럼 간단해 보이기도 하고, Web을 패키징한 하이브리드 앱처럼 보이기도 한다.
+- 구글,MS에서는 PWA 사용과 보급에 적극적이지만 Apple은 이에 소극적이라고 한다.
+
+### Register Store(?)
+
+- 직접 해보지는 않았지만 이렇게 생성한 App을 이론적(?)으로 구글플레이 스토어와 애플 앱 스토어에 등록 할 수 있다고 한다.
+- 검색을 해보니 구글은 사례가 많이 보였는데, 애플의 앱 스토어의 경우에는 찾을 수가 없었다. 애플은 심사통과가 되지 않을 수도 있을 것 같다.
+
+### reference
+
+[PWA-builder](https://www.pwabuilder.com/)
+
+[Getting started with Progressive Web Apps](https://developer.chrome.com/blog/getting-started-pwa/)
+
+### PWA 예시
+
+스타벅스 홈페이지가 PWA가 적용이 되어있다.
+
+[Starbucks 바로가기](https://app.starbucks.com/)
+
+위의 링크를 타고 접속하면 주소창 우측에 다운로드 버튼이 있는데, 클릭하면 PWA가 다운로드 된다.
+다운로드 된 PWA를 실행시키면 브라우저에서 실행되는 것이 아니라 마치 APP을 실행시킨듯한 화면이 나타난다.
+
+<img width="1392" alt="스타벅스-pwa" src="https://user-images.githubusercontent.com/56717167/222894533-c992be4a-8da3-45a0-be71-aa91e5c142d7.png">
+
+## REACT에 PWA 적용하기
+
+### 1.React Set up
+
+> npx create-react-app pwa
+
+### 2.Install gh-pages and package.json setting
+
+- git-hub pages에 배포해서 보기 위하여 gh-pages를 설치하여 간단히 배포를 위한 세팅을 했다.
+
+> npm i gh-pages
+
+- package.json에 배포 script 추가
+
+```json
+//package.json
+...
+"homepage": "http://nostrss.github.io/pwa", //추가
+...
+"predeploy": "npm run build", //추가
+"deploy": "cp build/index.html build/404.html && gh-pages -d build" //추가
+```
+
+### 3.Add service-worker
+
+아래 2개의 파일을 root 위치에 작성하여 추가해줬다.
+
+- service-worker.js[(소스코드)](https://github.com/nostrss/pwa/blob/main/src/service-worker.js)
+- serviceWorkerRegistration.js[(소스코드)](https://github.com/nostrss/pwa/blob/main/src/serviceWorkerRegistration.js)
+
+그리고 index.js파일에 service-worker를 등록해주는 코드를 추가해줬다.
+
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+
+// 아래 코드 추가
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+// 아래 코드 추가
+serviceWorkerRegistration.register();
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
+```
+
+### 4.Deploy
+
+> npm run deploy
+
+- 배포 후 페이지에 접속해보면 아래와 같이 주소창 옆에 다운로드 버튼이 생기게 된다.
+
+<img width="289" alt="pwa download" src="https://user-images.githubusercontent.com/56717167/222895638-511b912b-c209-493e-92e1-4d53d2cf4e99.png">
+
+- 다운로드 후 실행 해보면 아까 본 스타벅스 PWA처럼 내가 만든 PWA가 실행되는 것을 볼 수 있다.
+
+<img width="1066" alt="starbucks pwa" src="https://user-images.githubusercontent.com/56717167/222895749-75632375-a731-41fd-8fd6-7dff04e58b2a.png">
+
+### 5. PWA Analyze
+
+- 안드로이드, iOS앱에 배포 시 심사를 받듯이, PWA도 조건을 충분이 충족하는지 검사하는 방법이 몇가지 존재한다.
+
+#### Lighthouse
+
+- Chrome 개발자 도구 > Lighthouse 에서 직접 검사를 해볼 수 있다.
+- 검사 후 어떤 점이 부족한지 결과와 어떻게 수정해야하는지 가이드도 볼 수 있다.
+
+<img width="1274" alt="lighthouse" src="https://user-images.githubusercontent.com/56717167/222896054-0529dfc0-a03b-4d96-8867-951447b21cb9.png">
+
+#### Pwa-builder
+
+[PWA-builder](https://www.pwabuilder.com/)
+
+- 링크에 접속하여, URL을 입력하면 아래와 같이 결과를 볼 수 있다.
+
+<img width="1323" alt="pwa builder" src="https://user-images.githubusercontent.com/56717167/222896320-d0a2ca70-ebb5-4063-a405-7b32fba60390.png">
+
+- 그리고 여기서 OS별(안드로이드,애플 등) 패키지를 다운로드 받을 수가 있다.
+- 이 패키지를 어떤 추가적인 과정을 거쳐서 스토어에 등록할 수 있다고 한다.
+- 실제 가능하다면, 어떤 서비스를 만들 때 초기에 Native App을 따로 만들지 않고 활용할 수 있을 듯하다.
+
+<img width="674" alt="패키지 다운로드" src="https://user-images.githubusercontent.com/56717167/222896680-de633d40-341a-49e2-9c2c-aebed3a18722.png">
+
+### ETC
+
+- 나는 직접 service-worker를 생성했었는데, 알고보니 더 쉬운 방법이 있었다.
+- 아래의 커맨드로 react template를 설치하면 더 쉽게 PWA를 적용할 수 있다.
+
+JavaScript
+
+> npx create-react-app my-app --template cra-template-pwa
+
+TypeScript
+
+> npx create-react-app my-app --template cra-template-pwa-typescript
+]]></content>
+        <author>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </author>
+        <category label="react"/>
+        <category label="pwa"/>
+        <contributor>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </contributor>
+    </entry>
+</feed>
