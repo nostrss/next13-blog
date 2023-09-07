@@ -1,5 +1,5 @@
 import { BASE_URL } from '@/constant';
-import CommentList from '@/stories/CommentList';
+import CommentList from '@/components/CommentList';
 import MarkDownViewer from '@/stories/MarkDownViewer';
 
 export default async function BlogDetail({

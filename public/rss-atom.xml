@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://github.com/nostrss</id>
     <title>Nostrss's Dev Blog</title>
-    <updated>2023-09-07T12:19:00.083Z</updated>
+    <updated>2023-09-07T14:55:05.958Z</updated>
     <generator>generate-rss</generator>
     <author>
         <name>Nostrss</name>
@@ -10,13 +10,13 @@
         <uri>https://github.com/nostrss</uri>
     </author>
     <link rel="alternate" href="https://github.com/nostrss"/>
-    <link rel="self" href="https://next13-blog-mu.vercel.app/rss-atom.xml"/>
+    <link rel="self" href="https://nostrss.me/rss-atom.xml"/>
     <subtitle>Nostrss Blog Post List</subtitle>
     <category term="Technologies"/>
     <entry>
         <title type="html"><![CDATA[Next.js 13 프로젝트 yarn berry로 전환하기]]></title>
         <id>2023-09-04-154-next-yarnberry</id>
-        <link href="https://next13-blog-mu.vercel.app/2023-09-04-154-next-yarnberry"/>
+        <link href="https://nostrss.me/2023-09-04-154-next-yarnberry"/>
         <updated>2023-10-01T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Next.js 13 프로젝트를 yarn berry로 전환하는 방법]]></summary>
         <content type="html"><![CDATA[
@@ -178,7 +178,7 @@ yarn dlx @yarnpkg/sdks vscode
     <entry>
         <title type="html"><![CDATA[[Nest] DTO, 그게 뭐야? 왜쓰는데? 어떻게 쓰는데?]]></title>
         <id>2023-09-01-153-nestjs-dto</id>
-        <link href="https://next13-blog-mu.vercel.app/2023-09-01-153-nestjs-dto"/>
+        <link href="https://nostrss.me/2023-09-01-153-nestjs-dto"/>
         <updated>2023-09-01T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Nest.js에서 DTO를 사용하는 이유와 사용법]]></summary>
         <content type="html"><![CDATA[
@@ -313,7 +313,7 @@ bootstrap();
     <entry>
         <title type="html"><![CDATA[[NEXT] Middleware와 Edge Functions]]></title>
         <id>2023-08-31-152-nextjs-middleware-edge</id>
-        <link href="https://next13-blog-mu.vercel.app/2023-08-31-152-nextjs-middleware-edge"/>
+        <link href="https://nostrss.me/2023-08-31-152-nextjs-middleware-edge"/>
         <updated>2023-08-31T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Next.js Middleware를 사용하면서 발생한 문제점과 해결방법]]></summary>
         <content type="html"><![CDATA[
@@ -435,7 +435,7 @@ Next.js에서 `Edge` 런타임은 경량화된 `Node.js` `API`의 *하위 집합
     <entry>
         <title type="html"><![CDATA['[Nest] ERROR [ExceptionsHandler] No metadata']]></title>
         <id>2023-08-30-151-error-nest-no-metadata</id>
-        <link href="https://next13-blog-mu.vercel.app/2023-08-30-151-error-nest-no-metadata"/>
+        <link href="https://nostrss.me/2023-08-30-151-error-nest-no-metadata"/>
         <updated>2023-08-30T00:00:00.000Z</updated>
         <summary type="html"><![CDATA['[Nest] ERROR [ExceptionsHandler] No metadata']]></summary>
         <content type="html"><![CDATA[
@@ -541,7 +541,7 @@ EntityMetadataNotFoundError: No metadata for "Board" was found.
     <entry>
         <title type="html"><![CDATA['[NEXT] TOAST Editor에서 작성한 글정보 불러오기(useRef) ']]></title>
         <id>2023-08-25-147-toast-next-2</id>
-        <link href="https://next13-blog-mu.vercel.app/2023-08-25-147-toast-next-2"/>
+        <link href="https://nostrss.me/2023-08-25-147-toast-next-2"/>
         <updated>2023-08-25T00:00:00.000Z</updated>
         <content type="html"><![CDATA[
 
@@ -655,7 +655,7 @@ export default function PostEditor({
     <entry>
         <title type="html"><![CDATA['[NEXT] TOAST Editor에서 이미지 업로드하기(hooks)']]></title>
         <id>2023-08-25-148-toast-next-3</id>
-        <link href="https://next13-blog-mu.vercel.app/2023-08-25-148-toast-next-3"/>
+        <link href="https://nostrss.me/2023-08-25-148-toast-next-3"/>
         <updated>2023-08-25T00:00:00.000Z</updated>
         <content type="html"><![CDATA[
 
@@ -811,7 +811,7 @@ export default function PostEditor({
     <entry>
         <title type="html"><![CDATA['[NEXT] TOAST Editor 사용하기 ']]></title>
         <id>2023-08-25-146-toast-next-1</id>
-        <link href="https://next13-blog-mu.vercel.app/2023-08-25-146-toast-next-1"/>
+        <link href="https://nostrss.me/2023-08-25-146-toast-next-1"/>
         <updated>2023-08-25T00:00:00.000Z</updated>
         <content type="html"><![CDATA[
 
@@ -1041,7 +1041,7 @@ const PostEditor = dynamic(() => import('@/components/newpost/PostEditor'), {
     <entry>
         <title type="html"><![CDATA['[NEXT] TOAST Editor customHTMLSanitizer 사용하기']]></title>
         <id>2023-08-25-150-toast-next-5</id>
-        <link href="https://next13-blog-mu.vercel.app/2023-08-25-150-toast-next-5"/>
+        <link href="https://nostrss.me/2023-08-25-150-toast-next-5"/>
         <updated>2023-08-25T00:00:00.000Z</updated>
         <summary type="html"><![CDATA['[NEXT] TOAST Editor customHTMLSanitizer 사용하기']]></summary>
         <content type="html"><![CDATA[
@@ -1255,7 +1255,7 @@ export default function EditorViewer({
     <entry>
         <title type="html"><![CDATA['[NEXT] TOAST Editor Viewer 사용하기']]></title>
         <id>2023-08-25-149-toast-next-4</id>
-        <link href="https://next13-blog-mu.vercel.app/2023-08-25-149-toast-next-4"/>
+        <link href="https://nostrss.me/2023-08-25-149-toast-next-4"/>
         <updated>2023-08-25T00:00:00.000Z</updated>
         <content type="html"><![CDATA[
 
@@ -1329,7 +1329,7 @@ const EditorViewer = dynamic(() => import('@/components/post/EditorViewer'), {
     <entry>
         <title type="html"><![CDATA['PostgresSQL 설치 시 "/tmp/.s.PGSQL.5432" 에러']]></title>
         <id>2023-08-24-145-postgre-install-error</id>
-        <link href="https://next13-blog-mu.vercel.app/2023-08-24-145-postgre-install-error"/>
+        <link href="https://nostrss.me/2023-08-24-145-postgre-install-error"/>
         <updated>2023-08-24T00:00:00.000Z</updated>
         <content type="html"><![CDATA[
 
@@ -1386,7 +1386,7 @@ psql postgres
     <entry>
         <title type="html"><![CDATA['[Nest.js] - 소개']]></title>
         <id>2023-08-23-144-nestjs</id>
-        <link href="https://next13-blog-mu.vercel.app/2023-08-23-144-nestjs"/>
+        <link href="https://nostrss.me/2023-08-23-144-nestjs"/>
         <updated>2023-08-23T00:00:00.000Z</updated>
         <content type="html"><![CDATA[
 
@@ -1466,7 +1466,7 @@ npm run start:dev // 개발 모드
     <entry>
         <title type="html"><![CDATA['reduce 사용법 정리']]></title>
         <id>2023-07-11-142-javascript-reduce</id>
-        <link href="https://next13-blog-mu.vercel.app/2023-07-11-142-javascript-reduce"/>
+        <link href="https://nostrss.me/2023-07-11-142-javascript-reduce"/>
         <updated>2023-07-11T00:00:00.000Z</updated>
         <content type="html"><![CDATA[
 
@@ -1552,7 +1552,7 @@ initialValue가 10이고, callback 함수가 accumulator에 currentValue를 더�
     <entry>
         <title type="html"><![CDATA['[NEXT] page.js (with App Router)']]></title>
         <id>2023-07-11-141-next-page-app-router</id>
-        <link href="https://next13-blog-mu.vercel.app/2023-07-11-141-next-page-app-router"/>
+        <link href="https://nostrss.me/2023-07-11-141-next-page-app-router"/>
         <updated>2023-07-11T00:00:00.000Z</updated>
         <content type="html"><![CDATA[
 
@@ -1626,7 +1626,7 @@ export default function Page({
     <entry>
         <title type="html"><![CDATA['React server component와 Next.js']]></title>
         <id>2023-07-11-143-react-nextjs-server-component</id>
-        <link href="https://next13-blog-mu.vercel.app/2023-07-11-143-react-nextjs-server-component"/>
+        <link href="https://nostrss.me/2023-07-11-143-react-nextjs-server-component"/>
         <updated>2023-07-11T00:00:00.000Z</updated>
         <content type="html"><![CDATA[
 
@@ -1731,7 +1731,7 @@ export default function Counter() {
     <entry>
         <title type="html"><![CDATA['렌더링의 종류와 용어 정리']]></title>
         <id>2023-07-10-140-frontend-of-term</id>
-        <link href="https://next13-blog-mu.vercel.app/2023-07-10-140-frontend-of-term"/>
+        <link href="https://nostrss.me/2023-07-10-140-frontend-of-term"/>
         <updated>2023-07-10T00:00:00.000Z</updated>
         <content type="html"><![CDATA[
 
@@ -1830,7 +1830,7 @@ export default function Counter() {
     <entry>
         <title type="html"><![CDATA['[알고리즘]최대공약수와 최소공배수']]></title>
         <id>2023-06-23-139-algorithm</id>
-        <link href="https://next13-blog-mu.vercel.app/2023-06-23-139-algorithm"/>
+        <link href="https://nostrss.me/2023-06-23-139-algorithm"/>
         <updated>2023-06-23T00:00:00.000Z</updated>
         <content type="html"><![CDATA[
 
@@ -1894,7 +1894,7 @@ const lcm = (a, b) => {
     <entry>
         <title type="html"><![CDATA['[책읽기]refactoring - 챕터 1']]></title>
         <id>2023-05-07-138-refactoring-1</id>
-        <link href="https://next13-blog-mu.vercel.app/2023-05-07-138-refactoring-1"/>
+        <link href="https://nostrss.me/2023-05-07-138-refactoring-1"/>
         <updated>2023-05-07T00:00:00.000Z</updated>
         <content type="html"><![CDATA[
 
@@ -2049,7 +2049,7 @@ class 문법이 익숙하지 않은 나지만 현실적으로 아주 와 닿는 
     <entry>
         <title type="html"><![CDATA['[책읽기]refactoring']]></title>
         <id>2023-05-05-137-refactoring-0</id>
-        <link href="https://next13-blog-mu.vercel.app/2023-05-05-137-refactoring-0"/>
+        <link href="https://nostrss.me/2023-05-05-137-refactoring-0"/>
         <updated>2023-05-05T00:00:00.000Z</updated>
         <content type="html"><![CDATA[
 
@@ -2128,7 +2128,7 @@ class 문법이 익숙하지 않은 나지만 현실적으로 아주 와 닿는 
     <entry>
         <title type="html"><![CDATA['typedoc으로 프론트엔드 문서 만들기']]></title>
         <id>2023-03-13-136-typedoc-gh-pages</id>
-        <link href="https://next13-blog-mu.vercel.app/2023-03-13-136-typedoc-gh-pages"/>
+        <link href="https://nostrss.me/2023-03-13-136-typedoc-gh-pages"/>
         <updated>2023-03-13T00:00:00.000Z</updated>
         <content type="html"><![CDATA[
 
@@ -2216,7 +2216,7 @@ npx typedoc --entryPointStrategy expand ./src
     <entry>
         <title type="html"><![CDATA['나만의 Boilerplate를 github template로 만들기 ']]></title>
         <id>2023-03-12-135-github-template</id>
-        <link href="https://next13-blog-mu.vercel.app/2023-03-12-135-github-template"/>
+        <link href="https://nostrss.me/2023-03-12-135-github-template"/>
         <updated>2023-03-12T00:00:00.000Z</updated>
         <content type="html"><![CDATA[
 
@@ -2310,7 +2310,7 @@ Repolistory를 fork해서 그냥 사용하는 것과 차이가 없게 느껴질 
     <entry>
         <title type="html"><![CDATA['Next.js SSR, SSG를 Vercel에 배포하기(3)']]></title>
         <id>2023-03-11-134-nextjs-vercel-3</id>
-        <link href="https://next13-blog-mu.vercel.app/2023-03-11-134-nextjs-vercel-3"/>
+        <link href="https://nostrss.me/2023-03-11-134-nextjs-vercel-3"/>
         <updated>2023-03-11T00:00:00.000Z</updated>
         <content type="html"><![CDATA[
 
@@ -2387,7 +2387,7 @@ Vercel에 연결되어 있는 branch에 소스코드가 푸쉬되는 순간 verc
     <entry>
         <title type="html"><![CDATA['Next.js SSR, SSG를 Vercel에 배포하기(2)']]></title>
         <id>2023-03-05-133-nextjs-vercel-2</id>
-        <link href="https://next13-blog-mu.vercel.app/2023-03-05-133-nextjs-vercel-2"/>
+        <link href="https://nostrss.me/2023-03-05-133-nextjs-vercel-2"/>
         <updated>2023-03-05T00:00:00.000Z</updated>
         <content type="html"><![CDATA[
 
@@ -2553,7 +2553,7 @@ export async function getStaticPaths() {
     <entry>
         <title type="html"><![CDATA['Next.js SSR, SSG를 Vercel에 배포하기(1)']]></title>
         <id>2023-03-05-132-nextjs-vercel</id>
-        <link href="https://next13-blog-mu.vercel.app/2023-03-05-132-nextjs-vercel"/>
+        <link href="https://nostrss.me/2023-03-05-132-nextjs-vercel"/>
         <updated>2023-03-05T00:00:00.000Z</updated>
         <content type="html"><![CDATA[
 
@@ -2728,7 +2728,7 @@ SSR을 적용 한 뒤에는 api 응답값으로 받은 작품 타이틀명이 �
     <entry>
         <title type="html"><![CDATA['React PWA 만들기(2)']]></title>
         <id>2023-03-04-131-progressive-web-app-2</id>
-        <link href="https://next13-blog-mu.vercel.app/2023-03-04-131-progressive-web-app-2"/>
+        <link href="https://nostrss.me/2023-03-04-131-progressive-web-app-2"/>
         <updated>2023-03-04T00:00:00.000Z</updated>
         <content type="html"><![CDATA[
 
@@ -2858,7 +2858,7 @@ A component by [Espen Hovlandsdal](https://espen.codes/)
     <entry>
         <title type="html"><![CDATA['React PWA 만들기(1)']]></title>
         <id>2023-03-04-130-progressive-web-app</id>
-        <link href="https://next13-blog-mu.vercel.app/2023-03-04-130-progressive-web-app"/>
+        <link href="https://nostrss.me/2023-03-04-130-progressive-web-app"/>
         <updated>2023-03-04T00:00:00.000Z</updated>
         <content type="html"><![CDATA[
 

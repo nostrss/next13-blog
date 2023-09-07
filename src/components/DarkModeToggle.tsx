@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import SunnyIcon from './Icons/SunnyIcon';
-import NightIcon from './Icons/NightIcon';
+import SunnyIcon from '../stories/Icons/SunnyIcon';
+import NightIcon from '../stories/Icons/NightIcon';
 import { usePathname } from 'next/navigation';
 import { DARK_MODE, LIGHT_MODE, MODE_COOKIE_NAME } from '@/constant';
 

@@ -15,6 +15,7 @@ const meta = {
       },
     },
   },
+  tags: ['autodocs'],
 } satisfies Meta<typeof NavLink>;
 
 export default meta;

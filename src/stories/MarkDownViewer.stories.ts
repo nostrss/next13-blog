@@ -15,6 +15,7 @@ const meta = {
       },
     },
   },
+  tags: ['autodocs'],
 } satisfies Meta<typeof MarkDownViewer>;
 
 export default meta;

@@ -30,6 +30,7 @@ const meta = {
       },
     },
   },
+  tags: ['autodocs'],
 } satisfies Meta<typeof PostCard>;
 
 export default meta;

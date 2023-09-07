@@ -1,24 +1,23 @@
-import DarkModeToggle from '@/stories/DarkModeToggle';
+import DarkModeToggle from '@/components/DarkModeToggle';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import NavLink from '@/stories/NavLink';
 import { Fragment } from 'react';
 import QueryProviders from '@/context/queryProvider';
 import { IPropsChildren } from '@/type/common';
 import Link from 'next/link';
 import { defaultMetaData } from '../defaulMetaData';
 import RssIcon from '@/stories/Icons/RssIcon';
-import AtomIcon from '@/stories/Icons/AtomIcon';
-import JsonIcon from '@/stories/Icons/JsonIcon';
+import StorybookIcon from '@/stories/Icons/StorybookIcon';
+import GithubIcon from '@/stories/Icons/GithubIcon';
 
 const inter = Inter({ subsets: ['latin'] });
 
 const tabs = [
   { menu: <DarkModeToggle /> },
+  { menu: <StorybookIcon /> },
+  { menu: <GithubIcon /> },
   { menu: <RssIcon /> },
-  { menu: <AtomIcon /> },
-  { menu: <JsonIcon /> },
 ];
 
 // https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadata-fields
@@ -35,7 +34,7 @@ export default function RootLayout({ children }: IPropsChildren) {
             <Link href='/'>
               <span className='text-xl font-bold'>NOSTRSS</span>
             </Link>
-            <nav className='flex flex-row gap-2 items-center'>
+            <nav className='flex flex-row gap-4 items-center'>
               {tabs.map(({ menu }, index) => (
                 <Fragment key={index}>{menu}</Fragment>
               ))}
