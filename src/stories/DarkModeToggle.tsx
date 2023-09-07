@@ -3,9 +3,11 @@
 import { useEffect, useState } from 'react';
 import SunnyIcon from './Icons/SunnyIcon';
 import NightIcon from './Icons/NightIcon';
+import { usePathname } from 'next/navigation';
 
 export default function DarkModeToggle() {
   const [isDark, setIsDark] = useState(false);
+  const path = usePathname();
 
   useEffect(() => {
     if (!getCookie('mode')) {
@@ -20,7 +22,7 @@ export default function DarkModeToggle() {
       mode === 'dark' ? setIsDark(true) : setIsDark(false);
       changeColorScheme(mode);
     }
-  }, []);
+  }, [path]);
 
   const chageDarkMode = () => {
     const mode = document
