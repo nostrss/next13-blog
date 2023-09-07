@@ -30,7 +30,7 @@ export async function generateMetadata({
     title: data.title,
     description: data.description || data.title,
     keywords: data.tags.split(' '),
-    metadataBase: new URL(`${BASE_URL}/${slug}`),
+    // metadataBase: new URL(`${BASE_URL}/${slug}`),
     alternates: {
       canonical: `${BASE_URL}/${slug}`,
     },

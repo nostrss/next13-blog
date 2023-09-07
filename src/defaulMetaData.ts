@@ -38,7 +38,7 @@ export const defaultMetaData: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL(BASE_URL),
+  // metadataBase: new URL(BASE_URL),
   alternates: {
     canonical: BASE_URL,
     // languages: {
