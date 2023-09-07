@@ -28,11 +28,15 @@ export async function generateMetadata({
   const { data } = await fetchBlogDetail(slug);
   return {
     title: data.title,
-    description: data.description,
+    description: data.description || data.title,
     keywords: data.tags.split(' '),
+    metadataBase: new URL(`${BASE_URL}/${slug}`),
+    alternates: {
+      canonical: `${BASE_URL}/${slug}`,
+    },
     openGraph: {
       title: data.title,
-      description: data.description,
+      description: data.description || data.title,
       url: `${BASE_URL}/${slug}`,
       siteName: `Nostrss's Dev Blog`,
       alternates: {
