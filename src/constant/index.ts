@@ -1,7 +1,7 @@
 export const BASE_URL =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:3000'
-    : 'https://next13-blog-mu.vercel.app';
+    : 'https://nostrss.me';
 
 export const POSTS_FILE_PATH = 'posts';
 export const DARK_MODE = 'dark';
