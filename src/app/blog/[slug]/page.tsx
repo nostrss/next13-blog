@@ -1,4 +1,4 @@
-import { BASE_URL } from '@/constant';
+import { BASE_URL, DEFAULT_OG_IMAGE_URL } from '@/constant';
 import CommentList from '@/components/CommentList';
 import MarkDownViewer from '@/stories/MarkDownViewer';
 
@@ -44,17 +44,13 @@ export async function generateMetadata({
       images: [
         {
           url:
-            data.images?.length > 0
-              ? data.images[0].url
-              : 'https://github.com/nostrss/next13-blog/assets/56717167/0d6edf4b-f9c1-4f7e-9653-dc98e25af939',
+            data.images?.length > 0 ? data.images[0].url : DEFAULT_OG_IMAGE_URL,
           width: 800,
           height: 600,
         },
         {
           url:
-            data.images?.length > 0
-              ? data.images[0].url
-              : 'https://github.com/nostrss/next13-blog/assets/56717167/0d6edf4b-f9c1-4f7e-9653-dc98e25af939',
+            data.images?.length > 0 ? data.images[0].url : DEFAULT_OG_IMAGE_URL,
           width: 1800,
           height: 1600,
           alt: data.title,

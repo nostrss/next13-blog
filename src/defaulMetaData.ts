@@ -8,6 +8,7 @@ import {
   DEFAULT_META_DESCRIPTION,
   DEFAULT_META_KEYWORDS,
   DEFAULT_META_TITLE,
+  DEFAULT_OG_IMAGE_URL,
   DEFAULT_REFERRER,
   LIGHT_MODE,
   RSS_ATOM_URL,
@@ -55,19 +56,19 @@ export const defaultMetaData: Metadata = {
     description: `${DEFAULT_META_DESCRIPTION} | og`,
     url: BASE_URL,
     siteName: `${DEFAULT_APP_NAME} | og`,
-    // images: [
-    //   {
-    //     url: 'https://nextjs.org/og.png',
-    //     width: 800,
-    //     height: 600,
-    //   },
-    //   {
-    //     url: 'https://nextjs.org/og-alt.png',
-    //     width: 1800,
-    //     height: 1600,
-    //     alt: 'My custom alt',
-    //   },
-    // ],
+    images: [
+      {
+        url: DEFAULT_OG_IMAGE_URL,
+        width: 800,
+        height: 600,
+      },
+      {
+        url: DEFAULT_OG_IMAGE_URL,
+        width: 1800,
+        height: 1600,
+        alt: DEFAULT_META_TITLE,
+      },
+    ],
     locale: 'ko_KR',
     type: 'website',
   },
