@@ -3,6 +3,10 @@ import { UTIL } from '@/util';
 import { readFile, readdir } from 'fs/promises';
 import { NextResponse } from 'next/server';
 import path from 'path';
+import { unified } from 'unified';
+import remarkParse from 'remark-parse';
+import remarkRehype from 'remark-rehype';
+import rehypeStringify from 'rehype-stringify';
 
 export async function GET() {
   const filePath = path.join(process.cwd(), POSTS_FILE_PATH);
@@ -20,10 +24,17 @@ export async function GET() {
         currentPostId
       );
       const markDownContent = UTIL.removeMetaData(fileData);
+      const htmlContent = unified()
+        // @ts-ignore
+        .use(remarkParse)
+        // @ts-ignore
+        .use(remarkRehype)
+        .use(rehypeStringify)
+        .processSync(markDownContent);
 
       return {
         ...markdownMetaData,
-        content: markDownContent,
+        content: htmlContent,
       };
     })
   );
