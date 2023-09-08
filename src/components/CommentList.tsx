@@ -1,6 +1,6 @@
 'use client';
 
-import useGetCookie from '@/app/hook/useGetCookie';
+import useGetCookie from '@/hook/useGetCookie';
 import Script from 'next/script';
 
 export default function CommentList() {
