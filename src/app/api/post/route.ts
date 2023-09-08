@@ -41,19 +41,25 @@ export async function GET(req: NextRequest) {
   });
 }
 
-export const getImageSrc = (htmlElement: string | undefined) => {
+const getImageSrc = (htmlElement: string | undefined) => {
   if (!htmlElement) return [];
-
-  // console.log(htmlElement);
   const imgHtml = parse(htmlElement).getElementsByTagName('img');
-
-  // console.log(imgHtml);
-
   const imgUrl: Array<ImgesArrayItem> = [];
   imgHtml.forEach((img) => {
     const imgParse = img.getAttribute('src');
     imgUrl.push({ url: imgParse });
   });
 
-  return imgUrl;
+  const result = imageUrlValidate([...imgUrl]);
+
+  return [...result];
+};
+
+const imageUrlValidate = (images: ImgesArrayItem[]) => {
+  const validateImages = images.filter((image) => {
+    if (image.url?.includes('http')) {
+      return image.url;
+    }
+  });
+  return [...validateImages];
 };

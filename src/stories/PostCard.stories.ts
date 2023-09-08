@@ -29,6 +29,16 @@ const meta = {
         type: 'text',
       },
     },
+    images: {
+      control: {
+        type: 'object',
+      },
+    },
+    tags: {
+      control: {
+        type: 'text',
+      },
+    },
   },
   tags: ['autodocs'],
 } satisfies Meta<typeof PostCard>;
@@ -43,5 +53,6 @@ export const Default: Story = {
     date: '2021-01-01',
     currentPostId: '1',
     tags: 'tag1 tag2',
+    images: [{ url: 'https://picsum.photos/200/300' }],
   },
 };

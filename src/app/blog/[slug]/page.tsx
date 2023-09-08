@@ -26,6 +26,7 @@ export async function generateMetadata({
   params: { slug: string };
 }) {
   const { data } = await fetchBlogDetail(slug);
+  console.log(data.images);
   return {
     title: data.title,
     description: data.description || data.title,
@@ -41,6 +42,19 @@ export async function generateMetadata({
       alternates: {
         canonical: `${BASE_URL}/${slug}`,
       },
+      images: [
+        {
+          url: data.images[0],
+          width: 800,
+          height: 600,
+        },
+        {
+          url: data.images[0],
+          width: 1800,
+          height: 1600,
+          alt: data.title,
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',

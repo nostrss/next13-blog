@@ -1,6 +1,8 @@
+import { ImgesArrayItem } from '@/type/common';
 import { UTIL } from '@/util';
 import { readFile, readdir } from 'fs/promises';
 import { NextRequest, NextResponse } from 'next/server';
+import parse from 'node-html-parser';
 import path from 'path';
 
 export async function GET(req: NextRequest) {
@@ -12,13 +14,41 @@ export async function GET(req: NextRequest) {
   const markdowmMetaData = UTIL.getMarkDownMetaData(fileData, {});
   const markDownContent = UTIL.removeMetaData(fileData);
 
+  const imgArr = getImageSrc(markDownContent);
+
   return NextResponse.json({
     data: {
       ...markdowmMetaData,
       content: markDownContent,
+      images: imgArr,
     },
   });
 }
 
-// nextPostId: fileList[index - 1]?.replace('.md', ''),
-//         prevPostId: fileList[index + 1]?.replace('.md', ''),
+const getImageSrc = (htmlElement: string | undefined) => {
+  if (!htmlElement) return [];
+
+  // console.log(htmlElement);
+  const imgHtml = parse(htmlElement).getElementsByTagName('img');
+
+  // console.log(imgHtml);
+
+  const imgUrl: Array<ImgesArrayItem> = [];
+  imgHtml.forEach((img) => {
+    const imgParse = img.getAttribute('src');
+    imgUrl.push({ url: imgParse });
+  });
+
+  const result = imageUrlValidate([...imgUrl]);
+
+  return [...result];
+};
+
+const imageUrlValidate = (images: ImgesArrayItem[]) => {
+  const validateImages = images.filter((image) => {
+    if (image.url?.includes('http')) {
+      return image.url;
+    }
+  });
+  return [...validateImages];
+};

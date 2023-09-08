@@ -1,10 +1,10 @@
 'use client';
 
-import { COOKIE } from '@/util/cookie';
+import useGetCookie from '@/app/hook/useGetCookie';
 import Script from 'next/script';
 
 export default function CommentList() {
-  const theme = COOKIE.getCookie('mode');
+  const theme = useGetCookie();
 
   return (
     <div className='giscus'>
