@@ -41,8 +41,6 @@ const getAllPostData = async () => {
   });
 
   const jsonData: any = await data.json();
-  // console.log(jsonData.data);
-
   jsonData.data.forEach((json: JsonPost) => {
     feed.addItem({
       title: json.title,
