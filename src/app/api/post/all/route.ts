@@ -32,8 +32,6 @@ export async function GET() {
         .use(rehypeStringify)
         .processSync(markDownContent).value;
 
-      console.log(htmlContent);
-
       return {
         ...markdownMetaData,
         content: htmlContent,
