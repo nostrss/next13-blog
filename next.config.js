@@ -2,7 +2,11 @@
 const nextConfig = {
   trailingSlash: true,
   images: {
-    domains: ['github.com'],
+    domains: [
+      'github.com',
+      'image.yes24.com',
+      'user-images.githubusercontent.com',
+    ],
   },
 };
 
