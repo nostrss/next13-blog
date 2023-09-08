@@ -35,7 +35,7 @@ const getImageSrc = (htmlElement: string | undefined) => {
 
   const imgUrl: Array<ImgesArrayItem> = [];
   imgHtml.forEach((img) => {
-    const imgParse = img.getAttribute('src');
+    const imgParse = img.getAttribute('src')?.trim();
     imgUrl.push({ url: imgParse });
   });
 
