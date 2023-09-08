@@ -44,12 +44,12 @@ export async function generateMetadata({
       },
       images: [
         {
-          url: data.images[0],
+          url: data.images[0].url,
           width: 800,
           height: 600,
         },
         {
-          url: data.images[0],
+          url: data.images[0].url,
           width: 1800,
           height: 1600,
           alt: data.title,
