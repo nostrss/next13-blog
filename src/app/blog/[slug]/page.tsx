@@ -26,7 +26,6 @@ export async function generateMetadata({
   params: { slug: string };
 }) {
   const { data } = await fetchBlogDetail(slug);
-  console.log(data.images);
   return {
     title: data.title,
     description: data.description || data.title,
