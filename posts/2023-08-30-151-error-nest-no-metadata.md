@@ -1,6 +1,6 @@
 ---
 layout: post
-title: '[Nest] ERROR [ExceptionsHandler] No metadata'
+title: [Nest] ERROR [ExceptionsHandler] No metadata
 description: '[Nest] ERROR [ExceptionsHandler] No metadata'
 author: 'Nostrss'
 comments: true
