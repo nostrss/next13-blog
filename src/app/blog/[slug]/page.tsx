@@ -43,12 +43,18 @@ export async function generateMetadata({
       },
       images: [
         {
-          url: data.images[0].url,
+          url:
+            data.images.length > 0
+              ? data.images[0].url
+              : 'https://github.com/nostrss/next13-blog/assets/56717167/0d6edf4b-f9c1-4f7e-9653-dc98e25af939',
           width: 800,
           height: 600,
         },
         {
-          url: data.images[0].url,
+          url:
+            data.images.length > 0
+              ? data.images[0].url
+              : 'https://github.com/nostrss/next13-blog/assets/56717167/0d6edf4b-f9c1-4f7e-9653-dc98e25af939',
           width: 1800,
           height: 1600,
           alt: data.title,
