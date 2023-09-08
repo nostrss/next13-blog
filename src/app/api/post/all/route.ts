@@ -30,8 +30,7 @@ export async function GET() {
         // @ts-ignore
         .use(remarkRehype)
         .use(rehypeStringify)
-        .processSync(markDownContent)
-        .value.toString();
+        .processSync(markDownContent).value;
       return {
         ...markdownMetaData,
         content: htmlContent,

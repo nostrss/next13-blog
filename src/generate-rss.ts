@@ -49,7 +49,7 @@ const getAllPostData = async () => {
       id: json.currentPostId,
       link: `${BASE_URL}/${json.currentPostId}`,
       description: json.description,
-      content: json.content,
+      content: json.content.toString(),
       author: [master],
       contributor: [master],
       date: new Date(json.date),
