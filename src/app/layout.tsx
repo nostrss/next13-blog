@@ -29,15 +29,17 @@ export default function RootLayout({ children }: IPropsChildren) {
     <html lang='en'>
       <QueryProviders>
         <body className={sans.className}>
-          <header className='w-full min-w-360 h-16 px-4 flex flex-row justify-between items-center border-b border-gray-300 '>
-            <Link href='/'>
-              <span className='text-xl font-bold'>NOSTRSS</span>
-            </Link>
-            <nav className='flex flex-row gap-4 items-center'>
-              {tabs.map(({ menu }, index) => (
-                <Fragment key={index}>{menu}</Fragment>
-              ))}
-            </nav>
+          <header className='w-full min-w-360 h-16 px-4 border-b border-gray-300 flex justify-center'>
+            <div className='w-full max-w-7xl flex flex-row justify-between items-center'>
+              <Link href='/'>
+                <span className='text-xl font-bold'>NOSTRSS</span>
+              </Link>
+              <nav className='flex flex-row gap-4 items-center'>
+                {tabs.map(({ menu }, index) => (
+                  <Fragment key={index}>{menu}</Fragment>
+                ))}
+              </nav>
+            </div>
           </header>
           {children}
         </body>

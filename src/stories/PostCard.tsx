@@ -1,9 +1,8 @@
 'use client';
 
-import { ImgesArrayItem, Post } from '@/type/common';
+import { Post } from '@/type/common';
 import Link from 'next/link';
 import { useEffect } from 'react';
-import Image from 'next/image';
 
 export default function PostCard({
   title,
@@ -20,33 +19,10 @@ export default function PostCard({
     giscusIframe?.remove();
   }, []);
 
-  // const imageUrlValidate = (images: ImgesArrayItem[]) => {
-  //   const validateImages = images.filter((image) => {
-  //     if (image.url?.includes('http')) {
-  //       return image.url;
-  //     }
-  //   });
-  //   return [...validateImages];
-  // };
-
-  // const validateImages = imageUrlValidate([...images]);
-
   return (
     <div className='w-full min-w-[360px] max-w-2xl border rounded-xl border-gray-500'>
       <Link href={`/blog/${currentPostId}`}>
         <div className='flex flex-row justify-start items-center px-4'>
-          {/* {images[0]?.url && (
-            <div className='w-[180px] h-[180px] relative'>
-              <Image
-                src={images[0].url}
-                alt=''
-                width={180}
-                height={180}
-                // objectFit='cover'
-              />
-            </div>
-          )} */}
-
           <article className='w-full h-full p-4 md:p-8'>
             <div className='flex items-center justify-between gap-2'>
               <div className='w-full text-s'>{date}</div>

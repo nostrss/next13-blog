@@ -28,11 +28,7 @@ export async function GET(req: NextRequest) {
 const getImageSrc = (htmlElement: string | undefined) => {
   if (!htmlElement) return [];
 
-  // console.log(htmlElement);
   const imgHtml = parse(htmlElement).getElementsByTagName('img');
-
-  // console.log(imgHtml);
-
   const imgUrl: Array<ImgesArrayItem> = [];
   imgHtml.forEach((img) => {
     const imgParse = img.getAttribute('src')?.trim();

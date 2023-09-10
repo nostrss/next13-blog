@@ -42,9 +42,6 @@ export const defaultMetaData: Metadata = {
   metadataBase: new URL(BASE_URL),
   alternates: {
     canonical: BASE_URL,
-    // languages: {
-    //   'en-US': '/en-US',
-    // },
     types: {
       'application/rss+xml': RSS_XML_URL,
       'application/atom+xml': RSS_ATOM_URL,
