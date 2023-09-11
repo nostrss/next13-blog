@@ -35,7 +35,7 @@ export default function RootLayout({ children }: IPropsChildren) {
           <div className='w-full flex flex-col items-center'>
             <section className='w-full max-w-[1440px] flex flex-row justify-center'>
               {children}
-              {/* <Taglist /> */}
+              <Taglist />
             </section>
           </div>
         </body>
