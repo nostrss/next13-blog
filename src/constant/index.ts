@@ -29,4 +29,5 @@ export const RSS_XML_URL = `${BASE_URL}/rss.xml`;
 export const RSS_ATOM_URL = `${BASE_URL}/rss-atom.xml`;
 export const RSS_JSON_URL = `${BASE_URL}/feed.json`;
 
-export const DEFAULT_OG_IMAGE_URL = 'https://www.nostrss.me/favicon.ico';
+export const DEFAULT_OG_IMAGE_URL =
+  'https://github.com/nostrss/next13-blog/assets/56717167/1f475249-003c-4eef-8987-274498879947';
