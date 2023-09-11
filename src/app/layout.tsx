@@ -41,9 +41,9 @@ export default function RootLayout({ children }: IPropsChildren) {
               </nav>
             </div>
           </header>
-          <aside className='hidden xl:flex w-[240px] h-[100vh] bg-slate-500 fixed '>
+          {/* <aside className='hidden xl:flex w-[240px] h-[100vh] bg-slate-500 fixed '>
             aaaa
-          </aside>
+          </aside> */}
           {children}
         </body>
       </QueryProviders>
