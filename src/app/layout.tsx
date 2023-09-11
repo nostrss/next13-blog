@@ -26,18 +26,7 @@ export const metadata: Metadata = {
   ...defaultMetaData,
 };
 
-const fetchTagsData = async () => {
-  const data = await fetch(`${BASE_URL}/api/tags`, {
-    method: 'GET',
-  });
-
-  return data.json();
-};
-
-export default async function RootLayout({ children }: IPropsChildren) {
-  const tags: TagCounts[] = await fetchTagsData();
-  tags.sort((a, b) => b.count - a.count);
-
+export default function RootLayout({ children }: IPropsChildren) {
   return (
     <html lang='kr'>
       <QueryProviders>
@@ -46,7 +35,7 @@ export default async function RootLayout({ children }: IPropsChildren) {
           <div className='w-full flex flex-col items-center'>
             <section className='w-full max-w-[1440px] flex flex-row justify-center'>
               {children}
-              <Taglist tags={tags} />
+              {/* <Taglist /> */}
             </section>
           </div>
         </body>

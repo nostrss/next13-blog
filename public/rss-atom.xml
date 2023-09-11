@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://github.com/nostrss</id>
     <title>Nostrss's Dev Blog</title>
-    <updated>2023-09-08T04:59:12.990Z</updated>
+    <updated>2023-09-11T11:29:40.199Z</updated>
     <generator>generate-rss</generator>
     <author>
         <name>Nostrss</name>
@@ -340,7 +340,7 @@ export const config = {
         </contributor>
     </entry>
     <entry>
-        <title type="html"><![CDATA['[Nest] ERROR [ExceptionsHandler] No metadata']]></title>
+        <title type="html"><![CDATA[[Nest] ERROR [ExceptionsHandler] No metadata]]></title>
         <id>2023-08-30-151-error-nest-no-metadata</id>
         <link href="https://nostrss.me/2023-08-30-151-error-nest-no-metadata"/>
         <updated>2023-08-30T00:00:00.000Z</updated>

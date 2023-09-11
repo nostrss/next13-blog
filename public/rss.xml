@@ -4,7 +4,7 @@
         <title>Nostrss's Dev Blog</title>
         <link>https://github.com/nostrss</link>
         <description>Nostrss Blog Post List</description>
-        <lastBuildDate>Fri, 08 Sep 2023 04:59:12 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 11 Sep 2023 11:29:40 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>generate-rss</generator>
         <language>ko</language>
@@ -310,7 +310,7 @@ export const config = {
             <category>middleware</category>
         </item>
         <item>
-            <title><![CDATA['[Nest] ERROR [ExceptionsHandler] No metadata']]></title>
+            <title><![CDATA[[Nest] ERROR [ExceptionsHandler] No metadata]]></title>
             <link>https://nostrss.me/2023-08-30-151-error-nest-no-metadata</link>
             <guid>2023-08-30-151-error-nest-no-metadata</guid>
             <pubDate>Wed, 30 Aug 2023 00:00:00 GMT</pubDate>

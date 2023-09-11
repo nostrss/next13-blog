@@ -1,8 +1,11 @@
+import { BASE_URL } from '@/constant';
 import TagLabel from '@/stories/TagLabel';
 import { TagCounts } from '@/type/common';
 import React from 'react';
 
-export default function Taglist({ tags }: { tags: TagCounts[] }) {
+export default async function Taglist() {
+  const tags: TagCounts[] = await fetchTagsData();
+  tags.sort((a, b) => b.count - a.count);
   return (
     <aside className='hidden xl:flex flex-col items-center w-[320px] h-[100vh] sticky top-0 my-4'>
       <h2 className='mb-4 font-bold'>TAG</h2>
@@ -19,3 +22,11 @@ export default function Taglist({ tags }: { tags: TagCounts[] }) {
     </aside>
   );
 }
+
+const fetchTagsData = async () => {
+  const data = await fetch(`${BASE_URL}/api/tags`, {
+    method: 'GET',
+  });
+
+  return data.json();
+};
