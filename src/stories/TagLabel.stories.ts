@@ -18,6 +18,11 @@ const meta = {
         type: 'number',
       },
     },
+    isActive: {
+      control: {
+        type: 'boolean',
+      },
+    },
   },
   tags: ['autodocs'],
 } satisfies Meta<typeof TagLabel>;
@@ -28,6 +33,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     tagName: 'tag1',
+    isActive: false,
   },
 };
 
@@ -35,5 +41,6 @@ export const TagNameWithCounter: Story = {
   args: {
     tagName: 'tag1',
     count: 10,
+    isActive: true,
   },
 };

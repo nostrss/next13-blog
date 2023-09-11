@@ -41,7 +41,7 @@ export async function GET(req: NextRequest) {
   return NextResponse.json({
     data: sliceData,
     total: markdowmMetaData.length,
-    nextPage: UTIL.getNextpage(page, limit, markdowmMetaData.length),
+    nextPage: UTIL.getNextpage(page, limit, sliceData.length),
   });
 }
 

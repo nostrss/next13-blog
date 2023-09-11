@@ -11,7 +11,7 @@ import GithubIcon from '@/stories/Icons/GithubIcon';
 import { BASE_URL } from '@/constant';
 import Header from '@/stories/Header';
 import TagLabel from '@/stories/TagLabel';
-import Taglist from '@/components/Taglist';
+import TagBox from '@/components/TagBox';
 
 const sans = Open_Sans({ subsets: ['latin'] });
 export const menus = [
@@ -35,7 +35,7 @@ export default function RootLayout({ children }: IPropsChildren) {
           <div className='w-full flex flex-col items-center'>
             <section className='w-full max-w-[1440px] flex flex-row justify-center'>
               {children}
-              <Taglist />
+              <TagBox />
             </section>
           </div>
         </body>

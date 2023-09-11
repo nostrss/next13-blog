@@ -12,12 +12,12 @@ const fetchPostList = async (page: number, limit: number, tag = '') => {
   return data.json();
 };
 
-export default function PostList({ slug }: { slug?: string }) {
+export default function PostList({ tag }: { tag?: string }) {
   const ref = useRef<HTMLDivElement | null>(null);
   const limit = 10;
   const { data, isFetching, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: ['post'],
-    queryFn: ({ pageParam = 1 }) => fetchPostList(pageParam, limit, slug),
+    queryFn: ({ pageParam = 1 }) => fetchPostList(pageParam, limit, tag),
     getNextPageParam: (lastPage) => lastPage.nextPage,
   });
 
@@ -39,13 +39,13 @@ export default function PostList({ slug }: { slug?: string }) {
   }, [hasNextPage]);
 
   return (
-    <section className='w-full flex flex-col gap-4 items-center px-4 pt-4'>
+    <>
       {renderData &&
         renderData.map((post: Post, index: number) => (
           <PostCard key={index} {...post} />
         ))}
       {isFetching && <div>loading...</div>}
       <div ref={ref}></div>
-    </section>
+    </>
   );
 }
