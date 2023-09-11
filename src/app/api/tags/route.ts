@@ -1,3 +1,4 @@
+import { TagCounts, Tags } from '@/type/common';
 import { UTIL } from '@/util';
 import { readFile, readdir } from 'fs/promises';
 import { NextRequest, NextResponse } from 'next/server';
@@ -17,10 +18,6 @@ export async function GET(req: NextRequest) {
 
   return NextResponse.json([...transformTagsData(tags)]);
 }
-
-type Tag = string[];
-type Tags = Tag[];
-type TagCounts = Record<string, any>;
 
 const transformTagsData = (tags: Tags) => {
   const tagCounts = tags.reduce((accumulator, tags) => {

@@ -1,3 +1,5 @@
+import React from 'react';
+
 export type IPropsChildren = {
   children: React.ReactNode;
 };
@@ -27,3 +29,13 @@ export type IconProps = {
   color?: string;
   url?: string;
 };
+
+export type Tag = string[];
+export type Tags = Tag[];
+export type TagCounts = Record<string, any>;
+
+export type HeaderMenu = {
+  menu: React.ReactElement;
+};
+
+export type HeaderMenus = HeaderMenu[];
