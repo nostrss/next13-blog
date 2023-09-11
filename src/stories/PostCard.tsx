@@ -3,6 +3,7 @@
 import { Post } from '@/type/common';
 import Link from 'next/link';
 import { useEffect } from 'react';
+import TagLabel from './TagLabel';
 
 export default function PostCard({
   title,
@@ -31,12 +32,7 @@ export default function PostCard({
             <p className='mt-4 '>{description}</p>
             <div className='flex flex-row gap-2 mt-4 overflow-hidden flex-wrap'>
               {tagList.map((tag, index) => (
-                <span
-                  key={index}
-                  className='px-2 py-1 text-xs text-gray-800 bg-gray-200 rounded-full'
-                >
-                  {tag}
-                </span>
+                <TagLabel key={index} tag={tag} />
               ))}
             </div>
           </article>
