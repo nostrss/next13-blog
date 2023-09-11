@@ -5,19 +5,19 @@ import { Post } from '@/type/common';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
 
-const fetchPostList = async (page: number, limit: number) => {
-  const data = await fetch(`/api/post?page=${page}&limit=${limit}`, {
+const fetchPostList = async (page: number, limit: number, tag = '') => {
+  const data = await fetch(`/api/post?page=${page}&limit=${limit}&tag=${tag}`, {
     method: 'GET',
   });
   return data.json();
 };
 
-export default function PostList() {
+export default function PostList({ slug }: { slug?: string }) {
   const ref = useRef<HTMLDivElement | null>(null);
   const limit = 10;
   const { data, isFetching, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: ['post'],
-    queryFn: ({ pageParam = 1 }) => fetchPostList(pageParam, limit),
+    queryFn: ({ pageParam = 1 }) => fetchPostList(pageParam, limit, slug),
     getNextPageParam: (lastPage) => lastPage.nextPage,
   });
 

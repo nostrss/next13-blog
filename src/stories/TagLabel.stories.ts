@@ -8,9 +8,14 @@ const meta = {
     layout: 'centered',
   },
   argTypes: {
-    tag: {
+    tagName: {
       control: {
         type: 'text',
+      },
+    },
+    count: {
+      control: {
+        type: 'number',
       },
     },
   },
@@ -22,6 +27,13 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    tag: 'tag1',
+    tagName: 'tag1',
+  },
+};
+
+export const TagNameWithCounter: Story = {
+  args: {
+    tagName: 'tag1',
+    count: 10,
   },
 };

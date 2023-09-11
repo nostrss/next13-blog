@@ -15,7 +15,7 @@ export default async function Taglist() {
             key={index}
             className='flex flex-row justify-between items-center '
           >
-            <TagLabel tag={`${tagName}(${count})`} />
+            <TagLabel tagName={tagName} count={count} />
           </div>
         ))}
       </div>

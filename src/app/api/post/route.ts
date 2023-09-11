@@ -10,6 +10,7 @@ export async function GET(req: NextRequest) {
 
   const page = Number(url.searchParams.get('page')) || 1;
   const limit = Number(url.searchParams.get('limit')) || 10;
+  const tag = url.searchParams.get('tag') || '';
   const filePath = path.join(process.cwd(), 'posts');
   const fileList = await readdir(filePath);
 
@@ -32,7 +33,10 @@ export async function GET(req: NextRequest) {
 
   const sortDataByTitle = UTIL.sortByTitle(markdowmMetaData);
   const sortDataByDate = UTIL.sortByDate(sortDataByTitle);
-  const sliceData = UTIL.slicePerPage(sortDataByDate, page, limit);
+  const filterDataByTag = tag
+    ? UTIL.filterByTag(sortDataByDate, tag)
+    : sortDataByDate;
+  const sliceData = UTIL.slicePerPage(filterDataByTag, page, limit);
 
   return NextResponse.json({
     data: sliceData,
