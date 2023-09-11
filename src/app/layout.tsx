@@ -2,10 +2,8 @@ import DarkModeToggle from '@/components/DarkModeToggle';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Open_Sans } from 'next/font/google';
-import { Fragment } from 'react';
 import QueryProviders from '@/context/queryProvider';
 import { IPropsChildren, TagCounts } from '@/type/common';
-import Link from 'next/link';
 import { defaultMetaData } from '../defaulMetaData';
 import RssIcon from '@/stories/Icons/RssIcon';
 import StorybookIcon from '@/stories/Icons/StorybookIcon';
@@ -13,6 +11,7 @@ import GithubIcon from '@/stories/Icons/GithubIcon';
 import { BASE_URL } from '@/constant';
 import Header from '@/stories/Header';
 import TagLabel from '@/stories/TagLabel';
+import Taglist from '@/components/Taglist';
 
 const sans = Open_Sans({ subsets: ['latin'] });
 export const menus = [
@@ -44,17 +43,12 @@ export default async function RootLayout({ children }: IPropsChildren) {
       <QueryProviders>
         <body className={sans.className}>
           <Header menus={menus} />
-          <aside className='hidden xl:flex flex-row flex-wrap gap-4 items-start justify-start content-start w-[240px] h-[100vh] fixed '>
-            {tags.map(({ tagName, count }, index) => (
-              <div
-                key={index}
-                className='flex flex-row justify-between items-center '
-              >
-                <TagLabel tag={`${tagName}(${count})`} />
-              </div>
-            ))}
-          </aside>
-          {children}
+          <div className='w-full flex flex-col items-center'>
+            <section className='w-full max-w-[1440px] flex flex-row justify-center'>
+              {children}
+              <Taglist tags={tags} />
+            </section>
+          </div>
         </body>
       </QueryProviders>
     </html>
