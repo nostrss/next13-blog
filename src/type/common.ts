@@ -39,3 +39,7 @@ export type HeaderMenu = {
 };
 
 export type HeaderMenus = HeaderMenu[];
+
+export type PostSlug = {
+  slug: string;
+};

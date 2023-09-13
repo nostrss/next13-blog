@@ -1,6 +1,7 @@
 import { BASE_URL, DEFAULT_OG_IMAGE_URL } from '@/constant';
 import CommentList from '@/components/CommentList';
 import MarkDownViewer from '@/stories/MarkDownViewer';
+import { PostSlug } from '@/type/common';
 
 export default async function BlogDetail({
   params: { slug },
@@ -20,6 +21,14 @@ export default async function BlogDetail({
   );
 }
 
+export async function generateStaticParams() {
+  const { data } = await fetchPostlist();
+
+  return data.map((post: PostSlug) => ({
+    slug: post.slug,
+  }));
+}
+
 export async function generateMetadata({
   params: { slug },
 }: {
@@ -30,7 +39,6 @@ export async function generateMetadata({
     title: data.title,
     description: data.description || data.title,
     keywords: data.tags.split(' '),
-    // metadataBase: new URL(`${BASE_URL}/${slug}`),
     alternates: {
       canonical: `${BASE_URL}/${slug}`,
     },
@@ -69,5 +77,13 @@ const fetchBlogDetail = async (slug: string) => {
   const data = await fetch(`${BASE_URL}/api/blog?blogid=${slug}`, {
     method: 'GET',
   });
+  return data.json();
+};
+
+const fetchPostlist = async () => {
+  const data = await fetch(`${BASE_URL}/api/post/postlist`, {
+    method: 'GET',
+  });
+
   return data.json();
 };
