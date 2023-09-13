@@ -11,7 +11,6 @@ import GithubIcon from '@/stories/Icons/GithubIcon';
 import Header from '@/stories/Header';
 import TagBox from '@/components/TagBox';
 import Analytics from '@/components/Analytics';
-import Head from 'next/head';
 
 const sans = Open_Sans({ subsets: ['latin'] });
 export const menus = [
