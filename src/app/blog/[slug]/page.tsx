@@ -11,7 +11,7 @@ export default async function BlogDetail({
 
   return (
     <section className='w-full flex flex-row justify-center'>
-      <article className='w-full max-w-2xl p-3'>
+      <article className='w-full p-5 mr-6'>
         <h1 className='prose-2xl font-bold dark:text-white'>{data.title}</h1>
         <MarkDownViewer content={data.content} />
         <CommentList />

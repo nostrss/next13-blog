@@ -33,7 +33,7 @@ export default function RootLayout({ children }: IPropsChildren) {
         <body className={sans.className}>
           <Header menus={menus} />
           <div className='w-full flex flex-col items-center'>
-            <section className='w-full max-w-[1440px] flex flex-row justify-center'>
+            <section className='w-full max-w-[1192px] flex flex-row justify-center'>
               {children}
               <TagBox />
             </section>
