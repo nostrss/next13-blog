@@ -30,4 +30,4 @@ export const RSS_ATOM_URL = `${BASE_URL}/rss-atom.xml`;
 export const RSS_JSON_URL = `${BASE_URL}/feed.json`;
 
 export const DEFAULT_OG_IMAGE_URL =
-  'https://github.com/nostrss/next13-blog/assets/56717167/1f475249-003c-4eef-8987-274498879947';
+  'https://github.com/nostrss/next13-blog/assets/56717167/064a3d9e-347e-43f0-879b-d9e5ae8afb3e';
