@@ -1,6 +1,6 @@
 ---
 title: [NEXT] Middleware와 Edge Functions
-description : Next.js Middleware를 사용하면서 발생한 문제점과 해결방법
+description : 새로운 걸 사용하기 전에는 사전학습을 충분히 하자. Next.js Middleware를 사용하면서 발생한 문제점과 해결방법
 date: 2023-08-31
 tags: nestjs edge vercel runtime middleware
 ---

@@ -1,12 +1,7 @@
 ---
-layout: post
-title: '렌더링의 종류와 용어 정리'
-author: 'Nostrss'
-comments: true
+title: [정리] 렌더링의 종류와 용어 정리
+description: 렌더링 사전이 필요해..
 tags: rendering csr isr ssg ssr
-excerpt_separator:
-sticky:
-hidden:
 date: 2023-07-10
 ---
 

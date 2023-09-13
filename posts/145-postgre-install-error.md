@@ -1,12 +1,7 @@
 ---
-layout: post
-title: 'PostgresSQL 설치 시 "/tmp/.s.PGSQL.5432" 에러'
-author: 'Nostrss'
-comments: true
+title: PostgresSQL 설치 시 "/tmp/.s.PGSQL.5432" 에러
+description: 설치 에러가 제일 무서운 개발자
 tags: nestjs node express javascript typescript
-excerpt_separator:
-sticky:
-hidden:
 date: 2023-08-24
 ---
 

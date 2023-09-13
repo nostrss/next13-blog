@@ -1,12 +1,7 @@
 ---
-layout: post
-title: '[NEXT] TOAST Editor에서 이미지 업로드하기(hooks)'
-author: 'Nostrss'
-comments: true
+title: [NEXT] TOAST Editor에서 이미지 업로드하기(hooks)
+description : 블로그에 이미지가 없으면 섭섭하니깐, Toast에서 제공하는 hooks에 이미지 업로드 함수를 연결해보자.
 tags: nextjs react javascript typescript toast editor
-excerpt_separator:
-sticky:
-hidden:
 date: 2023-08-25
 ---
 
@@ -133,10 +128,6 @@ export default function PostEditor({
   );
 }
 ```
-
-<img width="467" alt="스크린샷 2023-08-26 오후 6 38 19" src="https://github.com/nostrss/nostrss.github.io/assets/56717167/957adff0-3396-47ea-a87f-6964687ab0e3">
-
-코드 블럭에 `hooks`를 추가해주었다.(왜 안보이지..?)
 
 > 테스트를 해보니 아래와 같이 이미지가 업로드 되는 것을 확인 할 수 있었다.
 

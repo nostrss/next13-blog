@@ -1,13 +1,7 @@
 ---
-layout: post
-title: '[NEXT] TOAST Editor customHTMLSanitizer 사용하기'
-description: '[NEXT] TOAST Editor customHTMLSanitizer 사용하기'
-author: 'Nostrss'
-comments: true
+title: [NEXT] TOAST Editor customHTMLSanitizer 사용하기
+description: dangeroulySetInnerHTML을 사용하지 않고 dompurify를 Toast Editor에 적용해보자.
 tags: nextjs react javascript typescript toast dompurify
-excerpt_separator:
-sticky:
-hidden:
 date: 2023-08-25
 ---
 

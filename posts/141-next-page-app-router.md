@@ -1,12 +1,7 @@
 ---
-layout: post
-title: '[NEXT] page.js (with App Router)'
-author: 'Nostrss'
-comments: true
+title: [NEXT] page.js (with App Router)
+description: NEXT.JS에서 page.js에 기본적으로 제공되는 Props를 알아보자.
 tags: nextjs react app-router pagejs
-excerpt_separator:
-sticky:
-hidden:
 date: 2023-07-11
 ---
 

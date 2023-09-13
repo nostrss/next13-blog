@@ -1,12 +1,7 @@
 ---
-layout: post
-title: 'React server component와 Next.js'
-author: 'Nostrss'
-comments: true
+title: React server component와 Next.js
+description: Server Component 참 신기한 컴포넌트네요
 tags: react rsc next.js
-excerpt_separator:
-sticky:
-hidden:
 date: 2023-07-11
 ---
 

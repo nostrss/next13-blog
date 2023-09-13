@@ -1,12 +1,7 @@
 ---
-layout: post
-title: 'reduce 사용법 정리'
-author: 'Nostrss'
-comments: true
+title: reduce 사용법 정리
+description: 자주 쓰지 않아서 까먹은 reduce 사용법을 정리
 tags: javascript reduce
-excerpt_separator:
-sticky:
-hidden:
 date: 2023-07-11
 ---
 

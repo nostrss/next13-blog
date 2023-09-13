@@ -1,12 +1,7 @@
 ---
-layout: post
-title: 'typedoc으로 프론트엔드 문서 만들기'
-author: 'Nostrss'
-comments: true
+title: typedoc으로 프론트엔드 문서 만들기
+description: AI가 문서를 만들어주는 세상이 빨리 왔으면 좋겠다.
 tags: react nextjs typedoc
-excerpt_separator:
-sticky:
-hidden:
 date: 2023-03-13
 ---
 

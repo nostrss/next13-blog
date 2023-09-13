@@ -1,12 +1,7 @@
 ---
-layout: post
-title: '[NEXT] TOAST Editor Viewer 사용하기'
-author: 'Nostrss'
-comments: true
+title: [NEXT] TOAST Editor Viewer 사용하기
+description: 보여주기만 할 땐 Viewer를 사용하면 된다.
 tags: nextjs react javascript typescript toast editor
-excerpt_separator:
-sticky:
-hidden:
 date: 2023-08-25
 ---
 

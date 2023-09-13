@@ -1,12 +1,7 @@
 ---
-layout: post
-title: '[알고리즘]최대공약수와 최소공배수'
-author: 'Nostrss'
-comments: true
+title: [알고리즘]최대공약수와 최소공배수
+description: 알아두면 쓸모 있을 것 같은 수학 
 tags: algorithm javascript gcd lcm
-excerpt_separator:
-sticky:
-hidden:
 date: 2023-06-23
 ---
 

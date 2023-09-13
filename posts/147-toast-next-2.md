@@ -1,12 +1,7 @@
 ---
-layout: post
-title: '[NEXT] TOAST Editor에서 작성한 글정보 불러오기(useRef) '
-author: 'Nostrss'
-comments: true
+title: [NEXT] TOAST Editor에서 작성한 글정보 불러오기(useRef)
 tags: nextjs react javascript typescript toast editor
-excerpt_separator:
-sticky:
-hidden:
+description: 에디터에 적어놓은 글을 어떻게 불러올까? useState or useRef?
 date: 2023-08-25
 ---
 

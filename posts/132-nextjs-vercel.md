@@ -1,12 +1,7 @@
 ---
-layout: post
-title: 'Next.js SSR, SSG를 Vercel에 배포하기(1)'
-author: 'Nostrss'
-comments: true
+title: Next.js SSR, SSG를 Vercel에 배포하기(1)
+description: 오랜만에 사용해 보는 Next.js, 보고 싶었다 Next.js
 tags: Next ssr ssg vercel deploy
-excerpt_separator:
-sticky:
-hidden:
 date: 2023-03-05
 ---
 

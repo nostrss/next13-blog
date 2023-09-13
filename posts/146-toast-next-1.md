@@ -1,12 +1,7 @@
 ---
-layout: post
-title: '[NEXT] TOAST Editor 사용하기 '
-author: 'Nostrss'
-comments: true
+title: [NEXT] TOAST Editor 사용하기
+description: 국산을 애용하자. 한국 에디더 Toast Editor를 사용해보자.
 tags: nextjs react javascript typescript toast editor
-excerpt_separator:
-sticky:
-hidden:
 date: 2023-08-25
 ---
 

@@ -1,12 +1,7 @@
 ---
-layout: post
-title: '[책읽기]refactoring'
-author: 'Nostrss'
-comments: true
+title: [책읽기]refactoring
+description: 이 책이 그렇게 유명하다며? 그런데 어려워 보이는데?
 tags: book refactoring javascript
-excerpt_separator:
-sticky:
-hidden:
 date: 2023-05-05
 ---
 

@@ -1,12 +1,7 @@
 ---
-layout: post
-title: 'React PWA 만들기(1)'
-author: 'Nostrss'
-comments: true
+title: React PWA 만들기(1)
+description: 대표님은 PWA가 하고 싶다고 하셨어.
 tags: react pwa
-excerpt_separator:
-sticky:
-hidden:
 date: 2023-03-04
 ---
 

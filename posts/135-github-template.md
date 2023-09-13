@@ -1,12 +1,7 @@
 ---
-layout: post
-title: '나만의 Boilerplate를 github template로 만들기 '
-author: 'Nostrss'
-comments: true
+title: 나만의 Boilerplate를 github template로 만들기
+description: 한번 잘 만들어두면 계속 사용할 수 있는 boilerplate를 github template로 만들어보자.
 tags: github template boilerplate
-excerpt_separator:
-sticky:
-hidden:
 date: 2023-03-12
 ---
 

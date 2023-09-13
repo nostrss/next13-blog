@@ -1,12 +1,7 @@
 ---
-layout: post
-title: '[Nest.js] - 소개'
-author: 'Nostrss'
-comments: true
+title: [Nest.js] - 소개
+description: 올해 안에 Nest.js 서버를 만들어 보자!!
 tags: nestjs node express javascript typescript
-excerpt_separator:
-sticky:
-hidden:
 date: 2023-08-23
 ---
 

@@ -1,13 +1,7 @@
 ---
-layout: post
 title: [Nest] ERROR [ExceptionsHandler] No metadata
-description: '[Nest] ERROR [ExceptionsHandler] No metadata'
-author: 'Nostrss'
-comments: true
+description: 해결이 됐는데도 이유를 모르는 이 찝찝함이란..
 tags: nestjs typeorm express error repository datasource
-excerpt_separator:
-sticky:
-hidden:
 date: 2023-08-30
 ---
 

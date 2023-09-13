@@ -1,12 +1,7 @@
 ---
-layout: post
-title: '[책읽기]refactoring - 챕터 1'
-author: 'Nostrss'
-comments: true
+title: [책읽기]refactoring - 챕터 1
+description: 사수가 없으니 책이라도 읽어보자.
 tags: book refactoring javascript
-excerpt_separator:
-sticky:
-hidden:
 date: 2023-05-07
 ---
 
