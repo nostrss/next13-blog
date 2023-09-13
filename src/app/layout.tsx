@@ -3,15 +3,15 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Open_Sans } from 'next/font/google';
 import QueryProviders from '@/context/queryProvider';
-import { IPropsChildren, TagCounts } from '@/type/common';
+import { IPropsChildren } from '@/type/common';
 import { defaultMetaData } from '../defaulMetaData';
 import RssIcon from '@/stories/Icons/RssIcon';
 import StorybookIcon from '@/stories/Icons/StorybookIcon';
 import GithubIcon from '@/stories/Icons/GithubIcon';
-import { BASE_URL } from '@/constant';
 import Header from '@/stories/Header';
-import TagLabel from '@/stories/TagLabel';
 import TagBox from '@/components/TagBox';
+import Analytics from '@/components/Analytics';
+import Head from 'next/head';
 
 const sans = Open_Sans({ subsets: ['latin'] });
 export const menus = [
@@ -29,6 +29,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: IPropsChildren) {
   return (
     <html lang='kr'>
+      <Analytics />
       <QueryProviders>
         <body className={sans.className}>
           <Header menus={menus} />

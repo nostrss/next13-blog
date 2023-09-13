@@ -4,7 +4,7 @@
         <title>Nostrss's Dev Blog</title>
         <link>https://github.com/nostrss</link>
         <description>Nostrss Blog Post List</description>
-        <lastBuildDate>Wed, 13 Sep 2023 08:00:09 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 13 Sep 2023 09:50:07 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>generate-rss</generator>
         <language>ko</language>
@@ -12,8 +12,8 @@
         <atom:link href="https://nostrss.me/rss.xml" rel="self" type="application/rss+xml"/>
         <item>
             <title><![CDATA[[면접리뷰]클로저(Closure)란? (3)]]></title>
-            <link>https://nostrss.me/2023-09-06-160-interview-review-closure3</link>
-            <guid>2023-09-06-160-interview-review-closure3</guid>
+            <link>https://nostrss.me/160-interview-review-closure3</link>
+            <guid>160-interview-review-closure3</guid>
             <pubDate>Wed, 06 Sep 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[클로저는 언제 사용하는가? 자주 사용해서 익숙해지자.]]></description>
             <content:encoded><![CDATA[<p>이론적인 내용을 정리하고 이제는 실제로 어떻게 쓰이는지 알아보자.<br>
@@ -148,8 +148,8 @@ console.log(myCounter.decrease()); // 0
         </item>
         <item>
             <title><![CDATA[[면접리뷰]클로저(Closure)란? (2)]]></title>
-            <link>https://nostrss.me/2023-09-06-159-interview-review-closure2</link>
-            <guid>2023-09-06-159-interview-review-closure2</guid>
+            <link>https://nostrss.me/159-interview-review-closure2</link>
+            <guid>159-interview-review-closure2</guid>
             <pubDate>Wed, 06 Sep 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[다양한 예제를 보고 클로저에 대해 조금 더 이해해보자.]]></description>
             <content:encoded><![CDATA[<p>이번에는 여러 사이트들의 예제들을 보면서 클로저에 대해 조금 더 이해해보려고 한다.</p>
@@ -205,8 +205,8 @@ sayHi(); // what will it show: "John" or "Pete"?
         </item>
         <item>
             <title><![CDATA[[면접리뷰]클로저(Closure)란?]]></title>
-            <link>https://nostrss.me/2023-09-06-158-interview-review-closure</link>
-            <guid>2023-09-06-158-interview-review-closure</guid>
+            <link>https://nostrss.me/158-interview-review-closure</link>
+            <guid>158-interview-review-closure</guid>
             <pubDate>Wed, 06 Sep 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[어설프게 알고 면접보다 망했다. 다음엔 실수하지 말자!]]></description>
             <content:encoded><![CDATA[<p>오늘 면접을 보면서 내가 이론 공부에 대해 개념적으로만 간단히 알고있다는 느낌을 받았다.</p>
@@ -350,8 +350,8 @@ showName();
         </item>
         <item>
             <title><![CDATA[[React-Query] 무한 스크롤 구현하기]]></title>
-            <link>https://nostrss.me/2023-09-06-157-react-query-inifinite-scroll</link>
-            <guid>2023-09-06-157-react-query-inifinite-scroll</guid>
+            <link>https://nostrss.me/157-react-query-inifinite-scroll</link>
+            <guid>157-react-query-inifinite-scroll</guid>
             <pubDate>Wed, 06 Sep 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[별도의 무한스크롤 라이브러리 없이 useInfiniteQuery와 IntersectionObserver를 통해 무한 스크롤을 구현해보자]]></description>
             <content:encoded><![CDATA[<p>그동안 <code>무한스크롤</code>을 구현하기 위해 몇가지 라이브러리를 사용해봤다.</p>
@@ -635,8 +635,8 @@ export default function PostList() {
         </item>
         <item>
             <title><![CDATA[[Error] Storybook, Cannot find module]]></title>
-            <link>https://nostrss.me/2023-09-06-156-next13-storybook-error</link>
-            <guid>2023-09-06-156-next13-storybook-error</guid>
+            <link>https://nostrss.me/156-next13-storybook-error</link>
+            <guid>156-next13-storybook-error</guid>
             <pubDate>Wed, 06 Sep 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[스토리북에서 Cannot find module 에러가 발생했을 때 해결 방법]]></description>
             <content:encoded><![CDATA[<p>외부에서 <code>상수</code>나 <code>컴포넌트</code>를 import 해왔을때 갑자기 <code>스토리북</code>에서 아래와 같은 에러가 발생했다.</p>
@@ -704,8 +704,8 @@ Error: Cannot find module '@/constant'
         </item>
         <item>
             <title><![CDATA[Nextjs 13에서 스토리북 사용하기(with tailwindcss)]]></title>
-            <link>https://nostrss.me/2023-09-05-155-next13-storybook</link>
-            <guid>2023-09-05-155-next13-storybook</guid>
+            <link>https://nostrss.me/155-next13-storybook</link>
+            <guid>155-next13-storybook</guid>
             <pubDate>Tue, 05 Sep 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[스토리북으로 UI 단위 컴포넌트를 문서화해보자]]></description>
             <content:encoded><![CDATA[<p>이번에 <code>nextjs 13</code>으로 개인 블로그를 만드려는데 때마침 <code>스토리북</code>이 생각나서 사용해보려고 했다.</p>
@@ -824,10 +824,10 @@ export default preview;
         </item>
         <item>
             <title><![CDATA[Next.js 13 프로젝트 yarn berry로 전환하기]]></title>
-            <link>https://nostrss.me/2023-09-04-154-next-yarnberry</link>
-            <guid>2023-09-04-154-next-yarnberry</guid>
+            <link>https://nostrss.me/154-next-yarnberry</link>
+            <guid>154-next-yarnberry</guid>
             <pubDate>Mon, 04 Sep 2023 00:00:00 GMT</pubDate>
-            <description><![CDATA[Next.js 13 프로젝트를 yarn berry로 전환하는 방법]]></description>
+            <description><![CDATA[Next 프로젝트 인스톨 없이 클론받아 바로 써보기]]></description>
             <content:encoded><![CDATA[<h2>설치 환경 버전 정보</h2>
 <blockquote>
 <p>node : 18.13.0</p>
@@ -913,10 +913,10 @@ export default preview;
         </item>
         <item>
             <title><![CDATA[[Nest] DTO, 그게 뭐야? 왜쓰는데? 어떻게 쓰는데?]]></title>
-            <link>https://nostrss.me/2023-09-01-153-nestjs-dto</link>
-            <guid>2023-09-01-153-nestjs-dto</guid>
+            <link>https://nostrss.me/153-nestjs-dto</link>
+            <guid>153-nestjs-dto</guid>
             <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
-            <description><![CDATA[Nest.js에서 DTO를 사용하는 이유와 사용법]]></description>
+            <description><![CDATA[이름도 생소한 DTO, 그것이 알고 싶다.]]></description>
             <content:encoded><![CDATA[<h2>DTO(Data Transfer Object)란?</h2>
 <p>nest.js를 공부하면서 생소한 용어들이 있었는데, 그중 하나가 바로 DTO(Data Transfer Object)였다.</p>
 <blockquote>
@@ -1021,10 +1021,10 @@ bootstrap();
         </item>
         <item>
             <title><![CDATA[[NEXT] Middleware와 Edge Functions]]></title>
-            <link>https://nostrss.me/2023-08-31-152-nextjs-middleware-edge</link>
-            <guid>2023-08-31-152-nextjs-middleware-edge</guid>
+            <link>https://nostrss.me/152-nextjs-middleware-edge</link>
+            <guid>152-nextjs-middleware-edge</guid>
             <pubDate>Thu, 31 Aug 2023 00:00:00 GMT</pubDate>
-            <description><![CDATA[Next.js Middleware를 사용하면서 발생한 문제점과 해결방법]]></description>
+            <description><![CDATA[새로운 걸 사용하기 전에는 사전학습을 충분히 하자. Next.js Middleware를 사용하면서 발생한 문제점과 해결방법]]></description>
             <content:encoded><![CDATA[<p>얼마 전 팀프로젝트에 <code>Next.js</code>의 <code>Middleware</code> 파일을 사용하여 github 로그인 관련 기능을 구현하려고 했었다.</p>
 <blockquote>
 <p><a href="https://nextjs.org/docs/pages/building-your-application/routing/middleware">🔗 Next.js Middleware 공식문서 🔗</a></p>
@@ -1123,10 +1123,10 @@ export const config = {
         </item>
         <item>
             <title><![CDATA[[Nest] ERROR [ExceptionsHandler] No metadata]]></title>
-            <link>https://nostrss.me/2023-08-30-151-error-nest-no-metadata</link>
-            <guid>2023-08-30-151-error-nest-no-metadata</guid>
+            <link>https://nostrss.me/151-error-nest-no-metadata</link>
+            <guid>151-error-nest-no-metadata</guid>
             <pubDate>Wed, 30 Aug 2023 00:00:00 GMT</pubDate>
-            <description><![CDATA['[Nest] ERROR [ExceptionsHandler] No metadata']]></description>
+            <description><![CDATA[해결이 됐는데도 이유를 모르는 이 찝찝함이란..]]></description>
             <content:encoded><![CDATA[<p><code>Nest.js</code>에서 <code>typeorm</code>을 연결하여 사용하려고 하던 중 아래와 같은 에러가 발생했다.</p>
 <pre><code class="language-bash">[Nest] 87109  - 2023. 08. 29. 오후 9:41:15   ERROR [ExceptionsHandler] No metadata for "Board" was found.
 EntityMetadataNotFoundError: No metadata for "Board" was found.
@@ -1212,10 +1212,11 @@ EntityMetadataNotFoundError: No metadata for "Board" was found.
             <category>datasource</category>
         </item>
         <item>
-            <title><![CDATA['[NEXT] TOAST Editor에서 작성한 글정보 불러오기(useRef) ']]></title>
-            <link>https://nostrss.me/2023-08-25-147-toast-next-2</link>
-            <guid>2023-08-25-147-toast-next-2</guid>
+            <title><![CDATA[[NEXT] TOAST Editor에서 작성한 글정보 불러오기(useRef)]]></title>
+            <link>https://nostrss.me/147-toast-next-2</link>
+            <guid>147-toast-next-2</guid>
             <pubDate>Fri, 25 Aug 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[에디터에 적어놓은 글을 어떻게 불러올까? useState or useRef?]]></description>
             <content:encoded><![CDATA[<blockquote>
 <ul>
 <li><a href="https://nostrss.github.io/2023-08-25/146-toast-next-1">1.TOAST Editor에 사용하기</a></li>
@@ -1302,10 +1303,11 @@ export default function PostEditor({
             <category>editor</category>
         </item>
         <item>
-            <title><![CDATA['[NEXT] TOAST Editor에서 이미지 업로드하기(hooks)']]></title>
-            <link>https://nostrss.me/2023-08-25-148-toast-next-3</link>
-            <guid>2023-08-25-148-toast-next-3</guid>
+            <title><![CDATA[[NEXT] TOAST Editor에서 이미지 업로드하기(hooks)]]></title>
+            <link>https://nostrss.me/148-toast-next-3</link>
+            <guid>148-toast-next-3</guid>
             <pubDate>Fri, 25 Aug 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[블로그에 이미지가 없으면 섭섭하니깐, Toast에서 제공하는 hooks에 이미지 업로드 함수를 연결해보자.]]></description>
             <content:encoded><![CDATA[<blockquote>
 <ul>
 <li><a href="https://nostrss.github.io/2023-08-25/146-toast-next-1">1.TOAST Editor에 사용하기</a></li>
@@ -1410,7 +1412,6 @@ type HookCallback = (url: string, text?: string) => void;
   );
 }
 </code></pre>
-<p>코드 블럭에 <code>hooks</code>를 추가해주었다.(왜 안보이지..?)</p>
 <blockquote>
 <p>테스트를 해보니 아래와 같이 이미지가 업로드 되는 것을 확인 할 수 있었다.</p>
 </blockquote>]]></content:encoded>
@@ -1423,10 +1424,11 @@ type HookCallback = (url: string, text?: string) => void;
             <category>editor</category>
         </item>
         <item>
-            <title><![CDATA['[NEXT] TOAST Editor 사용하기 ']]></title>
-            <link>https://nostrss.me/2023-08-25-146-toast-next-1</link>
-            <guid>2023-08-25-146-toast-next-1</guid>
+            <title><![CDATA[[NEXT] TOAST Editor 사용하기]]></title>
+            <link>https://nostrss.me/146-toast-next-1</link>
+            <guid>146-toast-next-1</guid>
             <pubDate>Fri, 25 Aug 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[국산을 애용하자. 한국 에디더 Toast Editor를 사용해보자.]]></description>
             <content:encoded><![CDATA[<blockquote>
 <ul>
 <li><a href="https://nostrss.github.io/2023-08-25/146-toast-next-1">1.TOAST Editor에 사용하기</a></li>
@@ -1615,11 +1617,11 @@ const PostEditor = dynamic(() => import('@/components/newpost/PostEditor'), {
             <category>editor</category>
         </item>
         <item>
-            <title><![CDATA['[NEXT] TOAST Editor customHTMLSanitizer 사용하기']]></title>
-            <link>https://nostrss.me/2023-08-25-150-toast-next-5</link>
-            <guid>2023-08-25-150-toast-next-5</guid>
+            <title><![CDATA[[NEXT] TOAST Editor customHTMLSanitizer 사용하기]]></title>
+            <link>https://nostrss.me/150-toast-next-5</link>
+            <guid>150-toast-next-5</guid>
             <pubDate>Fri, 25 Aug 2023 00:00:00 GMT</pubDate>
-            <description><![CDATA['[NEXT] TOAST Editor customHTMLSanitizer 사용하기']]></description>
+            <description><![CDATA[dangeroulySetInnerHTML을 사용하지 않고 dompurify를 Toast Editor에 적용해보자.]]></description>
             <content:encoded><![CDATA[<blockquote>
 <ul>
 <li><a href="https://nostrss.github.io/2023-08-25/146-toast-next-1">1.TOAST Editor에 사용하기</a></li>
@@ -1788,10 +1790,11 @@ export default function EditorViewer({
             <category>dompurify</category>
         </item>
         <item>
-            <title><![CDATA['[NEXT] TOAST Editor Viewer 사용하기']]></title>
-            <link>https://nostrss.me/2023-08-25-149-toast-next-4</link>
-            <guid>2023-08-25-149-toast-next-4</guid>
+            <title><![CDATA[[NEXT] TOAST Editor Viewer 사용하기]]></title>
+            <link>https://nostrss.me/149-toast-next-4</link>
+            <guid>149-toast-next-4</guid>
             <pubDate>Fri, 25 Aug 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[보여주기만 할 땐 Viewer를 사용하면 된다.]]></description>
             <content:encoded><![CDATA[<blockquote>
 <ul>
 <li><a href="https://nostrss.github.io/2023-08-25/146-toast-next-1">1.TOAST Editor에 사용하기</a></li>
@@ -1838,10 +1841,11 @@ export default function EditorViewer({
             <category>editor</category>
         </item>
         <item>
-            <title><![CDATA['PostgresSQL 설치 시 "/tmp/.s.PGSQL.5432" 에러']]></title>
-            <link>https://nostrss.me/2023-08-24-145-postgre-install-error</link>
-            <guid>2023-08-24-145-postgre-install-error</guid>
+            <title><![CDATA[PostgresSQL 설치 시 "/tmp/.s.PGSQL.5432" 에러]]></title>
+            <link>https://nostrss.me/145-postgre-install-error</link>
+            <guid>145-postgre-install-error</guid>
             <pubDate>Thu, 24 Aug 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[설치 에러가 제일 무서운 개발자]]></description>
             <content:encoded><![CDATA[<p>Nest.js를 공부하면서 Brew로 PostgresSQL을 설치하고 DB를 연결하려고 했는데 아래와 같은 에러가 발생했다.</p>
 <pre><code class="language-bash">psql postgres
 
@@ -1871,10 +1875,11 @@ psql: error: connection to server on socket "/tmp/.s.PGSQL.5432" failed: No such
             <category>typescript</category>
         </item>
         <item>
-            <title><![CDATA['[Nest.js] - 소개']]></title>
-            <link>https://nostrss.me/2023-08-23-144-nestjs</link>
-            <guid>2023-08-23-144-nestjs</guid>
+            <title><![CDATA[[Nest.js] - 소개]]></title>
+            <link>https://nostrss.me/144-nestjs</link>
+            <guid>144-nestjs</guid>
             <pubDate>Wed, 23 Aug 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[올해 안에 Nest.js 서버를 만들어 보자!!]]></description>
             <content:encoded><![CDATA[<blockquote>
 <p><a href="https://docs.nestjs.com/">Nest.js 공식 문서</a>를 참고하였습니다.</p>
 </blockquote>
@@ -1937,10 +1942,11 @@ npm run start:dev // 개발 모드
             <category>typescript</category>
         </item>
         <item>
-            <title><![CDATA['reduce 사용법 정리']]></title>
-            <link>https://nostrss.me/2023-07-11-142-javascript-reduce</link>
-            <guid>2023-07-11-142-javascript-reduce</guid>
+            <title><![CDATA[reduce 사용법 정리]]></title>
+            <link>https://nostrss.me/142-javascript-reduce</link>
+            <guid>142-javascript-reduce</guid>
             <pubDate>Tue, 11 Jul 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[자주 쓰지 않아서 까먹은 reduce 사용법을 정리]]></description>
             <content:encoded><![CDATA[<p>좀 처럼 프론트엔드 실무를 하면서는 자주 사용할 기회가 없었던 메소드가 바로 reduce였다.</p>
 <p>얼마 전 지인의 코드를 수정해주다가 reduce를 사용한 부분이 있어서 정리해봤다.</p>
 <h2>등차수열</h2>
@@ -1986,10 +1992,11 @@ npm run start:dev // 개발 모드
             <category>reduce</category>
         </item>
         <item>
-            <title><![CDATA['[NEXT] page.js (with App Router)']]></title>
-            <link>https://nostrss.me/2023-07-11-141-next-page-app-router</link>
-            <guid>2023-07-11-141-next-page-app-router</guid>
+            <title><![CDATA[[NEXT] page.js (with App Router)]]></title>
+            <link>https://nostrss.me/141-next-page-app-router</link>
+            <guid>141-next-page-app-router</guid>
             <pubDate>Tue, 11 Jul 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[NEXT.JS에서 page.js에 기본적으로 제공되는 Props를 알아보자.]]></description>
             <content:encoded><![CDATA[<h2>Props</h2>
 <p>NEXT.JS에서는 기본적으로 컴포넌트에 Props로 params와 searchParams를 전달해준다.</p>
 <p>상위 컴포넌트에서 아무런 Props를 전달하지 않아도 params와 searchParams를 사용할 수 있다.</p>
@@ -2037,10 +2044,11 @@ npm run start:dev // 개발 모드
             <category>pagejs</category>
         </item>
         <item>
-            <title><![CDATA['React server component와 Next.js']]></title>
-            <link>https://nostrss.me/2023-07-11-143-react-nextjs-server-component</link>
-            <guid>2023-07-11-143-react-nextjs-server-component</guid>
+            <title><![CDATA[React server component와 Next.js]]></title>
+            <link>https://nostrss.me/143-react-nextjs-server-component</link>
+            <guid>143-react-nextjs-server-component</guid>
             <pubDate>Tue, 11 Jul 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[Server Component 참 신기한 컴포넌트네요]]></description>
             <content:encoded><![CDATA[<p>React 18 버전에서 새로 추가된 기능 중 하나가 바로 server component이다.</p>
 <p>아직 많이 쓰이는 것 같지는 않지만, Next.js에서도 app router가 정식 버전으로 나오면서 server component를 지원한다고 한다.</p>
 <p>그래서 이에 대해 조금 공부해보았다.</p>
@@ -2105,10 +2113,11 @@ export default function Counter() {
             <category>next.js</category>
         </item>
         <item>
-            <title><![CDATA['렌더링의 종류와 용어 정리']]></title>
-            <link>https://nostrss.me/2023-07-10-140-frontend-of-term</link>
-            <guid>2023-07-10-140-frontend-of-term</guid>
+            <title><![CDATA[[정리] 렌더링의 종류와 용어 정리]]></title>
+            <link>https://nostrss.me/140-frontend-of-term</link>
+            <guid>140-frontend-of-term</guid>
             <pubDate>Mon, 10 Jul 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[렌더링 사전이 필요해..]]></description>
             <content:encoded><![CDATA[<h1>렌더링의 종류와 용어 정리</h1>
 <p>현업에서 CSR만 사용해봐서 다른 렌더링 방식에 대해서 알아보다가 용어 정리가 좀 필요한 것 같아서 정리해봤다.</p>
 <h2>CSR : client side rendering</h2>
@@ -2201,10 +2210,11 @@ FCP : first contentful paint, 유저가 화면에 처음으로 무언가를 볼 
             <category>ssr</category>
         </item>
         <item>
-            <title><![CDATA['[알고리즘]최대공약수와 최소공배수']]></title>
-            <link>https://nostrss.me/2023-06-23-139-algorithm</link>
-            <guid>2023-06-23-139-algorithm</guid>
+            <title><![CDATA[[알고리즘]최대공약수와 최소공배수]]></title>
+            <link>https://nostrss.me/139-algorithm</link>
+            <guid>139-algorithm</guid>
             <pubDate>Fri, 23 Jun 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[알아두면 쓸모 있을 것 같은 수학]]></description>
             <content:encoded><![CDATA[<p>최근 알고리즘 문제를 풀다가 최대공약수와 최소공배수를 활용하는 문제가 있었다.</p>
 <p>문제를 풀긴 풀었지만, 최대공약수와 최소공배수의 경우에는 공식이 이미 존재하기 때문에</p>
 <p>잘 알아두면 시간을 절약하기 좋을 것 같아서 정리해 보았다.</p>
@@ -2240,10 +2250,11 @@ FCP : first contentful paint, 유저가 화면에 처음으로 무언가를 볼 
             <category>lcm</category>
         </item>
         <item>
-            <title><![CDATA['[책읽기]refactoring - 챕터 1']]></title>
-            <link>https://nostrss.me/2023-05-07-138-refactoring-1</link>
-            <guid>2023-05-07-138-refactoring-1</guid>
+            <title><![CDATA[[책읽기]refactoring - 챕터 1]]></title>
+            <link>https://nostrss.me/138-refactoring-1</link>
+            <guid>138-refactoring-1</guid>
             <pubDate>Sun, 07 May 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[사수가 없으니 책이라도 읽어보자.]]></description>
             <content:encoded><![CDATA[<h2>샘플 코드</h2>
 <ul>
 <li>
@@ -2356,10 +2367,11 @@ class ComedyCalculator extends PerformanceCalculator {
             <category>javascript</category>
         </item>
         <item>
-            <title><![CDATA['[책읽기]refactoring']]></title>
-            <link>https://nostrss.me/2023-05-05-137-refactoring-0</link>
-            <guid>2023-05-05-137-refactoring-0</guid>
+            <title><![CDATA[[책읽기]refactoring]]></title>
+            <link>https://nostrss.me/137-refactoring-0</link>
+            <guid>137-refactoring-0</guid>
             <pubDate>Fri, 05 May 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[이 책이 그렇게 유명하다며? 그런데 어려워 보이는데?]]></description>
             <content:encoded><![CDATA[<h2>좋은 코드란 어떤걸까?</h2>
 <p>회사를 다니기 전에 좋은 코드에 대한 나의 생각은 아래와 같았다.</p>
 <blockquote>
@@ -2406,10 +2418,11 @@ class ComedyCalculator extends PerformanceCalculator {
             <category>javascript</category>
         </item>
         <item>
-            <title><![CDATA['typedoc으로 프론트엔드 문서 만들기']]></title>
-            <link>https://nostrss.me/2023-03-13-136-typedoc-gh-pages</link>
-            <guid>2023-03-13-136-typedoc-gh-pages</guid>
+            <title><![CDATA[typedoc으로 프론트엔드 문서 만들기]]></title>
+            <link>https://nostrss.me/136-typedoc-gh-pages</link>
+            <guid>136-typedoc-gh-pages</guid>
             <pubDate>Mon, 13 Mar 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[AI가 문서를 만들어주는 세상이 빨리 왔으면 좋겠다.]]></description>
             <content:encoded><![CDATA[<p>회사에서든, 개인적으로 집에서 코드를 볼 때마다</p>
 <blockquote>
 <p>이 변수는 뭐지?</p>
@@ -2456,10 +2469,11 @@ npm install --save-dev typedoc
             <category>typedoc</category>
         </item>
         <item>
-            <title><![CDATA['나만의 Boilerplate를 github template로 만들기 ']]></title>
-            <link>https://nostrss.me/2023-03-12-135-github-template</link>
-            <guid>2023-03-12-135-github-template</guid>
+            <title><![CDATA[나만의 Boilerplate를 github template로 만들기]]></title>
+            <link>https://nostrss.me/135-github-template</link>
+            <guid>135-github-template</guid>
             <pubDate>Sun, 12 Mar 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[한번 잘 만들어두면 계속 사용할 수 있는 boilerplate를 github template로 만들어보자.]]></description>
             <content:encoded><![CDATA[<p>매번 새로운 프로젝트를 시작할 때 마다 똑같이 반복해서 작업하는 일이 있다.</p>
 <pre><code class="language-bash">// 설치하기..
 npx create-react-app
@@ -2518,10 +2532,11 @@ next.config.js
             <category>boilerplate</category>
         </item>
         <item>
-            <title><![CDATA['Next.js SSR, SSG를 Vercel에 배포하기(3)']]></title>
-            <link>https://nostrss.me/2023-03-11-134-nextjs-vercel-3</link>
-            <guid>2023-03-11-134-nextjs-vercel-3</guid>
+            <title><![CDATA[Next.js SSR, SSG를 Vercel에 배포하기(3)]]></title>
+            <link>https://nostrss.me/134-nextjs-vercel-3</link>
+            <guid>134-nextjs-vercel-3</guid>
             <pubDate>Sat, 11 Mar 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[배포가 가장 쉬웠어요 라고 할 뻔 했다.]]></description>
             <content:encoded><![CDATA[<p><a href="https://github.com/nostrss/next-render">전체 소스코드</a></p>
 <p><a href="https://next-render-hjuyogs9h-nostrss.vercel.app/">DEMO</a></p>
 <p>이제 소스코드를 <code>vercel</code>에 배포해 볼 차례이다.</p>
@@ -2555,127 +2570,11 @@ next.config.js
             <category>deploy</category>
         </item>
         <item>
-            <title><![CDATA['Next.js SSR, SSG를 Vercel에 배포하기(2)']]></title>
-            <link>https://nostrss.me/2023-03-05-133-nextjs-vercel-2</link>
-            <guid>2023-03-05-133-nextjs-vercel-2</guid>
+            <title><![CDATA[Next.js SSR, SSG를 Vercel에 배포하기(1)]]></title>
+            <link>https://nostrss.me/132-nextjs-vercel</link>
+            <guid>132-nextjs-vercel</guid>
             <pubDate>Sun, 05 Mar 2023 00:00:00 GMT</pubDate>
-            <content:encoded><![CDATA[<p><a href="https://github.com/nostrss/next-render">전체 소스코드</a></p>
-<p><a href="https://next-render-hjuyogs9h-nostrss.vercel.app/">DEMO</a></p>
-<p>작품 리스트를 <code>SSR</code>로 구현해봤으니, 이번에는 <code>SSG</code>를 구현해보려고 한다.</p>
-<p>리스트 중에 하나를 클릭 했을 때 상세 화면으로 넘어가고</p>
-<p>상세화면은 <code>SSG</code>로 렌더링 되도록 할 예정이다.</p>
-<h2>작품 상세 페이지 SSG 구현</h2>
-<h3>API</h3>
-<blockquote>
-<p>사용할 API : <a href="https://api.artic.edu/docs/">Art Institute of Chicago API</a></p>
-</blockquote>
-<h3>SSG 구현 코드</h3>
-<blockquote>
-<p><a href="https://github.com/nostrss/next-render/blob/main/src/pages/%5Bid%5D/index.jsx">SSG로 구현된 전체 소스코드</a></p>
-</blockquote>
-<h2>구현 내용</h2>
-<h3>getStaticProps</h3>
-<p><a href="https://nextjs.org/docs/basic-features/data-fetching/get-static-props">getStaticProps 문서 보러가기</a></p>
-<ul>
-<li><code>getStaticProps</code>는 빌드 시 api 통신 응답값을 받아 미리 html 파일을 생성해둔다.</li>
-<li>즉, 운영에 배포 되면 유저는 백엔드 서버와의 통신 결과물을 보는 것이 아니라, 이미 빌드되어 있는 <code>html</code> 정적파일을 브라우저로 다운 받아 보는 것이다</li>
-<li>따라서 빌드시 api 통신이 성공하지 않으면 당연히 빌드 에러가 발생한다.</li>
-<li>그리고 해당 페이지 접속 시 로딩이 엄청나게 빠르다.(당연히 이미 렌더링되어 있었으니깐..)</li>
-<li>또 당연하지만 페이지 소스를 보면 api응답 값들이 이미 채워져 있다.</li>
-</ul>
-<pre><code class="language-javascript">export async function getStaticProps(context) {
-  const id = context.params.id;
-  const apiUrl = `https://api.artic.edu/api/v1/artworks/${id}`;
-  const res = await fetch(apiUrl);
-  const data = await res.json();
-  return {
-    props: {
-      detailData: data.data,
-    },
-  };
-}
-</code></pre>
-<p>위의 코드는 빌드 시 api 통신 응답값을 클라이언트 컴포넌트에 props로 전달하는 역할을 한다.</p>
-<p><code>SSR</code>과 다른 점은 이것이 <code>빌드(build)</code>시 이루어진다는 것이다.</p>
-<p><code>npm run build</code> 또는 <code>yarn build</code> 커맨드를 입력하는 순간 이미 페이지가 만들어지는 것이다.</p>
-<p>하지만 내가 작성한 코드에서는 위와 같이 작성하면 에러가 발생하였다.</p>
-<p>이유는 getStaticProps가 <code>dynamic routing</code>페이지는 렌더링 하지 못하기 때문이다.</p>
-<p>이 때 필요한 것이 <code>getStaticPaths</code>이다.</p>
-<h3>getStaticPaths</h3>
-<p><a href="https://nextjs.org/docs/basic-features/data-fetching/get-static-paths">getStaticPaths 문서 보러가기</a></p>
-<ul>
-<li><code>getStaticPaths</code>는 <code>dynamic routing</code>으로 동적으로 변하는 path 정보를 <code>getStaticProps</code>에 전달하는 역할을 한다.</li>
-<li>이 path 정보로 <code>getStaticProps</code>는 빌드 시 api를 호출하고 응답값을 받아 정적인 페이지를 생성하는 것이다.</li>
-</ul>
-<pre><code class="language-javascript">export async function getStaticPaths() {
-  return {
-    paths: [
-      { params: { id: '14556' } },
-      { params: { id: '11434' } },
-      { params: { id: '16487' } },
-    ],
-    fallback: true,
-  };
-}
-</code></pre>
-<p>위의 코드를 보면 id 3개를(14556, 11434, 16487) path 정보로 <code>getStaticProps</code>에 전달하고 있다.
-그렇다면 빌드 시 <code>getStaticProps</code>는 3개의 id로 api 통신을 하고 응답값을 받아 정적인 페이지를 생성할 것이다.</p>
-<p>빌드를 해보자.</p>
-<p>정적 페이지 3개가 빌드 되었다고 빌드 결과에서 확인 할 수 있다.</p>
-<p>실제 빌드 폴더에서 확인해보자.</p>
-<p>빌드 폴더에 내가 지정한 14556, 11434, 16487 html 파일이 생성된 것을 볼 수 있었다.</p>
-<p>그렇다면 여기서 또 다른 의문이 생기게 된다...</p>
-<blockquote>
-<p>작품의 개수가 100개라면, getStaticPaths에 100개의 정보를 입력해야 하는건가?</p>
-</blockquote>
-<h4>fallback(Generating paths on-demand)</h4>
-<p>다시 한번 <code>getStaticPaths</code> 코드를 살펴보자.</p>
-<pre><code class="language-javascript">    fallback: true, // 이건 무엇을 하는 걸까??
-</code></pre>
-<p><code>Next.js</code>에서는 우리의 이런 요구를 예상한듯 이미 준비를 해두었는데, 바로 <code>fallback</code>을 이용하는 것이다.</p>
-<p>모든 페이지를 전부 빌드하는 것이 아니라 필요할 때 마다 정적 페이지를 생성하는 것이다.</p>
-<p>위의 코드를 다시 풀어서 설명하면</p>
-<blockquote>
-<p>id 3개는 미리 페이지를 정적 생성하고</p>
-</blockquote>
-<blockquote>
-<p>나머지 dynamic routing 페이지는 유저가 접속하면 그때 그때 페이지를 생성해줘</p>
-</blockquote>
-<p>라는 의미로 이해하면 된다.</p>
-<p>여기서 <code>fallback:true</code>는 필요할 때마다 정적 페이지를 생성한다라는 옵션인 것이다.</p>
-<p>실제로 생성 되는 지 확인 해보자.</p>
-<p>빌드 후 <code>Production</code> 모드로 실행을 하자</p>
-<blockquote>
-<p>yarn build</p>
-</blockquote>
-<blockquote>
-<p>yarn start</p>
-</blockquote>
-<p>그리고 몇몇 페이지를 방문해봤다.</p>
-<p>내가 지정한 3개의 id외 2개의 페이지가 새롭게 생겨난 것을 볼 수 있었다.</p>
-<p>신기한 기능이긴 한데 몇가지 의문점이 들었다.</p>
-<blockquote>
-<p>서비스를 운영하다 보니 약 10,000개의 정적 페이지들이 생겼다.</p>
-</blockquote>
-<blockquote>
-<p>용량적으로 문제는 없는 건가?</p>
-</blockquote>
-<blockquote>
-<p>만약 새롭게 build를 하게 되는 경우 기존에 쌓여있던 정적 페이지들은 전부 사라지는 건가?</p>
-</blockquote>
-<p>실무에서는 SSG를 어떻게 쓰고 있을까..</p>]]></content:encoded>
-            <author>jintagi@gmail.com (Nostrss)</author>
-            <category>Next</category>
-            <category>ssr</category>
-            <category>ssg</category>
-            <category>vercel</category>
-            <category>deploy</category>
-        </item>
-        <item>
-            <title><![CDATA['Next.js SSR, SSG를 Vercel에 배포하기(1)']]></title>
-            <link>https://nostrss.me/2023-03-05-132-nextjs-vercel</link>
-            <guid>2023-03-05-132-nextjs-vercel</guid>
-            <pubDate>Sun, 05 Mar 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[오랜만에 사용해 보는 Next.js, 보고 싶었다 Next.js]]></description>
             <content:encoded><![CDATA[<p><a href="https://github.com/nostrss/next-render">전체 소스코드</a></p>
 <p><a href="https://next-render-hjuyogs9h-nostrss.vercel.app/">DEMO</a></p>
 <p>최근 공부의 목적에 대해 갈팡질팡하다가 rendering에 대해 부쩍 관심이 생겼다.</p>
@@ -2819,99 +2718,177 @@ export default function Home({ dataList }) {
             <category>deploy</category>
         </item>
         <item>
-            <title><![CDATA['React PWA 만들기(2)']]></title>
-            <link>https://nostrss.me/2023-03-04-131-progressive-web-app-2</link>
-            <guid>2023-03-04-131-progressive-web-app-2</guid>
+            <title><![CDATA['Next.js SSR, SSG를 Vercel에 배포하기(2)']]></title>
+            <link>https://nostrss.me/133-nextjs-vercel-2</link>
+            <guid>133-nextjs-vercel-2</guid>
+            <pubDate>Sun, 05 Mar 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[이래서 Next Next 하는구나..]]></description>
+            <content:encoded><![CDATA[<p><a href="https://github.com/nostrss/next-render">전체 소스코드</a></p>
+<p><a href="https://next-render-hjuyogs9h-nostrss.vercel.app/">DEMO</a></p>
+<p>작품 리스트를 <code>SSR</code>로 구현해봤으니, 이번에는 <code>SSG</code>를 구현해보려고 한다.</p>
+<p>리스트 중에 하나를 클릭 했을 때 상세 화면으로 넘어가고</p>
+<p>상세화면은 <code>SSG</code>로 렌더링 되도록 할 예정이다.</p>
+<h2>작품 상세 페이지 SSG 구현</h2>
+<h3>API</h3>
+<blockquote>
+<p>사용할 API : <a href="https://api.artic.edu/docs/">Art Institute of Chicago API</a></p>
+</blockquote>
+<h3>SSG 구현 코드</h3>
+<blockquote>
+<p><a href="https://github.com/nostrss/next-render/blob/main/src/pages/%5Bid%5D/index.jsx">SSG로 구현된 전체 소스코드</a></p>
+</blockquote>
+<h2>구현 내용</h2>
+<h3>getStaticProps</h3>
+<p><a href="https://nextjs.org/docs/basic-features/data-fetching/get-static-props">getStaticProps 문서 보러가기</a></p>
+<ul>
+<li><code>getStaticProps</code>는 빌드 시 api 통신 응답값을 받아 미리 html 파일을 생성해둔다.</li>
+<li>즉, 운영에 배포 되면 유저는 백엔드 서버와의 통신 결과물을 보는 것이 아니라, 이미 빌드되어 있는 <code>html</code> 정적파일을 브라우저로 다운 받아 보는 것이다</li>
+<li>따라서 빌드시 api 통신이 성공하지 않으면 당연히 빌드 에러가 발생한다.</li>
+<li>그리고 해당 페이지 접속 시 로딩이 엄청나게 빠르다.(당연히 이미 렌더링되어 있었으니깐..)</li>
+<li>또 당연하지만 페이지 소스를 보면 api응답 값들이 이미 채워져 있다.</li>
+</ul>
+<pre><code class="language-javascript">export async function getStaticProps(context) {
+  const id = context.params.id;
+  const apiUrl = `https://api.artic.edu/api/v1/artworks/${id}`;
+  const res = await fetch(apiUrl);
+  const data = await res.json();
+  return {
+    props: {
+      detailData: data.data,
+    },
+  };
+}
+</code></pre>
+<p>위의 코드는 빌드 시 api 통신 응답값을 클라이언트 컴포넌트에 props로 전달하는 역할을 한다.</p>
+<p><code>SSR</code>과 다른 점은 이것이 <code>빌드(build)</code>시 이루어진다는 것이다.</p>
+<p><code>npm run build</code> 또는 <code>yarn build</code> 커맨드를 입력하는 순간 이미 페이지가 만들어지는 것이다.</p>
+<p>하지만 내가 작성한 코드에서는 위와 같이 작성하면 에러가 발생하였다.</p>
+<p>이유는 getStaticProps가 <code>dynamic routing</code>페이지는 렌더링 하지 못하기 때문이다.</p>
+<p>이 때 필요한 것이 <code>getStaticPaths</code>이다.</p>
+<h3>getStaticPaths</h3>
+<p><a href="https://nextjs.org/docs/basic-features/data-fetching/get-static-paths">getStaticPaths 문서 보러가기</a></p>
+<ul>
+<li><code>getStaticPaths</code>는 <code>dynamic routing</code>으로 동적으로 변하는 path 정보를 <code>getStaticProps</code>에 전달하는 역할을 한다.</li>
+<li>이 path 정보로 <code>getStaticProps</code>는 빌드 시 api를 호출하고 응답값을 받아 정적인 페이지를 생성하는 것이다.</li>
+</ul>
+<pre><code class="language-javascript">export async function getStaticPaths() {
+  return {
+    paths: [
+      { params: { id: '14556' } },
+      { params: { id: '11434' } },
+      { params: { id: '16487' } },
+    ],
+    fallback: true,
+  };
+}
+</code></pre>
+<p>위의 코드를 보면 id 3개를(14556, 11434, 16487) path 정보로 <code>getStaticProps</code>에 전달하고 있다.
+그렇다면 빌드 시 <code>getStaticProps</code>는 3개의 id로 api 통신을 하고 응답값을 받아 정적인 페이지를 생성할 것이다.</p>
+<p>빌드를 해보자.</p>
+<p>정적 페이지 3개가 빌드 되었다고 빌드 결과에서 확인 할 수 있다.</p>
+<p>실제 빌드 폴더에서 확인해보자.</p>
+<p>빌드 폴더에 내가 지정한 14556, 11434, 16487 html 파일이 생성된 것을 볼 수 있었다.</p>
+<p>그렇다면 여기서 또 다른 의문이 생기게 된다...</p>
+<blockquote>
+<p>작품의 개수가 100개라면, getStaticPaths에 100개의 정보를 입력해야 하는건가?</p>
+</blockquote>
+<h4>fallback(Generating paths on-demand)</h4>
+<p>다시 한번 <code>getStaticPaths</code> 코드를 살펴보자.</p>
+<pre><code class="language-javascript">    fallback: true, // 이건 무엇을 하는 걸까??
+</code></pre>
+<p><code>Next.js</code>에서는 우리의 이런 요구를 예상한듯 이미 준비를 해두었는데, 바로 <code>fallback</code>을 이용하는 것이다.</p>
+<p>모든 페이지를 전부 빌드하는 것이 아니라 필요할 때 마다 정적 페이지를 생성하는 것이다.</p>
+<p>위의 코드를 다시 풀어서 설명하면</p>
+<blockquote>
+<p>id 3개는 미리 페이지를 정적 생성하고</p>
+</blockquote>
+<blockquote>
+<p>나머지 dynamic routing 페이지는 유저가 접속하면 그때 그때 페이지를 생성해줘</p>
+</blockquote>
+<p>라는 의미로 이해하면 된다.</p>
+<p>여기서 <code>fallback:true</code>는 필요할 때마다 정적 페이지를 생성한다라는 옵션인 것이다.</p>
+<p>실제로 생성 되는 지 확인 해보자.</p>
+<p>빌드 후 <code>Production</code> 모드로 실행을 하자</p>
+<blockquote>
+<p>yarn build</p>
+</blockquote>
+<blockquote>
+<p>yarn start</p>
+</blockquote>
+<p>그리고 몇몇 페이지를 방문해봤다.</p>
+<p>내가 지정한 3개의 id외 2개의 페이지가 새롭게 생겨난 것을 볼 수 있었다.</p>
+<p>신기한 기능이긴 한데 몇가지 의문점이 들었다.</p>
+<blockquote>
+<p>서비스를 운영하다 보니 약 10,000개의 정적 페이지들이 생겼다.</p>
+</blockquote>
+<blockquote>
+<p>용량적으로 문제는 없는 건가?</p>
+</blockquote>
+<blockquote>
+<p>만약 새롭게 build를 하게 되는 경우 기존에 쌓여있던 정적 페이지들은 전부 사라지는 건가?</p>
+</blockquote>
+<p>실무에서는 SSG를 어떻게 쓰고 있을까..</p>]]></content:encoded>
+            <author>jintagi@gmail.com (Nostrss)</author>
+            <category>Next</category>
+            <category>ssr</category>
+            <category>ssg</category>
+            <category>vercel</category>
+            <category>deploy</category>
+        </item>
+        <item>
+            <title><![CDATA[React PWA 만들기(2)]]></title>
+            <link>https://nostrss.me/131-progressive-web-app-2</link>
+            <guid>131-progressive-web-app-2</guid>
             <pubDate>Sat, 04 Mar 2023 00:00:00 GMT</pubDate>
-            <content:encoded><![CDATA[<h1>A demo of <code>react-markdown</code></h1>
-<p><code>react-markdown</code> is a markdown component for React.</p>
-<p>👉 Changes are re-rendered as you type.</p>
-<p>👈 Try writing some markdown on the left.</p>
-<h2>Overview</h2>
-<ul>
-<li>Follows <a href="https://commonmark.org">CommonMark</a></li>
-<li>Optionally follows <a href="https://github.github.com/gfm/">GitHub Flavored Markdown</a></li>
-<li>Renders actual React elements instead of using <code>dangerouslySetInnerHTML</code></li>
-<li>Lets you define your own components (to render <code>MyHeading</code> instead of <code>h1</code>)</li>
-<li>Has a lot of plugins</li>
-</ul>
-<h2>Table of contents</h2>
-<p>Here is an example of a plugin in action
-(<a href="https://github.com/remarkjs/remark-toc"><code>remark-toc</code></a>).
-This section is replaced by an actual table of contents.</p>
-<h2>Syntax highlighting</h2>
-<p>Here is an example of a plugin to highlight code:
-<a href="https://github.com/rehypejs/rehype-highlight"><code>rehype-highlight</code></a>.</p>
-<pre><code class="language-js">import React from 'react';
-import ReactDOM from 'react-dom';
-import ReactMarkdown from 'react-markdown';
-import rehypeHighlight from 'rehype-highlight';
-
-ReactDOM.render(
-  &#x3C;ReactMarkdown rehypePlugins={[rehypeHighlight]}>
-    {'# Your markdown here'}
-  &#x3C;/ReactMarkdown>,
-  document.querySelector('#content')
-);
-</code></pre>
-<p>Pretty neat, eh?</p>
-<h2>GitHub flavored markdown (GFM)</h2>
-<p>For GFM, you can <em>also</em> use a plugin:
-<a href="https://github.com/remarkjs/react-markdown#use"><code>remark-gfm</code></a>.
-It adds support for GitHub-specific extensions to the language:
-tables, strikethrough, tasklists, and literal URLs.</p>
-<p>These features <strong>do not work by default</strong>.
-👆 Use the toggle above to add the plugin.</p>
-<p>|    Feature | Support              |
-| ---------: | :------------------- |
-| CommonMark | 100%                 |
-|        GFM | 100% w/ <code>remark-gfm</code> |</p>
-<p>~~strikethrough~~</p>
-<ul>
-<li>[ ] task list</li>
-<li>[x] checked item</li>
-</ul>
-<p>https://example.com</p>
-<h2>HTML in markdown</h2>
-<p>⚠️ HTML in markdown is quite unsafe, but if you want to support it, you can
-use <a href="https://github.com/rehypejs/rehype-raw"><code>rehype-raw</code></a>.
-You should probably combine it with
-<a href="https://github.com/rehypejs/rehype-sanitize"><code>rehype-sanitize</code></a>.</p>
-<h2>Components</h2>
-<p>You can pass components to change things:</p>
-<pre><code class="language-js">import React from 'react';
-import ReactDOM from 'react-dom';
-import ReactMarkdown from 'react-markdown';
-import MyFancyRule from './components/my-fancy-rule.js';
-
-ReactDOM.render(
-  &#x3C;ReactMarkdown
-    components={{
-      // Use h2s instead of h1s
-      h1: 'h2',
-      // Use a component instead of hrs
-      hr: ({ node, ...props }) => &#x3C;MyFancyRule {...props} />,
-    }}
-  >
-    # Your markdown here
-  &#x3C;/ReactMarkdown>,
-  document.querySelector('#content')
-);
-</code></pre>
-<h2>More info?</h2>
-<p>Much more info is available in the
-<a href="https://github.com/remarkjs/react-markdown">readme on GitHub</a>!</p>
-<hr>
-<p>A component by <a href="https://espen.codes/">Espen Hovlandsdal</a></p>]]></content:encoded>
+            <description><![CDATA[대표님 한마디에 이렇게까지 준비를 해야해나?]]></description>
+            <content:encoded><![CDATA[<h2>PWA 장점</h2>
+<p>프로그레시브 웹 앱(Progressive Web App, PWA)은 웹과 네이티브 앱의 기능을 결합한 형태의 애플리케이션이다.</p>
+<p>PWA는 온라인에서 쉽게 접근 가능하며, 브라우저를 통해 실행이 가능하고, 다운로드도 가능하다.
+즉, 앱 스토어에서 다운로드 및 설치를 필요로 하지 않으므로, 개발자는 플랫폼의 종속성에서 벗어날 수 있다.
+그리고 Native App을 별도로 개발할 필요가 없는 장점이 있다.</p>
+<p>이렇게 장점만 보면 모든 기업들이 앞다투어 도입을 할 것 같지만, 어떤 이유 인지 도입이 그렇게 빠르게 되고 있다는 생각이 들지는 않는다.
+아무래도 각 플랫폼의 이해타산이 맞물려 있기 때문이 아닐까 싶다.</p>
+<p>구글과 애플의 입장에선 인앱 결제를 통한 수수료 수익이 줄어들 가능성이 있기 때문이지 않을까 싶다.</p>
+<p>구글의 경우에는 그래도 크롬에서 지원하는 등의 노력이 보이는데, 애플은 아직 소극적인 느낌이다.</p>
+<h3>PWA의 기술적 정의</h3>
+<p><a href="https://adactio.medium.com/what-is-a-progressive-web-app-f1ca780f30e6">What is a Progressive Web App?</a></p>
+<p>제레미 키스(Jeremy Keith)는 PWA의 기술적 특징을 이렇게 설명한다</p>
+<ol>
+<li>HTTPS</li>
+<li>Service-Worker</li>
+<li>Web App Manifest</li>
+</ol>
+<p>이전 블로그 포스팅에서 나도 간단히 React 프로젝트에 PWA를 적용해봤는데, 저 내용을 보니 구현 과정이 조금 이해가 되는 듯 하다.</p>
+<p><img src="https://user-images.githubusercontent.com/56717167/222913262-adc55a93-e498-49d1-8cba-ceff24f4ddf6.png" alt="pwabuilder"></p>
+<blockquote>
+<p>PWA-Builder에서 검사 항목들(https://www.pwabuilder.com)</p>
+</blockquote>
+<h2>HTTPS</h2>
+<p>이건 굳이 말하지 않아도 보안 때문이지 않을까 하는 생각이 든다.
+(그리고 https가 아닐 경우 구글이 <code>안전하지 않음</code>이라는 문구를 노출하기 때문에..)</p>
+<h2>Service-Worker</h2>
+<blockquote>
+<p>웹 브라우저의 네트워크 요청과 자원관리를 개발자가 중간에서 직접 제어하도록 해주는 강력한 기술이다. 서비스 워커를 이용하면 안정적이고, 빠르고, 오프라인 기능에서도 작동하는 웹페이지를 제작할 수 있다. - 프로그레시브 웹 앱 (제이슨 그릭스비)</p>
+</blockquote>
+<p>책에서는 위와 같이 설명을 하고 있는데, 조금 단순화해서 정리하면 App이 오프라인으로 전환되더라도 계속 작동하는 PWA를 만드는 JS파일(?)이라고 생각하면 될 듯하다.
+우리나라에 워낙 모바일 네트워크가 잘 구축되어 있기 때문에, 스마트폰은 항상 통신이 되어야 한다고 생각한다.</p>
+<p>하지만 이건 우리나라가 특이한 경우고 해외의 경우 모바일 통신 상태가 불안정한 경우가 많다. 그리고 개발자들은 이를 고려해야 하는 경우도 있다.</p>
+<p>페이스북과 트위터가 라이트(lite)버전의 용량이 작은 앱을 별도로 출시 하는 것도 이런 이유일 것이다.</p>
+<p>즉, 서비스 워커는 PWA의 로컬 캐시 전략을 정의하는 역할을 한다고 볼 수 있다.</p>
+<h2>Web App Manifest</h2>
+<p><code>Manifest</code></p>
+<p>React 개발을 하다보면 어디선가 많이 봤을 법한 단어이다. 그렇다 public 폴더 안에 존재하는 <code>manifest.json</code> 파일을 말한다.</p>
+<p>사실 나는 <code>manifest.json</code> 파일이 프로젝트에 항상 있었지만 어떤 역할을 하는지 몰랐었다. 하지만 삭제를 하려고 해도 혹시 몰라서 항상 건드리지 않았던 파일이었는데, PWA에서는 중요한 역할을 하고 있었다..</p>]]></content:encoded>
             <author>jintagi@gmail.com (Nostrss)</author>
             <category>react</category>
             <category>pwa</category>
         </item>
         <item>
-            <title><![CDATA['React PWA 만들기(1)']]></title>
-            <link>https://nostrss.me/2023-03-04-130-progressive-web-app</link>
-            <guid>2023-03-04-130-progressive-web-app</guid>
+            <title><![CDATA[React PWA 만들기(1)]]></title>
+            <link>https://nostrss.me/130-progressive-web-app</link>
+            <guid>130-progressive-web-app</guid>
             <pubDate>Sat, 04 Mar 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[대표님은 PWA가 하고 싶다고 하셨어.]]></description>
             <content:encoded><![CDATA[<h2>PWA란?</h2>
 <ul>
 <li>Progressive Web Apps의 약자이다.</li>
