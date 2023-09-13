@@ -1,7 +1,7 @@
 ---
 title: Next.js 13 프로젝트 yarn berry로 전환하기
 description: Next.js 13 프로젝트를 yarn berry로 전환하는 방법
-date: 2023-09-31
+date: 2023-09-04
 tags: nextjs yarnberry migration
 ---
 

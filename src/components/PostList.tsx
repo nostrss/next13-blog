@@ -12,7 +12,7 @@ const fetchPostList = async (page: number, limit: number, tag = '') => {
   return data.json();
 };
 
-export default function PostList({ tag }: { tag?: string }) {
+export default function PostList({ tag = '' }: { tag?: string }) {
   const ref = useRef<HTMLDivElement | null>(null);
   const limit = 10;
   const { data, isFetching, fetchNextPage, hasNextPage } = useInfiniteQuery({
