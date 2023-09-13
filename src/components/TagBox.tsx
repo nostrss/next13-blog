@@ -1,10 +1,7 @@
 import { BASE_URL } from '@/constant';
-import TagLabel from '@/stories/TagLabel';
 import { TagCounts } from '@/type/common';
-import { useRouter } from 'next/navigation';
 import React from 'react';
 import TaglistItem from './TagListItem';
-import { headers } from 'next/headers';
 
 export default async function TagBox() {
   const tags: TagCounts[] = await fetchTagsData();
