@@ -4,12 +4,100 @@
         <title>Nostrss's Dev Blog</title>
         <link>https://github.com/nostrss</link>
         <description>Nostrss Blog Post List</description>
-        <lastBuildDate>Wed, 13 Sep 2023 13:38:19 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 13 Sep 2023 13:46:33 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>generate-rss</generator>
         <language>ko</language>
         <category>Technologies</category>
         <atom:link href="https://nostrss.me/rss.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[Next.js 13 App router에 Google Analytics 적용하기]]></title>
+            <link>https://nostrss.me/161-next-google-analytics</link>
+            <guid>161-next-google-analytics</guid>
+            <pubDate>Fri, 08 Sep 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[아직 Next13에 Google Analytics를 적용한 경우가 없는지 자료가 부실했다. 그래서 직접 정리한 내용]]></description>
+            <content:encoded><![CDATA[<p>개인 블로그 작업이 거의 마무리 단계가 되어가고 있다. 그리고 오늘은 Google Analytics를 적용해보려고 한다.</p>
+<p>적용 방법은 링크를 따라 가면 자세하게 설명이 되어 있어서 따라하면 된다.</p>
+<p><a href="https://support.google.com/sites/answer/97459?hl=ko">📌 사이트에 애널리틱스 사용하기 📌</a></p>
+<p>다만 Next에 직접 적용하는데 살짝 어려움이 있었다.</p>
+<p>일단, 위의 링크를 따라하면 아래와 같은 script를 구글에서 알려준다.</p>
+<pre><code class="language-html">&#x3C;!-- Google tag (gtag.js) -->
+&#x3C;script
+  async
+  src="https://www.googletagmanager.com/gtag/js?id=G-xxxxxxxxx"
+>&#x3C;/script>
+&#x3C;script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'G-xxxxxxxxx');
+&#x3C;/script>
+</code></pre>
+<p>위의 코드를 이제 Next head에 적용하기만 하면 끝이다.</p>
+<p>모든 페이지에서 위의 스크립트가 호출되어야 하므로 일단 나는 RootLayout에 적용하기로 마음 먹었다.</p>
+<p>아래는 내가 작성 및 적용한 코드이다.</p>
+<p>먼저 위의 코드를 포함한 Client 컴포넌트를 하나 만들었다.</p>
+<pre><code class="language-tsx">// Analytics.tsx
+'use client';
+
+import Script from 'next/script';
+
+export default function Analytics() {
+  return (
+    &#x3C;>
+      &#x3C;Script
+        async
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+        strategy='afterInteractive'
+      />
+      &#x3C;Script id='google-analytics' strategy='afterInteractive'>
+        {`window.dataLayer = window.dataLayer || []; 
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
+          `}
+      &#x3C;/Script>
+    &#x3C;/>
+  );
+}
+</code></pre>
+<p>그리고 RootLayout에는 아래와 같이 적용했다.</p>
+<pre><code class="language-tsx">//layout.tsx
+export default function RootLayout({ children }: IPropsChildren) {
+  return (
+    &#x3C;html lang='kr'>
+      &#x3C;Analytics />
+      &#x3C;QueryProviders>
+        &#x3C;body className={sans.className}>
+          &#x3C;Header menus={menus} />
+          &#x3C;div className='w-full flex flex-col items-center'>
+            &#x3C;section className='w-full max-w-[1192px] flex flex-row justify-center'>
+              {children}
+              &#x3C;TagBox />
+            &#x3C;/section>
+          &#x3C;/div>
+        &#x3C;/body>
+      &#x3C;/QueryProviders>
+    &#x3C;/html>
+  );
+}
+</code></pre>
+<p>그리고 head에 정상적으로 스크립트가 심어졌는지 확인해보자</p>
+<blockquote>
+<p>정상!!</p>
+</blockquote>
+<p>이제 배포 후 구글애널리틱스와 통신이 되면 끝나게 된다.</p>
+<p>모든게 정상적으로 작동하는 것을 확인할 수 있다.</p>
+<p>이제 구글애널리틱스가 내 블로그로 접속하는 유저들의 통계를 수집해 줄 것이다.</p>]]></content:encoded>
+            <author>jintagi@gmail.com (Nostrss)</author>
+            <category>next</category>
+            <category>google-analytics</category>
+            <category>app-router</category>
+            <category>layout</category>
+        </item>
         <item>
             <title><![CDATA[[면접리뷰]클로저(Closure)란? (3)]]></title>
             <link>https://nostrss.me/160-interview-review-closure3</link>
