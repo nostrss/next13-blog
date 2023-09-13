@@ -29,12 +29,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
-      url: `${BASE_URL}/tag`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.5,
-    },
-    {
       url: `${BASE_URL}/rss.xml`,
       lastModified: new Date(),
       changeFrequency: 'daily',
@@ -43,13 +37,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...data.data.map((post: any) => ({
       url: `${BASE_URL}/post/${post.slug}`,
       lastModified: new Date(),
-      changeFrequency: 'daily',
+      changeFrequency: 'weekly',
       priority: 1,
     })),
     ...tags.map((tag: any) => ({
       url: `${BASE_URL}/tag/${tag.tagName}`,
       lastModified: new Date(),
-      changeFrequency: 'daily',
+      changeFrequency: 'weekly',
       priority: 0.5,
     })),
   ];
