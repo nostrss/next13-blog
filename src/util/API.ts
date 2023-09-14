@@ -24,4 +24,10 @@ export const API = {
 
     return data.json();
   },
+  fetchBlogDetail: async (slug: string) => {
+    const data = await fetch(`${BASE_URL}/api/blog?blogid=${slug}`, {
+      method: 'GET',
+    });
+    return data.json();
+  },
 };
