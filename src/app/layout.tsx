@@ -35,7 +35,7 @@ export default function RootLayout({ children }: IPropsChildren) {
         content='40eb1acd72283d4af68831e5fe08661b57a10c72'
       />
       <QueryProviders>
-        <body className={sans.className}>
+        <body className={`${sans.className} dark:bg-black`}>
           <Header menus={menus} />
           <div className='w-full flex flex-col items-center'>
             <section className='w-full max-w-[1192px] flex flex-row justify-center'>
