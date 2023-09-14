@@ -29,6 +29,10 @@ export default function RootLayout({ children }: IPropsChildren) {
   return (
     <html lang='kr'>
       <Analytics />
+      <meta
+        name='naver-site-verification'
+        content='40eb1acd72283d4af68831e5fe08661b57a10c72'
+      />
       <QueryProviders>
         <body className={sans.className}>
           <Header menus={menus} />
