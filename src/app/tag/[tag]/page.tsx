@@ -1,6 +1,6 @@
 import PostList from '@/components/PostList';
-import { BASE_URL } from '@/constant';
 import { TagSlug } from '@/type/common';
+import { API } from '@/util/API';
 
 export default function TagResult({
   params: { tag },
@@ -16,16 +16,8 @@ export default function TagResult({
 }
 
 export async function generateStaticParams() {
-  const tags = await fetchTagsData();
+  const tags = await API.fetchTagsDataAll();
   return tags.map((tag: TagSlug) => ({
     slug: tag.tagName,
   }));
 }
-
-const fetchTagsData = async () => {
-  const data = await fetch(`${BASE_URL}/api/tags`, {
-    method: 'GET',
-  });
-
-  return data.json();
-};
