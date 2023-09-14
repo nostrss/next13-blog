@@ -13,7 +13,7 @@ const blurDataUrl =
 export default function MarkDownViewer({ content }: { content: string }) {
   return (
     <ReactMarkdown
-      className='prose max-w-none dark:text-white'
+      className='prose max-w-none dark:text-white '
       remarkPlugins={[remarkGfm]}
       rehypePlugins={[rehypeRaw]}
       components={{

@@ -11,6 +11,7 @@ import GithubIcon from '@/stories/Icons/GithubIcon';
 import Header from '@/stories/Header';
 import TagBox from '@/components/TagBox';
 import Analytics from '@/components/Analytics';
+import Footer from '@/stories/Footer';
 
 const sans = Open_Sans({ subsets: ['latin'] });
 export const menus = [
@@ -42,6 +43,7 @@ export default function RootLayout({ children }: IPropsChildren) {
               <TagBox />
             </section>
           </div>
+          <Footer />
         </body>
       </QueryProviders>
     </html>
