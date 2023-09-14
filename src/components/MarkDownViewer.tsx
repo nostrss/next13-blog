@@ -25,7 +25,7 @@ export default function MarkDownViewer({ content }: { content: string }) {
               {...props}
               style={materialDark}
               language={match[1]}
-              PreTag='article'
+              PreTag='div'
               showLineNumbers={true}
             >
               {String(children).replace(/\n$/, '')}

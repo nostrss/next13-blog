@@ -95,7 +95,6 @@ export default function MarkDownViewer({ content }: { content: string }) {
       remarkPlugins={[remarkGfm]}
       components={{
         code({ node, inline, className, children, ...props }) {
-          // 정규 표현식을 사용하여 코드 블록의 언어 클래스(language-xxx)를 추출하고, 이 언어 정보를 SyntaxHighlighter 컴포넌트에 전달한다
           const match = /language-(\w+)/.exec(className || '');
 
           return !inline && match ? (
@@ -151,7 +150,7 @@ export default function MarkDownViewer({ content }: { content: string }) {
               {...props}
               style={materialDark}
               language={match[1]}
-              PreTag='article'
+              PreTag='div'
               showLineNumbers={true}
             >
               {String(children).replace(/\n$/, '')}
