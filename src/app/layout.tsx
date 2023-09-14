@@ -5,13 +5,13 @@ import { Open_Sans } from 'next/font/google';
 import QueryProviders from '@/context/queryProvider';
 import { IPropsChildren } from '@/type/common';
 import { defaultMetaData } from '../defaulMetaData';
-import RssIcon from '@/stories/Icons/RssIcon';
-import StorybookIcon from '@/stories/Icons/StorybookIcon';
-import GithubIcon from '@/stories/Icons/GithubIcon';
-import Header from '@/stories/Header';
+import RssIcon from '@/components/RssIcon';
+import StorybookIcon from '@/components/StorybookIcon';
+import GithubIcon from '@/components/GithubIcon';
+import Header from '@/components/Header';
 import TagBox from '@/components/TagBox';
 import Analytics from '@/components/Analytics';
-import Footer from '@/stories/Footer';
+import Footer from '@/components/Footer';
 
 const sans = Open_Sans({ subsets: ['latin'] });
 export const menus = [

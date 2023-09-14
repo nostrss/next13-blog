@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Header from './Header';
+import Header from '../components/Header';
 import { menus } from '@/app/layout';
-import Footer from './Footer';
+import Footer from '../components/Footer';
 
 const meta = {
   title: 'Example/Footer',

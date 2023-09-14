@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Header from './Header';
+import Header from '../components/Header';
 import { menus } from '@/app/layout';
 
 const meta = {

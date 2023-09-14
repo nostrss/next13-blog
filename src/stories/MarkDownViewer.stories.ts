@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import MarkDownViewer from './MarkDownViewer';
+import MarkDownViewer from '../components/MarkDownViewer';
 
 const meta = {
   title: 'Example/MarkDownViewer',

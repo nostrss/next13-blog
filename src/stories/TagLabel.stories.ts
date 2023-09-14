@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import TagLabel from './TagLabel';
+import TagLabel from '../components/TagLabel';
 
 const meta = {
   title: 'Example/Tag',

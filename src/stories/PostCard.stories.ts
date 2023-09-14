@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import PostCard from './PostCard';
+import PostCard from '../components/PostCard';
 
 const meta = {
   title: 'Example/PostCard',

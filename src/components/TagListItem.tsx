@@ -1,6 +1,6 @@
 'use client';
 
-import TagLabel from '@/stories/TagLabel';
+import TagLabel from '@/components/TagLabel';
 import { useParams } from 'next/navigation';
 
 export default function TaglistItem({

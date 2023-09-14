@@ -1,6 +1,6 @@
 'use client';
 
-import PostCard from '@/stories/PostCard';
+import PostCard from '@/components/PostCard';
 import { Post } from '@/type/common';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';

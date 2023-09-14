@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import NavLink from './NavLink';
+import NavLink from '../components/NavLink';
 
 const meta = {
   title: 'Example/NavLink',

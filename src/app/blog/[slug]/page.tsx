@@ -1,6 +1,6 @@
 import { BASE_URL, DEFAULT_OG_IMAGE_URL } from '@/constant';
 import CommentList from '@/components/CommentList';
-import MarkDownViewer from '@/stories/MarkDownViewer';
+import MarkDownViewer from '@/components/MarkDownViewer';
 import { PostSlug } from '@/type/common';
 
 export default async function BlogDetail({
