@@ -69,7 +69,7 @@ export default function MarkDownViewer({ content }: { content: string }) {
 
 위와 같이 추가하고 결과물을 확인해봤다.
 
-<img width="748" alt="스크린샷 2023-09-14 오후 4 03 09" src="https://github.com/nostrss/next13-blog/assets/56717167/41348e67-7abc-4ce1-af38-6d8fbd103d1f" style="border:1px solid black">
+<img width="748" alt="스크린샷 2023-09-14 오후 4 03 09" src="https://github.com/nostrss/next13-blog/assets/56717167/41348e67-7abc-4ce1-af38-6d8fbd103d1f">
 
 약간의 변화가 있었지만, 여전히 부족해보인다.
 
