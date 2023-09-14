@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import Header from './Header';
 import { menus } from '@/app/layout';
+import Footer from './Footer';
 
 const meta = {
-  title: 'Example/Header',
-  component: Header,
+  title: 'Example/Footer',
+  component: Footer,
   decorators: [
     (Story) => (
       <div style={{ width: '1192px' }}>
@@ -15,21 +16,13 @@ const meta = {
   parameters: {
     layout: 'centered',
   },
-  argTypes: {
-    menus: {
-      control: {
-        type: 'array',
-      },
-    },
-  },
+  argTypes: {},
   tags: ['autodocs'],
-} satisfies Meta<typeof Header>;
+} satisfies Meta<typeof Footer>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {
-    menus: menus,
-  },
+  args: {},
 };
