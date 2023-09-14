@@ -1,25 +1,10 @@
 import { BASE_URL } from '@/constant';
+import { API } from '@/util/API';
 import { MetadataRoute } from 'next';
 
-const fetchTagsData = async () => {
-  const data = await fetch(`${BASE_URL}/api/tags`, {
-    method: 'GET',
-  });
-
-  return data.json();
-};
-
-const fetchPostlist = async () => {
-  const data = await fetch(`${BASE_URL}/api/post/postlist`, {
-    method: 'GET',
-  });
-
-  return data.json();
-};
-
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const data = await fetchPostlist();
-  const tags = await fetchTagsData();
+  const data = await API.fetchPostListAll();
+  const tags = await API.fetchTagsDataAll();
 
   return [
     {
