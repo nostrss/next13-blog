@@ -67,11 +67,14 @@ export default function MarkDownViewer({ content }: { content: string }) {
             {children}
           </p>
         ),
-        li: ({ children, ...props }) => (
-          <li className='prose dark:text-white' {...props}>
-            {children}
-          </li>
-        ),
+        li: ({ children, ...props }) => {
+          const liProps = { ...props, ordered: false };
+          return (
+            <li className='prose dark:text-white' {...liProps}>
+              {children}
+            </li>
+          );
+        },
         strong: ({ children, ...props }) => (
           <strong className='prose dark:text-white' {...props}>
             {children}

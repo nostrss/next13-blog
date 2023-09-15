@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://github.com/nostrss</id>
     <title>Nostrss's Dev Blog</title>
-    <updated>2023-09-15T06:46:12.262Z</updated>
+    <updated>2023-09-15T07:04:31.211Z</updated>
     <generator>generate-rss</generator>
     <author>
         <name>Nostrss</name>
@@ -13,6 +13,280 @@
     <link rel="self" href="https://nostrss.me/rss-atom.xml"/>
     <subtitle>Nostrss Blog Post List</subtitle>
     <category term="Technologies"/>
+    <entry>
+        <title type="html"><![CDATA[Next.js meatadata 적용하기]]></title>
+        <id>163-next-metadata</id>
+        <link href="https://nostrss.me/163-next-metadata"/>
+        <updated>2023-09-10T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[SEO 최적화를 위한 메타데이터 생성하기]]></summary>
+        <content type="html"><![CDATA[<p>작성된 블로그를 다른 개발자들이 볼 수 있도록 하려면 SEO 최적화라는 작업을 해야한다.</p>
+<p>대단한 건 아니고 구글같은 검색엔진에서 검색시 노출이 잘 될 수 있도록 웹사이트의 정보를 제공하는 것이다.</p>
+<h2>NEXT에서의 메타데이터 삽입</h2>
+<p><a href="https://nextjs.org/docs/app/building-your-application/optimizing/metadata">Next.js metadata 공식문서 바로가기</a>를 참고하여 작성했다.</p>
+<p>Next에서는 메타데이터 추가를 위해 2가지 방법을 제공한다.</p>
+<ul>
+<li>Static Metadata</li>
+<li>Dynamic Metadata</li>
+</ul>
+<p>하나씩 살펴 보도록 하겠다.</p>
+<h2>Static Metadata</h2>
+<p>Static Metadata는 아래와 같이 layout.js 파일에 생성할 메타데이터 객체를 생성하면 된다.</p>
+<pre><code class="language-tsx">import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: '...',
+  description: '...',
+};
+
+export default function Page() {}
+</code></pre>
+<p>대신 이렇게 생성된 메타데이터는 정적 데이터로 변하지 않는다.</p>
+<p>그래서 dynamic router를 사용한 페이지에서 계속 변하는 title, description을 메타데이터에 적용할 수 는 없다. 만약 동적으로 변하는 메타데이터를 적용하고 싶다면 Dynamic Metadata를 사용해야 한다.</p>
+<h2>Dynamic Metadata</h2>
+<p>위에서 말한 것처럼 metadata에 계속 변하는 정보가 있다면, 아래처럼 generateMetadata함수를 사용해야 한다.</p>
+<pre><code class="language-tsx">import type { Metadata, ResolvingMetadata } from 'next';
+
+type Props = {
+  params: { id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export async function generateMetadata(
+  { params, searchParams }: Props,
+  parent: ResolvingMetadata
+): Promise&#x3C;Metadata> {
+  // read route params
+  const id = params.id;
+
+  // fetch data
+  const product = await fetch(`https://.../${id}`).then((res) => res.json());
+
+  // optionally access and extend (rather than replace) parent metadata
+  const previousImages = (await parent).openGraph?.images || [];
+
+  return {
+    title: product.title,
+    openGraph: {
+      images: ['/some-specific-page-image.jpg', ...previousImages],
+    },
+  };
+}
+
+export default function Page({ params, searchParams }: Props) {}
+</code></pre>
+<p>각 페이지에 맞는 메타데이터 객체를 return 값으로 넘겨 주면된다.</p>
+<p>이때 메타데이터 객체는 아래와 같은 형태로 구성되어 있다.</p>
+<pre><code class="language-ts">interface ResolvedMetadata extends DeprecatedMetadataFields {
+  metadataBase: null | URL;
+  title: null | AbsoluteTemplateString;
+  description: null | string;
+  applicationName: null | string;
+  authors: null | Array&#x3C;Author>;
+  generator: null | string;
+  keywords: null | Array&#x3C;string>;
+  referrer: null | ReferrerEnum;
+  themeColor: null | ThemeColorDescriptor[];
+  colorScheme: null | ColorSchemeEnum;
+  viewport: null | string;
+  creator: null | string;
+  publisher: null | string;
+  robots: null | ResolvedRobots;
+  alternates: null | ResolvedAlternateURLs;
+  icons: null | ResolvedIcons;
+  openGraph: null | ResolvedOpenGraph;
+  manifest: null | string | URL;
+  twitter: null | ResolvedTwitterMetadata;
+  verification: null | ResolvedVerification;
+  appleWebApp: null | ResolvedAppleWebApp;
+  formatDetection: null | FormatDetection;
+  itunes: null | ItunesApp;
+  abstract: null | string;
+  appLinks: null | ResolvedAppLinks;
+  archives: null | Array&#x3C;string>;
+  assets: null | Array&#x3C;string>;
+  bookmarks: null | Array&#x3C;string>;
+  category: null | string;
+  classification: null | string;
+  other:
+    | null
+    | ({
+        [name: string]: string | number | Array&#x3C;string | number>;
+      } &#x26; DeprecatedMetadataFields);
+}
+</code></pre>
+<p>상당히 많은 값을 지원하는데, 자세한 내용은 Next.js 공식문서를 참고하여 추가해주면 된다.</p>
+<h2>실제 적용 코드</h2>
+<h3>src/app/layout.tsx</h3>
+<pre><code class="language-tsx">export const metadata: Metadata = {
+  ...defaultMetaData,
+};
+</code></pre>
+<h3>src/defaultMetaData.ts</h3>
+<pre><code class="language-ts">import { Metadata } from 'next';
+import {
+  BASE_URL,
+  DEFAULT_APP_NAME,
+  DEFAULT_GENERATOR,
+  DEFAULT_META_AUTHOR_NAME,
+  DEFAULT_META_AUTHOR_URL,
+  DEFAULT_META_DESCRIPTION,
+  DEFAULT_META_KEYWORDS,
+  DEFAULT_META_TITLE,
+  DEFAULT_OG_IMAGE_URL,
+  DEFAULT_REFERRER,
+  LIGHT_MODE,
+  RSS_ATOM_URL,
+  RSS_JSON_URL,
+  RSS_XML_URL,
+} from './constant';
+
+export const defaultMetaData: Metadata = {
+  title: {
+    template: `%s | ${DEFAULT_META_TITLE}`,
+    default: DEFAULT_META_TITLE,
+  },
+  description: DEFAULT_META_DESCRIPTION,
+  generator: DEFAULT_GENERATOR,
+  applicationName: DEFAULT_APP_NAME,
+  referrer: DEFAULT_REFERRER,
+  keywords: DEFAULT_META_KEYWORDS,
+  authors: {
+    name: DEFAULT_META_AUTHOR_NAME,
+    url: DEFAULT_META_AUTHOR_URL,
+  },
+
+  colorScheme: LIGHT_MODE,
+  creator: DEFAULT_META_AUTHOR_NAME,
+  publisher: DEFAULT_META_AUTHOR_NAME,
+  formatDetection: {
+    email: true,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL(BASE_URL),
+  alternates: {
+    canonical: BASE_URL,
+    types: {
+      'application/rss+xml': RSS_XML_URL,
+      'application/atom+xml': RSS_ATOM_URL,
+      'application/json': RSS_JSON_URL,
+    },
+  },
+  openGraph: {
+    title: `${DEFAULT_META_TITLE}`,
+    description: `${DEFAULT_META_DESCRIPTION}`,
+    url: BASE_URL,
+    siteName: `${DEFAULT_APP_NAME}`,
+    images: [
+      {
+        url: DEFAULT_OG_IMAGE_URL,
+        width: 1500,
+        height: 855,
+      },
+      {
+        url: DEFAULT_OG_IMAGE_URL,
+        width: 1500,
+        height: 855,
+        alt: DEFAULT_META_TITLE,
+      },
+    ],
+    locale: 'ko_KR',
+    type: 'website',
+  },
+  robots: {
+    index: false,
+    follow: true,
+    nocache: true,
+    googleBot: {
+      index: true,
+      follow: false,
+      noimageindex: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  icons: {
+    icon: '/icon.png',
+    apple: '/apple-icon.png',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `${DEFAULT_META_TITLE} | twitter`,
+    description: `${DEFAULT_META_DESCRIPTION} | twitter`,
+  },
+};
+</code></pre>
+<h3>src/app/blog/[slug]/page.tsx</h3>
+<p>RootLayout과 다른 메타데이터가 필요한 정보만 객체로 return 해주면 된다.</p>
+<pre><code class="language-tsx">export async function generateMetadata({
+  params: { slug },
+}: {
+  params: { slug: string };
+}) {
+  const { data } = await API.fetchBlogDetail(slug);
+  return {
+    title: data.title,
+    description: data.description || data.title,
+    keywords: data.tags.split(' '),
+    alternates: {
+      canonical: `${BASE_URL}/${slug}`,
+    },
+    openGraph: {
+      title: `${data.title}`,
+      description: `${data.description || data.title}`,
+      url: `${BASE_URL}/${slug}`,
+      alternates: {
+        canonical: `${BASE_URL}/${slug}`,
+      },
+      images: [
+        {
+          url:
+            data.images?.length > 0 ? data.images[0].url : DEFAULT_OG_IMAGE_URL,
+          width: 1550,
+          height: 800,
+        },
+        {
+          url:
+            data.images?.length > 0 ? data.images[0].url : DEFAULT_OG_IMAGE_URL,
+          width: 1550,
+          height: 800,
+          alt: data.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${data.title} | twitter_page`,
+      description: `${data.description || data.title} | twitter_page`,
+    },
+  };
+}
+</code></pre>
+<h2>결과 확인</h2>
+<blockquote>
+<p>크롬 개발자 도구로 확인</p>
+</blockquote>
+<blockquote>
+<p>카카오톡 og-image 확인</p>
+</blockquote>
+<blockquote>
+<p>카카오톡 dynamic metadata og-image 확인</p>
+</blockquote>]]></content>
+        <author>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </author>
+        <category label="next"/>
+        <category label="markdown"/>
+        <category label="view"/>
+        <contributor>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </contributor>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Next.js 13 react-markdown 적용하기]]></title>
         <id>162-markdown-view</id>
