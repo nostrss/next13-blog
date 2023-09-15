@@ -53,8 +53,8 @@ export async function generateMetadata({
       canonical: `${BASE_URL}/${slug}`,
     },
     openGraph: {
-      title: `${data.title} | og_page`,
-      description: `${data.description || data.title} | og_page`,
+      title: `${data.title}`,
+      description: `${data.description || data.title}`,
       url: `${BASE_URL}/${slug}`,
       alternates: {
         canonical: `${BASE_URL}/${slug}`,
@@ -63,14 +63,14 @@ export async function generateMetadata({
         {
           url:
             data.images?.length > 0 ? data.images[0].url : DEFAULT_OG_IMAGE_URL,
-          width: 800,
-          height: 600,
+          width: 1550,
+          height: 800,
         },
         {
           url:
             data.images?.length > 0 ? data.images[0].url : DEFAULT_OG_IMAGE_URL,
-          width: 1800,
-          height: 1600,
+          width: 1550,
+          height: 800,
           alt: data.title,
         },
       ],
