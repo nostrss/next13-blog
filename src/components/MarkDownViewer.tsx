@@ -68,7 +68,7 @@ export default function MarkDownViewer({ content }: { content: string }) {
           </p>
         ),
         li: ({ children, ...props }) => {
-          const liProps = { ...props, ordered: false };
+          const liProps = { ...props, ordered: 'false' };
           return (
             <li className='prose dark:text-white' {...liProps}>
               {children}
