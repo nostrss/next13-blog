@@ -12,41 +12,36 @@ export default function DarkModeToggle() {
   const path = usePathname();
 
   useEffect(() => {
-    if (!COOKIE.getCookie(MODE_COOKIE_NAME)) {
-      const prefersDarkMode = window.matchMedia(
-        `(prefers-color-scheme: ${DARK_MODE})`
-      ).matches;
-      prefersDarkMode ? setIsDark(true) : setIsDark(false);
-      changeColorScheme(prefersDarkMode ? DARK_MODE : LIGHT_MODE);
-      COOKIE.setCookie(
-        MODE_COOKIE_NAME,
-        prefersDarkMode ? DARK_MODE : LIGHT_MODE,
-        720
-      );
-    } else {
-      const mode = COOKIE.getCookie(MODE_COOKIE_NAME);
-      mode === DARK_MODE ? setIsDark(true) : setIsDark(false);
-      changeColorScheme(mode);
-    }
+    initializeDarkMode();
   }, [path]);
 
-  const chageDarkMode = () => {
-    const mode = document
+  const initializeDarkMode = () => {
+    const savedMode = COOKIE.getCookie(MODE_COOKIE_NAME);
+    const prefersDarkMode = window.matchMedia(
+      `(prefers-color-scheme: ${DARK_MODE})`
+    ).matches;
+    const initialMode = savedMode || (prefersDarkMode ? DARK_MODE : LIGHT_MODE);
+
+    setIsDark(initialMode === DARK_MODE);
+    changeColorScheme(initialMode);
+    COOKIE.setCookie(MODE_COOKIE_NAME, initialMode, 720);
+  };
+
+  const chageModeInvert = () => {
+    const currentMode = document
       .querySelector('meta[name="color-scheme"]')
       ?.getAttribute('content');
-    changeColorScheme(mode === DARK_MODE ? LIGHT_MODE : DARK_MODE);
-    mode === DARK_MODE ? setIsDark(false) : setIsDark(true);
-    COOKIE.setCookie(
-      MODE_COOKIE_NAME,
-      mode === DARK_MODE ? LIGHT_MODE : DARK_MODE,
-      720
-    );
+    const newMode = currentMode === DARK_MODE ? LIGHT_MODE : DARK_MODE;
+
+    setIsDark(newMode === DARK_MODE);
+    changeColorScheme(newMode);
+    COOKIE.setCookie(MODE_COOKIE_NAME, newMode, 720);
   };
 
   return (
     <>
       <button
-        onClick={chageDarkMode}
+        onClick={chageModeInvert}
         title={isDark ? '일반모드로 변경' : '다크모드로 변경'}
       >
         {isDark ? <SunnyIcon color='white' /> : <NightIcon />}
@@ -55,16 +50,29 @@ export default function DarkModeToggle() {
   );
 }
 
+// const changeColorScheme = (mode: string) => {
+//   const colorScheme = document.querySelector('meta[name="color-scheme"]');
+//   if (mode === DARK_MODE) {
+//     colorScheme?.setAttribute('content', DARK_MODE);
+//     document.documentElement.classList.add(DARK_MODE);
+//   } else if (mode === LIGHT_MODE) {
+//     colorScheme?.setAttribute('content', LIGHT_MODE);
+//     document.documentElement.classList.remove('dark');
+//   } else {
+//     colorScheme?.setAttribute('content', LIGHT_MODE);
+//     document.documentElement.classList.remove('dark');
+//   }
+// };
+
 const changeColorScheme = (mode: string) => {
   const colorScheme = document.querySelector('meta[name="color-scheme"]');
+  colorScheme?.setAttribute('content', mode);
+
   if (mode === DARK_MODE) {
-    colorScheme?.setAttribute('content', DARK_MODE);
     document.documentElement.classList.add(DARK_MODE);
-  } else if (mode === LIGHT_MODE) {
-    colorScheme?.setAttribute('content', LIGHT_MODE);
-    document.documentElement.classList.remove('dark');
+    document.documentElement.classList.remove(LIGHT_MODE);
   } else {
-    colorScheme?.setAttribute('content', LIGHT_MODE);
-    document.documentElement.classList.remove('dark');
+    document.documentElement.classList.add(LIGHT_MODE);
+    document.documentElement.classList.remove(DARK_MODE);
   }
 };

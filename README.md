@@ -23,11 +23,12 @@ Storybook : `https://nostrss.github.io/next13-blog/?path=/docs/example-icons-ato
 RSS : `https://www.nostrss.me/rss.xml`  
 ATOM : `https://www.nostrss.me/rss-atom.xml`  
 JSON : `https://www.nostrss.me/feed.json`
+SiteMap : `https://www.nostrss.me/sitemap.xml`
 
 ## 포스팅하기
 
 - posts 폴더에 마크다운 파일을 추가합니다.
-- commit
+- commit/push
 - Vercel > NEXT.JS 빌드 > RSS 빌드 > Vercel 배포완료
 
 ## 스토리북 배포
