@@ -5,7 +5,7 @@ date: 2023-09-11
 tags: next darkmode toggle
 ---
 
-네이버도 그렇고 요새 많은 사이트들이 다크모드를 지원하고 있다.
+네이버도 그렇고 요새 많은 사이트들이 `다크모드`를 지원하고 있다.
 
 나도 웹페이지를 볼때 다크모드를 선호하는 편인지라 다크모드를 적용하려고 한다.
 
@@ -66,10 +66,15 @@ const changeColorScheme = (mode: string) => {
 ```
 
 > 브라우저에서 작동해야 하기 때문에 최상단에 'use client'를 선언해주어야 한다.
+
 > 모드 초기화를 위해 initializeDarkMode라는 함수를 만들고 useEffect를 통해 최초 실행시켜줬다.
+
 > initializeDarkMode 함수에서는 쿠키에 저장된 모드가 있는지 확인하고 없다면 유저의 OS 다크모드 설정을 확인한다.
+
 > 초기화 된 모드를 쿠키에 저장한다.
+
 > 초기화 된 모드에 따라 Icon을 변경해준다.
+
 > 초기화 된 모드에 따라 documentElement에 클래스를 추가해준다.
 
 ## 버튼 클릭시 모드 변경처리
@@ -87,6 +92,6 @@ const chageModeInvert = () => {
 };
 ```
 
-위의 함수는 버튼 클릭시 모드를 변경해주는 함수이다.이걸 버튼의 onClick에 넣어주면 된다.
+위의 함수는 버튼 클릭시 모드를 변경해주는 함수이다.이걸 버튼의 `onClick`에 넣어주면 된다.
 
 ![화면-기록-2023-09-15-오후-7 24 06](https://github.com/nostrss/next13-blog/assets/56717167/3044f7e6-6bfb-409e-9831-bff5baed05f2)

@@ -22,7 +22,7 @@ Next에서는 메타데이터 추가를 위해 2가지 방법을 제공한다.
 
 ## Static Metadata
 
-Static Metadata는 아래와 같이 layout.js 파일에 생성할 메타데이터 객체를 생성하면 된다.
+Static Metadata는 아래와 같이 `layout.js` 파일에 생성할 메타데이터 객체를 생성하면 된다.
 
 ```tsx
 import type { Metadata } from 'next';
@@ -37,11 +37,11 @@ export default function Page() {}
 
 대신 이렇게 생성된 메타데이터는 정적 데이터로 변하지 않는다.
 
-그래서 dynamic router를 사용한 페이지에서 계속 변하는 title, description을 메타데이터에 적용할 수 는 없다. 만약 동적으로 변하는 메타데이터를 적용하고 싶다면 Dynamic Metadata를 사용해야 한다.
+그래서 `dynamic router`를 사용한 페이지에서 계속 변하는 `title, description`을 메타데이터에 적용할 수 는 없다. 만약 동적으로 변하는 메타데이터를 적용하고 싶다면 `Dynamic Metadata`를 사용해야 한다.
 
 ## Dynamic Metadata
 
-위에서 말한 것처럼 metadata에 계속 변하는 정보가 있다면, 아래처럼 generateMetadata함수를 사용해야 한다.
+위에서 말한 것처럼 metadata에 계속 변하는 정보가 있다면, 아래처럼 `generateMetadata`함수를 사용해야 한다.
 
 ```tsx
 import type { Metadata, ResolvingMetadata } from 'next';
