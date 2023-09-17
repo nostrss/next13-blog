@@ -5,6 +5,7 @@ import { Post } from '@/type/common';
 import { API } from '@/util/API';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
+import SkeletonCardList from './SkeletonCardList';
 
 export default function PostList({ tag = '' }: { tag?: string }) {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -39,7 +40,7 @@ export default function PostList({ tag = '' }: { tag?: string }) {
         renderData.map((post: Post, index: number) => (
           <PostCard key={index} {...post} />
         ))}
-      {isFetching && <div>loading...</div>}
+      {isFetching && <SkeletonCardList />}
       <div ref={ref}></div>
     </>
   );
