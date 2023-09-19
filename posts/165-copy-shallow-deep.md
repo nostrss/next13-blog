@@ -1,7 +1,7 @@
 ---
 title: 복사 제대로 하고 있니?
 description: 얕은 복사, 깊은 복사 복습하기
-date: 2023-09-18
+date: 2023-09-17
 tags: javascript shallow deep copy
 ---
 
