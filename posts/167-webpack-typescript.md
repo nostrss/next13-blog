@@ -7,6 +7,8 @@ tags: javascript typescript webpack
 
 처음 프론트엔드를 배울때 React로 배우고 계속 사용하다보니 리액트 없이는 프론트엔드를 할 수 없는 느낌이 들었다. 그래서 리액트를 벗어나 순수한 프로젝트를 만들어보고 싶었다. 바닐라 자바스크립트에 타입스크립트만 추가한 템플릿을 만들어보았다.
 
+[📌 깃허브에서 소스코드 보기 📌](https://github.com/nostrss/webpack-template)
+
 ## npm init
 
 먼저 폴더를 생성하고 `npm init`을 실행해준다.
