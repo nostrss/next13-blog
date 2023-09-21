@@ -6,6 +6,14 @@
 - 별도의 `백엔드 서버`는 없이, 소스코드 내에 포함된 `Markdown` 파일을 이용하였습니다.
 - `NEXT.JS`의 `API Routes`를 이용하여, 블로그에 필요한 API를 구현하였습니다.
 - `PC`와 `모바일` 환경에 맞춰 반응형으로 구현하였습니다.
+- 별도의 패키지 없이 `무한스크롤`을 직접 구현하였습니다.
+- 일부 페이지에 `SSG` 렌더링을 적용하였습니다.
+  - 블로그 상세, 태그 검색 결과 페이지
+- `다크모드` 기능을 구현하였습니다.(`window.matchMedia`, 쿠키 사용)
+- 빌드 시 Feed 파일들이 생성되도록 기능을 구현하였습니다.(`RSS`, `ATOM`, `JSON`)
+- 빌드 시 `Sitemap`이 생성되도록 구현하였습니다.
+- `metadata`를 생성하여 `Lighthouse`의 SEO 최적화를 진행하였습니다.
+- `Storybook`을 이용하여 컴포넌트 문서화 작업을 진행했습니다.
 
 ## Tech
 
@@ -24,6 +32,31 @@ RSS : `https://www.nostrss.me/rss.xml`
 ATOM : `https://www.nostrss.me/rss-atom.xml`  
 JSON : `https://www.nostrss.me/feed.json`
 SiteMap : `https://www.nostrss.me/sitemap.xml`
+
+## 프로젝트 구조
+
+```
+📦src
+ ┣ 📂app
+ ┃ ┣ 📂api // 블로그 리스트, 상세 페이지, 태그 리스트 API가 구현되어 있습니다.
+ ┃ ┣ 📂blog
+ ┃ ┃ ┗ 📂[slug]
+ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┣ 📂tag
+ ┃ ┃ ┗ 📂[tag]
+ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┣ 📜robot.txt
+ ┃ ┗ 📜sitemap.ts
+ ┣ 📂components
+ ┣ 📂constant
+ ┣ 📂context
+ ┣ 📂hook
+ ┣ 📂stories
+ ┣ 📂type
+ ┣ 📂util
+ ┣ 📜defaulMetaData.ts
+ ┗ 📜generate-rss.ts
+```
 
 ## 포스팅하기
 
