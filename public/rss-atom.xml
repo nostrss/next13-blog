@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://github.com/nostrss</id>
     <title>Nostrss's Dev Blog</title>
-    <updated>2023-09-22T06:30:18.875Z</updated>
+    <updated>2023-09-22T06:35:28.947Z</updated>
     <generator>generate-rss</generator>
     <author>
         <name>Nostrss</name>
@@ -15,8 +15,8 @@
     <category term="Technologies"/>
     <entry>
         <title type="html"><![CDATA[블로그도 구독이 가능하다]]></title>
-        <id>168-.rss-atom-json</id>
-        <link href="https://nostrss.me/168-.rss-atom-json"/>
+        <id>168-rss-atom-json</id>
+        <link href="https://nostrss.me/168-rss-atom-json"/>
         <updated>2023-09-20T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Next.js 블로그에 RSS, Atom, JSON Feed를 추가하기]]></summary>
         <content type="html"><![CDATA[<p>블로그의 컨텐츠를 우리가 검색하거나 직접 방문하여 볼수도 있지만, 구독처럼 새로운 컨텐츠가 발행되면 받아서 볼 수 있는 기능이 존재한다. 이를 가능케 하는게 <code>RSS</code>, <code>Atom</code>, <code>JSON-Feed</code>이다.</p>
