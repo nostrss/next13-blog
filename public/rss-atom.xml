@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://github.com/nostrss</id>
     <title>Nostrss's Dev Blog</title>
-    <updated>2023-09-15T07:04:31.211Z</updated>
+    <updated>2023-09-22T06:30:18.875Z</updated>
     <generator>generate-rss</generator>
     <author>
         <name>Nostrss</name>
@@ -13,6 +13,748 @@
     <link rel="self" href="https://nostrss.me/rss-atom.xml"/>
     <subtitle>Nostrss Blog Post List</subtitle>
     <category term="Technologies"/>
+    <entry>
+        <title type="html"><![CDATA[블로그도 구독이 가능하다]]></title>
+        <id>168-.rss-atom-json</id>
+        <link href="https://nostrss.me/168-.rss-atom-json"/>
+        <updated>2023-09-20T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Next.js 블로그에 RSS, Atom, JSON Feed를 추가하기]]></summary>
+        <content type="html"><![CDATA[<p>블로그의 컨텐츠를 우리가 검색하거나 직접 방문하여 볼수도 있지만, 구독처럼 새로운 컨텐츠가 발행되면 받아서 볼 수 있는 기능이 존재한다. 이를 가능케 하는게 <code>RSS</code>, <code>Atom</code>, <code>JSON-Feed</code>이다.</p>
+<p>위 3개를 직접 전부 구현하기엔 너무 어려울 것 같아서 외부 패키지를 사용해서 구현해보았다.</p>
+<h2>패키지 설치</h2>
+<p><code>RSS</code>를 구현하기 위해 2가지 방법을 고민했다.</p>
+<ol>
+<li>동적으로 api를 호출해서 데이터를 가져오는 방법</li>
+<li>빌드시 정적 파일을 생성하는 방법</li>
+</ol>
+<p>아무래도 이미 파일로 생성이 되어 있으면, 조금더 속도에서 빠르지 않을까 싶어서 2번의 방법으로 구현하기로 했다. 그리고 서버 리소스도 사용하지 않아도 되는 장점도 있을 것 같다.</p>
+<p>구현에 사용할 패키지는 아래 2개이다.</p>
+<p><a href="https://www.npmjs.com/package/feed">📌 Feed NPM 페이지 바로가기 📌</a></p>
+<p><a href="https://www.npmjs.com/package/ts-node">📌 ts-node 페이지 바로가기 📌</a></p>
+<h2>구현 코드</h2>
+<pre><code class="language-ts">import { Feed } from 'feed';
+import { writeFileSync } from 'fs';
+import {
+  BASE_URL,
+  DEFAULT_META_AUTHOR_EMAIL,
+  DEFAULT_META_AUTHOR_NAME,
+  DEFAULT_META_AUTHOR_URL,
+  DEFAULT_META_DESCRIPTION,
+  DEFAULT_META_TITLE,
+} from './constant';
+
+import fetch from 'node-fetch';
+
+const master = {
+  name: DEFAULT_META_AUTHOR_NAME,
+  email: DEFAULT_META_AUTHOR_EMAIL,
+  link: DEFAULT_META_AUTHOR_URL,
+};
+
+const feed = new Feed({
+  title: DEFAULT_META_TITLE,
+  description: DEFAULT_META_DESCRIPTION,
+  id: DEFAULT_META_AUTHOR_URL,
+  link: DEFAULT_META_AUTHOR_URL,
+  language: 'ko',
+  image: '',
+  favicon: '',
+  copyright: '',
+  generator: 'generate-rss',
+  feedLinks: {
+    json: `${BASE_URL}/feed.json`,
+    atom: `${BASE_URL}/rss-atom.xml`,
+    rss: `${BASE_URL}/rss.xml`,
+  },
+  author: master,
+});
+
+const getAllPostData = async () => {
+  const data = await fetch(`${BASE_URL}/api/post/all`, {
+    method: 'GET',
+  });
+
+  const jsonData: any = await data.json();
+  jsonData.data.forEach((json: JsonPost) => {
+    feed.addItem({
+      title: json.title,
+      id: json.currentPostId,
+      link: `${BASE_URL}/${json.currentPostId}`,
+      description: json.description,
+      content: json.content.toString(),
+      author: [master],
+      contributor: [master],
+      date: new Date(json.date),
+      // image: post.image,
+      category: json.tags.split(' ').map((tag: string) => ({ name: tag })),
+    });
+  });
+
+  // Output: RSS 2.0
+  writeFileSync('public/rss.xml', feed.rss2(), 'utf-8');
+  // Output: Atom 1.0
+  writeFileSync('public/rss-atom.xml', feed.atom1(), 'utf-8');
+  // Output: JSON Feed 1.0
+  writeFileSync('public/feed.json', feed.json1(), 'utf-8');
+};
+
+getAllPostData();
+feed.addCategory('Technologies');
+
+type JsonPost = {
+  currentPostId: string;
+  title: string;
+  description: string;
+  date: string;
+  tags: string;
+  content: string;
+};
+</code></pre>
+<blockquote>
+<p>feed 변수는 변하지 rss,atom,json-feed를 생성하는데 공통으로 사용되는 상수이다.</p>
+</blockquote>
+<blockquote>
+<p>getAllPostData 함수는 모든 포스트 데이터를 가져와서 feed에 추가하는 함수이다.</p>
+</blockquote>
+<blockquote>
+<p>getAllPostData 함수 안에서 rss, atom, json-feed를 생성하는 각각 메서드를 실행하여 파일로 저장한다.</p>
+</blockquote>
+<blockquote>
+<p>파일의 생성 경로는 public 폴더이며, public에 생성된 파일은 추후 {도메인}/rss.xml, {도메인}/rss-atom.xml, {도메인}/feed.json으로 접근이 가능하다.</p>
+</blockquote>
+<h2>빌드 및 파일 생성</h2>
+<p>packacge.json에 아래 스크립트를 추가한다.</p>
+<pre><code class="language-json">{
+  "rss": "ts-node --project tsconfig.node.json ./src/generate-rss.ts",
+  "build": "next build &#x26;&#x26; yarn rss"
+}
+</code></pre>
+<p>로컬에서 <code>yarn rss</code> 커맨드를 실행하면 <code>public</code> 폴더에 <code>rss.xml</code>, <code>rss-atom.xml</code>, <code>feed.json</code> 파일이 생성되는 것을 확인 할 수 있다.</p>
+<p>로컬에서 생성하지 않아도 <code>vercel</code>에 배포시 자동으로 <code>rss</code>도 빌드가 되도록 스크립트를 추가해두었다.</p>
+<h2>결과확인</h2>
+<p><a href="https://www.nostrss.me/rss.xml">📌 rss 확인하기 📌</a></p>
+<p><a href="https://www.nostrss.me/rss-atom.xml">📌 rss-atom 확인하기 📌</a></p>
+<p><a href="https://www.nostrss.me/feed.json">📌 feed.json 확인하기 📌</a></p>
+<p>모두 정상적으로 생성되었음을 확인 할 수 있다.</p>
+<p>실제 위의 feed를 구독할 때도 잘 보이는지 Rss 리더를 통해 확인해야겠다.</p>
+<p><code>feedly</code>라는 rss 리더를 사용해서 구독해보았다.</p>
+<p><a href="https://feedly.com/">📌 feedly 바로가기 📌</a></p>
+<blockquote>
+<p>된다!! 아주 잘나온다!!</p>
+</blockquote>]]></content>
+        <author>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </author>
+        <category label="next"/>
+        <category label="blog"/>
+        <category label="rss"/>
+        <category label="atom"/>
+        <category label="json-feed"/>
+        <contributor>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[리액트를 벗어나 순수한 프로젝트를 만들어보자]]></title>
+        <id>167-webpack-typescript</id>
+        <link href="https://nostrss.me/167-webpack-typescript"/>
+        <updated>2023-09-19T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[바닐라 타입스크립트에 웹팩을 설정한 템플릿 만들기]]></summary>
+        <content type="html"><![CDATA[<p>처음 프론트엔드를 배울때 React로 배우고 계속 사용하다보니 리액트 없이는 프론트엔드를 할 수 없는 느낌이 들었다. 그래서 리액트를 벗어나 순수한 프로젝트를 만들어보고 싶었다. 바닐라 자바스크립트에 타입스크립트만 추가한 템플릿을 만들어보았다.</p>
+<p><a href="https://github.com/nostrss/webpack-template">📌 깃허브에서 소스코드 보기 📌</a></p>
+<h2>npm init</h2>
+<p>먼저 폴더를 생성하고 <code>npm init</code>을 실행해준다.</p>
+<p>몇가지 질문이 진행되고 완료되면 <code>package.json</code>이 생성되게 된다.</p>
+<h2>테스트를 위한 파일 생성</h2>
+<pre><code>📦src
+ ┣ 📜about.html
+ ┣ 📜about.js
+ ┣ 📜index.html
+ ┣ 📜index.ts
+ ┣ 📜style.css
+ ┗ 📜word.js
+</code></pre>
+<p>웹팩을 설치하고 빌드하기 전에 테스트를 위한 파일들을 위와 같이 생성해주었다.</p>
+<h2>웹팩 설치(v5)</h2>
+<p><a href="https://webpack.kr/guides/getting-started/#creating-a-bundle">📌 웹팩 공식문서 바로가기 📌</a></p>
+<pre><code class="language-bash">npm install webpack webpack-cli --save-dev
+</code></pre>
+<h2>webpack.config.js 기본 설정하기</h2>
+<pre><code class="language-js">const path = require('path');
+
+module.exports = {
+  mode: 'production',
+  entry: { index: '/src/index.ts', about: '/src/about.js' },
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].js',
+  },
+};
+</code></pre>
+<h3>mode</h3>
+<p><a href="https://webpack.kr/configuration/mode/#root">📌 웹팩 Mode 문서 바로가기 📌</a></p>
+<p>mode의 경우 Default로는 production으로 설정되어 있다.</p>
+<p>production 모드의 경우 최적화가 되어 빌드가 되며, 이로 인해 빌드파일의 크기가 development 모드에 비해 작아진다.</p>
+<p>production과 development의 빌드 결과는 아래와 같은 차이가 있다.</p>
+<blockquote>
+<p>development 인 경우</p>
+</blockquote>
+<p>사람이 조금은 알아볼 수 있는 형태로 빌드가 된다.</p>
+<ul>
+<li>production 인 경우</li>
+</ul>
+<p>사람이 알아볼 수 없을 정도로 최적화가 되어 빌드가 된다.</p>
+<h3>Entry Points</h3>
+<p><a href="https://webpack.kr/concepts/entry-points/#root">📌 웹팩 Entry Points 문서 바로가기 📌</a></p>
+<p>webpack이 빌드할 파일을 지정해주는 부분이다.</p>
+<p>테스트로 파일을 2개 생성했기 때문에 2개의 파일을 지정해주었다.</p>
+<h3>Output</h3>
+<p><a href="https://webpack.kr/concepts/output/">📌 웹팩 Output 문서 바로가기 📌</a></p>
+<p>빌드된 파일을 어디에 어떻게 저장할지 지정해주는 부분이다.</p>
+<p><code>path</code>는 빌드된 파일을 저장할 경로를 지정해주고, <code>filename</code>은 빌드된 파일의 이름을 지정해준다.</p>
+<p><code>filename</code>의 경우 <code>[name]</code>을 사용하면 <code>entry</code>에 지정한 Key값(index, about)을 파일명으로 빌드하게 된다.</p>
+<p>다만 이렇게 빌드하여 배포가 될 경우, 빌드 결과 파일의 이름이 기존과 동일하기 브라우저 캐쉬로 인해 변경사항이 유저에게 전달되지 않았던 경험이 있다.</p>
+<p>그래서 아래와 같이 다시 수정해서 빌드를 해봤다.</p>
+<pre><code class="language-js">const path = require('path');
+
+module.exports = {
+  mode: 'production',
+  entry: { index: '/src/index.ts', about: '/src/about.js' },
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].[hash].js',
+  },
+};
+</code></pre>
+<p>빌드할 때 마다 <code>hash</code> 값이 계속 달라지게 되고 브라우저에서는 이전과 파일명이 다르기 때문에 캐쉬를 사용하지 않고 새로 빌드된 파일을 사용하게 된다.</p>
+<h2>문제점</h2>
+<p>js파일은 빌드가 되는 것은 확인이 되었다.</p>
+<p>그리고 js파일을 html과 연결 후 브라우저를 통해 확인해보니 정상적으로 보인다.</p>
+<p>하지만 몇가지 문제점이 보였다.</p>
+<ol>
+<li>
+<p>CSS 파일이 별도로 로딩이 되고 있었다.
+</p>
+</li>
+<li>
+<p>js파일을 html에 연결해야하는 번거로움이 있다.</p>
+</li>
+</ol>
+<ul>
+<li>현업에서 만약 이렇게 사용하면 빌드 후 배포할때, 빌드 할때마다 HTML파일에 새로 생성된 js파일을 HTML에 연결해주는 번거로움이 존재한다.</li>
+</ul>
+<p>하나씩 해결해보자.</p>
+<h2>Loader를 사용하여 CSS를 JS파일과 함께 빌드하고 DOM에 반영하기</h2>
+<p><a href="https://webpack.kr/concepts/loaders/">📌 웹팩 로더 문서 바로가기 📌</a></p>
+<p>이를 위해 2개의 패키지를 추가로 설치해주자.</p>
+<pre><code class="language-bash">npm install css-loader style-loader -D
+</code></pre>
+<p>그리고 <code>webpack.config.js</code>를 아래와 같이 수정했다.</p>
+<pre><code class="language-js">const path = require('path');
+
+module.exports = {
+  mode: 'production',
+  entry: { index: '/src/index.js', about: '/src/about.js' },
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].[hash].js',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [
+          // injects the css into the DOM
+          { loader: 'style-loader' },
+          // translates CSS into JS
+          {
+            loader: 'css-loader',
+          },
+        ],
+      },
+    ],
+  },
+};
+</code></pre>
+<p>그리고 다시 빌드 후 HTML 파일에 link css를 삭제하고 빌드 파일을 연결해 주었다.</p>
+<p>결과물도 정상적으로 나오고 이제는 css 파일을 별도로 로딩하지 않는 것을 확인할 수 있었다.</p>
+<h2>Plugins를 이용해 html 파일 생성하기</h2>
+<p><a href="https://webpack.kr/plugins/html-webpack-plugin/">📌 웹팩 HtmlWebpackPlugin 문서 바로가기 📌</a></p>
+<p>현재 js파일에 css를 추가하여 빌드하는 것까지는 성공했다.</p>
+<p>이제 빌드시 html파일을 생성하고 여기에 js파일을 자동으로 연결해주는 작업을 해보자. 이를 위해 아래의 패키지를 설치해 주자.</p>
+<pre><code class="language-bash">npm install -D html-webpack-plugin
+</code></pre>
+<p>그리고 webpack.config.js를 아래와 같이 수정해주자.</p>
+<pre><code class="language-js">const path = require('path');
+// ----> 추가
+const HtmlWepackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+  mode: 'production',
+  entry: { index: '/src/index.js', about: '/src/about.js' },
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].[hash].js',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [
+          // injects the css into the DOM
+          { loader: 'style-loader' },
+          // translates CSS into JS
+          {
+            loader: 'css-loader',
+          },
+        ],
+      },
+    ],
+  },
+  // ----> 추가
+  plugins: [
+    new HtmlWepackPlugin({
+      template: './src/index.html',
+      filename: './index.html',
+      chunks: ['index'],
+    }),
+    new HtmlWepackPlugin({
+      template: './src/about.html',
+      filename: './about.html',
+      chunks: ['about'],
+    }),
+  ],
+};
+</code></pre>
+<p>그리고 html파일에서 js파일을 추가해주는 script를 삭제해주자.</p>
+<blockquote>
+<p>즉 이제 html파일에 css와 js파일을 link, script로 삽입해주지 않아도 된다.</p>
+</blockquote>
+<p>이제 빌드를 해보자.</p>
+<p>dist 폴더 안에 html파일이 함께 생성된 것을 볼 수 있다.</p>
+<h2>Typescript 설정하기</h2>
+<p><a href="https://webpack.kr/guides/typescript/">📌 웹팩 Typescript 문서 바로가기 📌</a></p>
+<p>나는 타입스크립트를 사용할 것이기 때문에 또 추가적인 설정이 필요하다.</p>
+<p>일단 나는 타입스크립트가 글로벌로 설치가 되어 있기 때문에 아래의 패키지만 설치를 해주었다.</p>
+<pre><code class="language-bash">npm install -D ts-loader
+</code></pre>
+<p>설치 후에는 tsconfig.json 파일을 아래와 같이 생성해주었다.</p>
+<pre><code class="language-json">{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "noImplicitAny": true,
+    "module": "es6",
+    "target": "es5",
+    "jsx": "react",
+    "allowJs": true,
+    "moduleResolution": "node"
+  }
+}
+</code></pre>
+<p>타입스크립트 파일이 빌드가 되는지 테스트를 위해 indext.js파일의 확장자를 indext.ts로 변경해주었다.</p>
+<p>그리고 webpack.config.js를 아래와 같이 수정해주었다.</p>
+<pre><code class="language-js">const path = require('path');
+const HtmlWepackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+  mode: 'production',
+  // ----> ts 파일로 수정
+  entry: { index: '/src/index.ts', about: '/src/about.js' },
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].[hash].js',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [
+          // injects the css into the DOM
+          { loader: 'style-loader' },
+          // translates CSS into JS
+          {
+            loader: 'css-loader',
+          },
+        ],
+      },
+      // ----> 추가
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+    ],
+  },
+  // ----> 추가
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
+  },
+  plugins: [
+    new HtmlWepackPlugin({
+      template: './src/index.html',
+      filename: './index.html',
+      chunks: ['index'],
+    }),
+    new HtmlWepackPlugin({
+      template: './src/about.html',
+      filename: './about.html',
+      chunks: ['about'],
+    }),
+  ],
+};
+</code></pre>
+<p>빌드를 해보니 이전과 동일하게 정상적으로 빌드가 성공하는 것을 확인할 수 있었다.</p>
+<h2>빌드시 이전 결과물 삭제하기</h2>
+<p>이제 기본적인 설정은 끝난 것 같다.</p>
+<p>그러나 빌드할 때마다 hash값이 변하다 보니 빌드 결과물에 이전 js파일들이 남아 있는 것을 확인할 수 있었다.</p>
+<p>이건 추가 설정으로 간단히 해결 할 수 있었다.</p>
+<pre><code class="language-js">output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].[hash].js',
+    // ----> 추가
+    clean: true,
+  },
+</code></pre>
+<p>위와 같이 clean 옵션을 추가해주면 빌드시 이전 결과물을 삭제해준다.</p>
+<p>이렇게 만들고 나니 기존의 react가 얼마나 편한 라이브러리인지 체감하게 됐다.</p>
+<p>위의 설정등을 하지 않고 바로 최적화 빌드가 가능한 지금, 과거 프론트엔드 개발자들은 얼마나 힘들게 개발을 했을까 싶다.</p>]]></content>
+        <author>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </author>
+        <category label="javascript"/>
+        <category label="typescript"/>
+        <category label="webpack"/>
+        <contributor>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[들어는 봤니? 커링함수(currying function)]]></title>
+        <id>166-curring-function</id>
+        <link href="https://nostrss.me/166-curring-function"/>
+        <updated>2023-09-18T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[근데 React에서 커링함수는 언제 사용해야 할까?]]></summary>
+        <content type="html"><![CDATA[<p>커링함수란 여러개의 인자를 받는 함수를 하나의 인자만 받는 함수로 나눠서 순차적으로 호출될 수 있게 체인처럼 연결하는 것을 말한다.</p>
+<p>그렇기 때문에 원칙적으로 하나의 파라미터만을 전달하는 것을 원칙으로 한다.</p>
+<h2>커링함수의 예시 살펴보기</h2>
+<pre><code class="language-js">const curry3 = function (func) {
+  return function (a) {
+    return function (b) {
+      return func(a, b);
+    };
+  };
+};
+
+const getMaxWith10 = curry3(Math.max)(100);
+console.log(getMaxWith10(51)); // 100
+console.log(getMaxWith10(122)); // 122
+</code></pre>
+<p>위의 코드는 커링함수의 예시이다. 함수를 인자로 받고, 후속으로 받는 인자 2개에 대해 인자로 받은 함수를 실행한 값을 리턴한다.</p>
+<p>위의 코드 실행과정을 아래와 같이 정리해봤다.</p>
+<ol>
+<li><code>curry3(Math.max)</code> : 아래의 익명함수를 리턴한다.</li>
+</ol>
+<pre><code>ƒ (a) {
+    return function (b) {
+      return Math.max(a, b);
+    };
+}
+</code></pre>
+<ol start="2">
+<li><code>curry3(Math.max)(100)</code> : 위의 익명함수를 실행하고 새로운 익명함수를 리턴한다.</li>
+</ol>
+<pre><code>ƒ (b) {
+  return Math.max(100, b);
+}
+
+</code></pre>
+<ol start="3">
+<li><code>const getMaxWith10 = curry3(Math.max)(100)</code></li>
+</ol>
+<ul>
+<li>위의 익명함수가 getMaxWith10에 할당된다.</li>
+</ul>
+<ol start="4">
+<li><code>getMaxWith10(51)</code></li>
+</ol>
+<ul>
+<li>getMaxWith10이 실행되고, 51이 인자로 전달되고, Math.max(100, 51)이 실행된다.</li>
+</ul>
+<pre><code>ƒ (51) {
+  return Math.max(100, 51);
+}
+</code></pre>
+<h2>커링함수와 화살표 함수</h2>
+<p>위의 커링함수의 인자가 많아지거나, 길이가 길어지면 가독성이 떨어지는 단점이 있다. 이때 아래와 같이 화살표 함수를 사용하면 가독성을 높일 수 있다.</p>
+<pre><code class="language-js">const curry3 = (func) => (a) => (b) => func(a, b);
+</code></pre>
+<h2>커링함수 언제? 왜 사용하는가?</h2>
+<p>커링함수는 당장 필요한 정보만 받아서 전달하고 또 필요한 정보가 들오면 전달하는 방식으로 사용할 수가 있다.</p>
+<p>이를 함수형 프로그래밍에서는 <code>지연 실행(lazy execution)</code>이라고 한다.</p>
+<p><code>React</code>에서 실제로 위의 커링함수를 언제 사용할 수 있을지 고민을 해봤다.</p>
+<pre><code class="language-js">// 커링함수를 사용하지 않은 경우
+const getInformation = (baseUrl, path, id) => fetch(`${baseUrl}${path}/${id}`);
+
+// 커링함수
+const getInformation = (baseUrl) => (path) => (id) =>
+  fetch(`${baseUrl}${path}/${id}`);
+</code></pre>
+<p>위의 코드는 api를 호출하는 함수이다. 커링을 사용한 경우와 사용하지 않은 경우 결과값을 동일할 것이다.</p>
+<p>이것만 봐서는 커링을 사용하는 명확한 가치를 느끼지는 못하겠다.</p>
+<p>하지만 과거 공부했던 <code>HOC(Higher Order Component)</code>의 개념과 커링은 매우 비슷하게 느껴진다.</p>
+<p>커링은 프로젝트에서 내가 실제로 의도해서 사용해본적은 없는 것 같다.</p>
+<p>이후 프로젝트에서 커링을 사용해볼 수 있는 기회가 생긴다면 사용해보면서 익혀가야 할 것 같다.</p>]]></content>
+        <author>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </author>
+        <category label="javascript"/>
+        <category label="currying"/>
+        <category label="function"/>
+        <contributor>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[복사 제대로 하고 있니?]]></title>
+        <id>165-copy-shallow-deep</id>
+        <link href="https://nostrss.me/165-copy-shallow-deep"/>
+        <updated>2023-09-17T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[얕은 복사, 깊은 복사 복습하기]]></summary>
+        <content type="html"><![CDATA[<p>처음 자바스크립트를 공부할 때, 참조값을 복사하면 얕은 복사인 것으로 간단히 알고 넘어갔었다. 이에 대해 조금은 심도있게 알아보려고 한다.</p>
+<h2>얕은 복사(shallow copy)</h2>
+<p>MDN에서는 얕은 복사를 다음과 같이 정의하고 있다.</p>
+<blockquote>
+<p>객체의 얕은 복사는 복사본의 속성이 복사본이 만들어진 원본 객체와 같은 참조 (메모리 내의 같은 값을 가리킴)를 공유하는 복사입니다. 따라서 원본이나 복사본을 변경하면, 다른 객체 또한 변경될 수 있습니다. 이러한 동작은 원본과 복사본이 완전히 독립적인 깊은 복사의 동작과 대조적입니다.</p>
+</blockquote>
+<p>이를 코드를 통해 이해해보자.</p>
+<pre><code class="language-js">const user = {
+  name: 'John',
+  url: {
+    twitter: 'https://twitter.com/john',
+    facebook: 'https://facebook.com/john',
+  },
+};
+
+const copyObject = (target) => {
+  let result = {};
+  for (let key in target) {
+    result[key] = target[key];
+  }
+  return result;
+};
+
+const user2 = user;
+const user3 = copyObject(user);
+console.log(user === user2); // 1. ??
+console.log(user === user3); // 2. ??
+</code></pre>
+<ol>
+<li>답은 True이다.</li>
+</ol>
+<ul>
+<li>우리가 가장 흔하게 볼 수 있는 얕은 복사의 형태이다.</li>
+</ul>
+<ol start="2">
+<li>답은 False이다.</li>
+</ol>
+<ul>
+<li><code>copyObject</code> 함수를 통해 새로운 객체를 만들었기 때문에 새로운 참조값을 가지게 된다.</li>
+</ul>
+<blockquote>
+<p>그렇다면 user3의 경우에는 깊은 복사가 이루어진 것인가?</p>
+</blockquote>
+<p>user3의 하위 프로퍼티들의 값을 변경해서 원본 객체의 값이 변경되는지 확인해보자.</p>
+<p>아래와 같이 코드를 작성해서 실행해보았다.</p>
+<pre><code class="language-js">user3.name = 'Pete';
+console.log(user.name); // John
+console.log(user3.name); // Pete
+</code></pre>
+<p>user3의 값을 변경했으나 원본 객체의 값은 변경되지 않았다. 이번엔 하위 url 프로퍼티의 값을 변경해보자.</p>
+<pre><code class="language-js">user3.url.twitter = 'https://twitter.com/pete';
+console.log(user.url.twitter); // https://twitter.com/pete
+console.log(user3.url.twitter); // https://twitter.com/pete
+</code></pre>
+<p>하위 객체인 url의 경우에는 user3 객체의 값을 변경했을 때 원본인 user 객체까지 변경되는 것을 확인할 수 있었다.</p>
+<p>이것은 user 하위의 url객체의 메모리상 주소값만이 복사되었기 때문이다.</p>
+<blockquote>
+<p>즉 위의 케이스는 얕은 복사가 이루어진 것이다.</p>
+</blockquote>
+<h2>깊은 복사를 하는 방법</h2>
+<h3>JSON 객체 메서드 사용</h3>
+<p>객체를 JSON으로 변환하고 다시 객체로 변환하는 방법이다.</p>
+<pre><code class="language-js">const user4 = JSON.parse(JSON.stringify(user));
+user4.url.twitter = 'https://twitter.com/pete';
+console.log(user4 === user); // false
+console.log(user4.url === user.url); // false
+console.log(user4.url.twitter === user.url.twitter); // falses
+</code></pre>
+<h3>재귀함수를 사용하는 방법</h3>
+<pre><code class="language-js">const copyObject = (target) => {
+  let result = {};
+  if (typeof target === 'object' &#x26;&#x26; target !== null) {
+    for (let key in target) {
+      result[key] = copyObject(target[key]);
+    }
+  } else {
+    result = target;
+  }
+  return result;
+};
+
+const user5 = copyObject(user);
+user5.url.twitter = 'https://twitter.com/pete';
+console.log(user5 === user); // false
+console.log(user5.url.twitter === user.url.twitter); // false
+</code></pre>
+<h3>lodash.js cloneDeep 메서드 사용</h3>
+<p>많이 사용하는 라이브러리인 lodash의 cloneDeep 메서드를 사용하는 방법이다.</p>
+<pre><code class="language-js">var objects = [{ a: 1 }, { b: 2 }];
+
+var deep = _.cloneDeep(objects);
+console.log(deep[0] === objects[0]);
+// => false
+</code></pre>
+<h3>immer.js 또는 Immutable.js 라이브러리 사용</h3>
+<pre><code class="language-js">import { produce } from 'immer';
+
+const nextState = produce(baseState, (draft) => {
+  draft[1].done = true;
+  draft.push({ title: 'Tweet about it' });
+});
+</code></pre>
+<p>Immutable.js 는 페이스북에서 만든 패키지인데, 요샌 immer.js를 많이 사용한다고 한다.</p>]]></content>
+        <author>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </author>
+        <category label="javascript"/>
+        <category label="shallow"/>
+        <category label="deep"/>
+        <category label="copy"/>
+        <contributor>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Next.js 다크모드 적용하기]]></title>
+        <id>164-next-darkmode-toggle</id>
+        <link href="https://nostrss.me/164-next-darkmode-toggle"/>
+        <updated>2023-09-11T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[요새 많이 사용하는 다크모드를 적용해보자.]]></summary>
+        <content type="html"><![CDATA[<p>네이버도 그렇고 요새 많은 사이트들이 <code>다크모드</code>를 지원하고 있다.</p>
+<p>나도 웹페이지를 볼때 다크모드를 선호하는 편인지라 다크모드를 적용하려고 한다.</p>
+<p>내가 원하는 다크모드의 기능은 다음과 같다.</p>
+<ul>
+<li>최초 접속 시에는 유저의 OS 다크모드 설정을 따른다.</li>
+<li>유저가 버튼을 클릭시 모드가 변경이 된다.</li>
+<li>변경된 모드가 다음에 접속시에도 유지가 된다.</li>
+</ul>
+<h2>유저의 OS 다크모드 설정을 따르기</h2>
+<p>유저의 OS 다크모드 설정을 따르기 위해서는 <code>window.matchMedia</code>를 사용하면 된다.</p>
+<p>코드를 살펴보자.</p>
+<pre><code class="language-tsx">export default function DarkModeToggle() {
+  const [isDark, setIsDark] = useState(false);
+  const path = usePathname();
+
+  useEffect(() => {
+    initializeDarkMode();
+  }, [path]);
+
+  const initializeDarkMode = () => {
+    const savedMode = COOKIE.getCookie(MODE_COOKIE_NAME);
+    const prefersDarkMode = window.matchMedia(
+      `(prefers-color-scheme: ${DARK_MODE})`
+    ).matches;
+    const initialMode = savedMode || (prefersDarkMode ? DARK_MODE : LIGHT_MODE);
+
+    setIsDark(initialMode === DARK_MODE);
+    changeColorScheme(initialMode);
+    COOKIE.setCookie(MODE_COOKIE_NAME, initialMode, 720);
+  };
+
+  return (
+    &#x3C;>
+      &#x3C;button title={isDark ? '일반모드로 변경' : '다크모드로 변경'}>
+        {isDark ? &#x3C;SunnyIcon color='white' /> : &#x3C;NightIcon />}
+      &#x3C;/button>
+    &#x3C;/>
+  );
+}
+
+const changeColorScheme = (mode: string) => {
+  const colorScheme = document.querySelector('meta[name="color-scheme"]');
+  colorScheme?.setAttribute('content', mode);
+
+  if (mode === DARK_MODE) {
+    document.documentElement.classList.add(DARK_MODE);
+    document.documentElement.classList.remove(LIGHT_MODE);
+  } else {
+    document.documentElement.classList.add(LIGHT_MODE);
+    document.documentElement.classList.remove(DARK_MODE);
+  }
+};
+</code></pre>
+<blockquote>
+<p>브라우저에서 작동해야 하기 때문에 최상단에 'use client'를 선언해주어야 한다.</p>
+</blockquote>
+<blockquote>
+<p>모드 초기화를 위해 initializeDarkMode라는 함수를 만들고 useEffect를 통해 최초 실행시켜줬다.</p>
+</blockquote>
+<blockquote>
+<p>initializeDarkMode 함수에서는 쿠키에 저장된 모드가 있는지 확인하고 없다면 유저의 OS 다크모드 설정을 확인한다.</p>
+</blockquote>
+<blockquote>
+<p>초기화 된 모드를 쿠키에 저장한다.</p>
+</blockquote>
+<blockquote>
+<p>초기화 된 모드에 따라 Icon을 변경해준다.</p>
+</blockquote>
+<blockquote>
+<p>초기화 된 모드에 따라 documentElement에 클래스를 추가해준다.</p>
+</blockquote>
+<h2>버튼 클릭시 모드 변경처리</h2>
+<pre><code class="language-tsx">const chageModeInvert = () => {
+  const currentMode = document
+    .querySelector('meta[name="color-scheme"]')
+    ?.getAttribute('content');
+  const newMode = currentMode === DARK_MODE ? LIGHT_MODE : DARK_MODE;
+
+  setIsDark(newMode === DARK_MODE);
+  changeColorScheme(newMode);
+  COOKIE.setCookie(MODE_COOKIE_NAME, newMode, 720);
+};
+</code></pre>
+<p>위의 함수는 버튼 클릭시 모드를 변경해주는 함수이다.이걸 버튼의 <code>onClick</code>에 넣어주면 된다.</p>
+<p><img src="https://github.com/nostrss/next13-blog/assets/56717167/3044f7e6-6bfb-409e-9831-bff5baed05f2" alt="화면-기록-2023-09-15-오후-7 24 06"></p>]]></content>
+        <author>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </author>
+        <category label="next"/>
+        <category label="darkmode"/>
+        <category label="toggle"/>
+        <contributor>
+            <name>Nostrss</name>
+            <email>jintagi@gmail.com</email>
+            <uri>https://github.com/nostrss</uri>
+        </contributor>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Next.js meatadata 적용하기]]></title>
         <id>163-next-metadata</id>
@@ -30,7 +772,7 @@
 </ul>
 <p>하나씩 살펴 보도록 하겠다.</p>
 <h2>Static Metadata</h2>
-<p>Static Metadata는 아래와 같이 layout.js 파일에 생성할 메타데이터 객체를 생성하면 된다.</p>
+<p>Static Metadata는 아래와 같이 <code>layout.js</code> 파일에 생성할 메타데이터 객체를 생성하면 된다.</p>
 <pre><code class="language-tsx">import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -41,9 +783,9 @@ export const metadata: Metadata = {
 export default function Page() {}
 </code></pre>
 <p>대신 이렇게 생성된 메타데이터는 정적 데이터로 변하지 않는다.</p>
-<p>그래서 dynamic router를 사용한 페이지에서 계속 변하는 title, description을 메타데이터에 적용할 수 는 없다. 만약 동적으로 변하는 메타데이터를 적용하고 싶다면 Dynamic Metadata를 사용해야 한다.</p>
+<p>그래서 <code>dynamic router</code>를 사용한 페이지에서 계속 변하는 <code>title, description</code>을 메타데이터에 적용할 수 는 없다. 만약 동적으로 변하는 메타데이터를 적용하고 싶다면 <code>Dynamic Metadata</code>를 사용해야 한다.</p>
 <h2>Dynamic Metadata</h2>
-<p>위에서 말한 것처럼 metadata에 계속 변하는 정보가 있다면, 아래처럼 generateMetadata함수를 사용해야 한다.</p>
+<p>위에서 말한 것처럼 metadata에 계속 변하는 정보가 있다면, 아래처럼 <code>generateMetadata</code>함수를 사용해야 한다.</p>
 <pre><code class="language-tsx">import type { Metadata, ResolvingMetadata } from 'next';
 
 type Props = {
@@ -308,15 +1050,15 @@ xport default function MarkDownViewer({ content }: { content: string }) {
   );
 }
 </code></pre>
-<p>설치 후 이렇게 마크다운 정보를 children으로 넘겨주기만 하면 끝이다.</p>
-<p>npm 페이지에서 react로 예시로는 Props로 넘겨주도록 되어 있었는데, 에러가 발생해서 위와 같이 children으로 넘겨주었다.</p>
+<p>설치 후 이렇게 마크다운 정보를 <code>children</code>으로 넘겨주기만 하면 끝이다.</p>
+<p><code>npm</code> 페이지에서 <code>react</code>로 예시로는 <code>Props</code>로 넘겨주도록 되어 있었는데, 에러가 발생해서 위와 같이 <code>children</code>으로 넘겨주었다.</p>
 <h2>remarkGfm 적용하기</h2>
 <p>그런데 결과물이 조금은 부족해보인다.</p>
-<p>기존에 github에서 보던 마크다운과는 다소 다르게 보인다.</p>
-<p>왜냐하면 우리가 github에서 보던 마크다운은 표준이 아니기 때문이다. github에서 보는 마크다운은 github에서 자체적으로 추가한 문법들이 추가되어 있다.</p>
-<p>그렇기 때문에 평소 깃허브와 동일하게 보이게 하려면 별도의 plugin을 이용해야 한다.</p>
-<p>이때 사용할 수 있는 플러그인으로 remarkGfm이 있다.</p>
-<p>여기서 GFG은 Github Flavored Markdown의 약자이며 이에 해당하는 문법은 아래와 같다.</p>
+<p>기존에 <code>github</code>에서 보던 마크다운과는 다소 다르게 보인다.</p>
+<p>왜냐하면 우리가 github에서 보던 마크다운은 표준이 아니기 때문이다. <code>github</code>에서 보는 마크다운은 <code>github</code>에서 자체적으로 추가한 문법들이 추가되어 있다.</p>
+<p>그렇기 때문에 평소 깃허브와 동일하게 보이게 하려면 별도의 <code>plugin</code>을 이용해야 한다.</p>
+<p>이때 사용할 수 있는 플러그인으로 <code>remarkGfm</code>이 있다.</p>
+<p>여기서 <code>GFM</code>은 <code>Github Flavored Markdown</code>의 약자이며 이에 해당하는 문법은 아래와 같다.</p>
 <ul>
 <li>autolink literals</li>
 <li>footnotes</li>
@@ -325,7 +1067,7 @@ xport default function MarkDownViewer({ content }: { content: string }) {
 <li>tasklists.</li>
 </ul>
 <p><a href="https://www.npmjs.com/package/remark-gfm">remarkGfm 바로가기</a></p>
-<p>remarkGfm을 react-markdown에 적용하는 방법은 아래와 같다.</p>
+<p><code>remarkGfm</code>을 <code>react-markdown</code>에 적용하는 방법은 아래와 같다.</p>
 <pre><code class="language-tsx">'use client';
 import ReactMarkdown from 'react-markdown';
 
@@ -336,9 +1078,9 @@ export default function MarkDownViewer({ content }: { content: string }) {
 <p>위와 같이 추가하고 결과물을 확인해봤다.</p>
 <p>약간의 변화가 있었지만, 여전히 부족해보인다.</p>
 <h2>CSS 커스텀하기</h2>
-<p>조금 더 이쁘게 보이게 하기 위해 syntax-highlighting을 적용해서 코드블럭 CSS를 수정해볼 생각이다.</p>
+<p>조금 더 이쁘게 보이게 하기 위해 <code>syntax-highlighting</code>을 적용해서 코드블럭 CSS를 수정해볼 생각이다.</p>
 <p><a href="https://www.npmjs.com/package/react-syntax-highlighter">react-syntax-highlighter 바로가기</a></p>
-<p>코드블럭은  태그이므로 아래와 같이 작성해줬다.</p>
+<p>코드블럭은 <code>&#x3C;code>&#x3C;/code></code> 태그이므로 아래와 같이 작성해줬다.</p>
 <pre><code class="language-tsx">'use client';
 
 import ReactMarkdown from 'react-markdown';
@@ -377,7 +1119,7 @@ export default function MarkDownViewer({ content }: { content: string }) {
   );
 }
 </code></pre>
-<p>ReactMarkdown 은 components라는 props를 받을 수 있는데, 이것을 통해 커스터마이징을 할 수 있다.</p>
+<p><code>ReactMarkdown</code> 은 <code>components</code>라는 <code>props</code>를 받을 수 있는데, 이것을 통해 커스터마이징을 할 수 있다.</p>
 <p>그리고 아래와 같이 코드블럭 부분이 이쁘게 변경된 것을 확인 할 수 있었다.</p>
 <p>이제 나머지 태그들도 커스터 마이징 해보자.</p>
 <pre><code class="language-tsx">'use client';
@@ -441,11 +1183,14 @@ export default function MarkDownViewer({ content }: { content: string }) {
             {children}
           &#x3C;/p>
         ),
-        li: ({ children, ...props }) => (
-          &#x3C;li className='prose dark:text-white' {...props}>
-            {children}
-          &#x3C;/li>
-        ),
+        li: ({ children, ...props }) => {
+          const liProps = { ...props, ordered: 'false' };
+          return (
+            &#x3C;li className='prose dark:text-white' {...liProps}>
+              {children}
+            &#x3C;/li>
+          );
+        },
         strong: ({ children, ...props }) => (
           &#x3C;strong className='prose dark:text-white' {...props}>
             {children}
@@ -464,10 +1209,10 @@ export default function MarkDownViewer({ content }: { content: string }) {
 }
 </code></pre>
 <p>커스텀한 태그들이 수정되었다.</p>
-<p>그런데 문제점이 있다. 내가 이미지 삽입을 위해 추가한 붉은 박스의 html 코드가 문자열로 그대로 노출되고 있다.</p>
+<p>그런데 문제점이 있다. 내가 이미지 삽입을 위해 추가한 붉은 박스의 <code>html</code> 코드가 문자열로 그대로 노출되고 있다.</p>
 <h2>rehypeRaw 적용하기</h2>
-<p>마크다운 컨텐츠에 담겨있는 html을 그대로 렌더링 하기 위해서는 또 다시 추가 작업을 해야한다.</p>
-<p>여기서 정말 많은 검색과 시행착오를 겪었는데, 결론을 정리하면 rehypeRaw 이라는 플러그인을 설치하면 적용하면 된다.</p>
+<p>마크다운 컨텐츠에 담겨있는 <code>html</code>을 그대로 렌더링 하기 위해서는 또 다시 추가 작업을 해야한다.</p>
+<p>여기서 정말 많은 검색과 시행착오를 겪었는데, 결론을 정리하면 <code>rehypeRaw</code> 이라는 플러그인을 설치하면 적용하면 된다.</p>
 <blockquote>
 <p>그리고 7.0버전의 경우 오류가 발생했는데, 6.1.0 버전으로 다운그레이드 하니 정상적으로 작동했다.</p>
 </blockquote>
@@ -500,11 +1245,11 @@ export default function MarkDownViewer({ content }: { content: string }) {
         <link href="https://nostrss.me/161-next-google-analytics"/>
         <updated>2023-09-08T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[아직 Next13에 Google Analytics를 적용한 경우가 없는지 자료가 부실했다. 그래서 직접 정리한 내용]]></summary>
-        <content type="html"><![CDATA[<p>개인 블로그 작업이 거의 마무리 단계가 되어가고 있다. 그리고 오늘은 Google Analytics를 적용해보려고 한다.</p>
+        <content type="html"><![CDATA[<p>개인 블로그 작업이 거의 마무리 단계가 되어가고 있다. 그리고 오늘은 <code>Google Analytics</code>를 적용해보려고 한다.</p>
 <p>적용 방법은 링크를 따라 가면 자세하게 설명이 되어 있어서 따라하면 된다.</p>
 <p><a href="https://support.google.com/sites/answer/97459?hl=ko">📌 사이트에 애널리틱스 사용하기 📌</a></p>
-<p>다만 Next에 직접 적용하는데 살짝 어려움이 있었다.</p>
-<p>일단, 위의 링크를 따라하면 아래와 같은 script를 구글에서 알려준다.</p>
+<p>다만 <code>Next</code>에 직접 적용하는데 살짝 어려움이 있었다.</p>
+<p>일단, 위의 링크를 따라하면 아래와 같은 <code>script</code>를 구글에서 알려준다.</p>
 <pre><code class="language-html">&#x3C;!-- Google tag (gtag.js) -->
 &#x3C;script
   async
@@ -520,10 +1265,10 @@ export default function MarkDownViewer({ content }: { content: string }) {
   gtag('config', 'G-xxxxxxxxx');
 &#x3C;/script>
 </code></pre>
-<p>위의 코드를 이제 Next head에 적용하기만 하면 끝이다.</p>
-<p>모든 페이지에서 위의 스크립트가 호출되어야 하므로 일단 나는 RootLayout에 적용하기로 마음 먹었다.</p>
+<p>위의 코드를 이제 <code>Next</code> <code>head</code>에 적용하기만 하면 끝이다.</p>
+<p>모든 페이지에서 위의 스크립트가 호출되어야 하므로 일단 나는 <code>RootLayout</code>에 적용하기로 마음 먹었다.</p>
 <p>아래는 내가 작성 및 적용한 코드이다.</p>
-<p>먼저 위의 코드를 포함한 Client 컴포넌트를 하나 만들었다.</p>
+<p>먼저 위의 코드를 포함한 <code>Client</code> 컴포넌트를 하나 만들었다.</p>
 <pre><code class="language-tsx">// Analytics.tsx
 'use client';
 
@@ -548,7 +1293,7 @@ export default function Analytics() {
   );
 }
 </code></pre>
-<p>그리고 RootLayout에는 아래와 같이 적용했다.</p>
+<p>그리고 <code>RootLayout</code>에는 아래와 같이 적용했다.</p>
 <pre><code class="language-tsx">//layout.tsx
 export default function RootLayout({ children }: IPropsChildren) {
   return (
@@ -569,7 +1314,7 @@ export default function RootLayout({ children }: IPropsChildren) {
   );
 }
 </code></pre>
-<p>그리고 head에 정상적으로 스크립트가 심어졌는지 확인해보자</p>
+<p>그리고 <code>head</code>에 정상적으로 스크립트가 심어졌는지 확인해보자</p>
 <blockquote>
 <p>정상!!</p>
 </blockquote>
