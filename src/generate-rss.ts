@@ -1,5 +1,5 @@
 import { Feed } from 'feed';
-import { writeFileSync, existsSync, mkdirSync, writeFile } from 'fs';
+import { writeFileSync } from 'fs';
 import {
   BASE_URL,
   DEFAULT_META_AUTHOR_EMAIL,
