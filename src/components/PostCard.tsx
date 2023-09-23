@@ -35,9 +35,9 @@ export default function PostCard({
           </Link>
           <p className='mt-4 '>{description}</p>
           <div className='flex flex-row gap-2 mt-4 overflow-hidden flex-wrap'>
-            {/* {tagList.map((tag, index) => (
+            {tagList.map((tag, index) => (
               <TagLabel key={index} tagName={tag} />
-            ))} */}
+            ))}
           </div>
         </article>
       </div>

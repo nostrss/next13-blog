@@ -40,7 +40,7 @@ export default function RootLayout({ children }: IPropsChildren) {
           <div className='w-full flex flex-col items-center'>
             <section className='w-full max-w-[1192px] flex flex-row justify-center'>
               {children}
-              {/* <TagBox /> */}
+              <TagBox />
             </section>
           </div>
           <Footer />
