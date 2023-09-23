@@ -4,7 +4,7 @@
         <title>Nostrss's Dev Blog</title>
         <link>https://github.com/nostrss</link>
         <description>Nostrss Blog Post List</description>
-        <lastBuildDate>Fri, 22 Sep 2023 06:35:28 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 23 Sep 2023 06:42:54 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>generate-rss</generator>
         <language>ko</language>
@@ -495,121 +495,6 @@ const getInformation = (baseUrl) => (path) => (id) =>
             <category>javascript</category>
             <category>currying</category>
             <category>function</category>
-        </item>
-        <item>
-            <title><![CDATA[복사 제대로 하고 있니?]]></title>
-            <link>https://nostrss.me/165-copy-shallow-deep</link>
-            <guid>165-copy-shallow-deep</guid>
-            <pubDate>Sun, 17 Sep 2023 00:00:00 GMT</pubDate>
-            <description><![CDATA[얕은 복사, 깊은 복사 복습하기]]></description>
-            <content:encoded><![CDATA[<p>처음 자바스크립트를 공부할 때, 참조값을 복사하면 얕은 복사인 것으로 간단히 알고 넘어갔었다. 이에 대해 조금은 심도있게 알아보려고 한다.</p>
-<h2>얕은 복사(shallow copy)</h2>
-<p>MDN에서는 얕은 복사를 다음과 같이 정의하고 있다.</p>
-<blockquote>
-<p>객체의 얕은 복사는 복사본의 속성이 복사본이 만들어진 원본 객체와 같은 참조 (메모리 내의 같은 값을 가리킴)를 공유하는 복사입니다. 따라서 원본이나 복사본을 변경하면, 다른 객체 또한 변경될 수 있습니다. 이러한 동작은 원본과 복사본이 완전히 독립적인 깊은 복사의 동작과 대조적입니다.</p>
-</blockquote>
-<p>이를 코드를 통해 이해해보자.</p>
-<pre><code class="language-js">const user = {
-  name: 'John',
-  url: {
-    twitter: 'https://twitter.com/john',
-    facebook: 'https://facebook.com/john',
-  },
-};
-
-const copyObject = (target) => {
-  let result = {};
-  for (let key in target) {
-    result[key] = target[key];
-  }
-  return result;
-};
-
-const user2 = user;
-const user3 = copyObject(user);
-console.log(user === user2); // 1. ??
-console.log(user === user3); // 2. ??
-</code></pre>
-<ol>
-<li>답은 True이다.</li>
-</ol>
-<ul>
-<li>우리가 가장 흔하게 볼 수 있는 얕은 복사의 형태이다.</li>
-</ul>
-<ol start="2">
-<li>답은 False이다.</li>
-</ol>
-<ul>
-<li><code>copyObject</code> 함수를 통해 새로운 객체를 만들었기 때문에 새로운 참조값을 가지게 된다.</li>
-</ul>
-<blockquote>
-<p>그렇다면 user3의 경우에는 깊은 복사가 이루어진 것인가?</p>
-</blockquote>
-<p>user3의 하위 프로퍼티들의 값을 변경해서 원본 객체의 값이 변경되는지 확인해보자.</p>
-<p>아래와 같이 코드를 작성해서 실행해보았다.</p>
-<pre><code class="language-js">user3.name = 'Pete';
-console.log(user.name); // John
-console.log(user3.name); // Pete
-</code></pre>
-<p>user3의 값을 변경했으나 원본 객체의 값은 변경되지 않았다. 이번엔 하위 url 프로퍼티의 값을 변경해보자.</p>
-<pre><code class="language-js">user3.url.twitter = 'https://twitter.com/pete';
-console.log(user.url.twitter); // https://twitter.com/pete
-console.log(user3.url.twitter); // https://twitter.com/pete
-</code></pre>
-<p>하위 객체인 url의 경우에는 user3 객체의 값을 변경했을 때 원본인 user 객체까지 변경되는 것을 확인할 수 있었다.</p>
-<p>이것은 user 하위의 url객체의 메모리상 주소값만이 복사되었기 때문이다.</p>
-<blockquote>
-<p>즉 위의 케이스는 얕은 복사가 이루어진 것이다.</p>
-</blockquote>
-<h2>깊은 복사를 하는 방법</h2>
-<h3>JSON 객체 메서드 사용</h3>
-<p>객체를 JSON으로 변환하고 다시 객체로 변환하는 방법이다.</p>
-<pre><code class="language-js">const user4 = JSON.parse(JSON.stringify(user));
-user4.url.twitter = 'https://twitter.com/pete';
-console.log(user4 === user); // false
-console.log(user4.url === user.url); // false
-console.log(user4.url.twitter === user.url.twitter); // falses
-</code></pre>
-<h3>재귀함수를 사용하는 방법</h3>
-<pre><code class="language-js">const copyObject = (target) => {
-  let result = {};
-  if (typeof target === 'object' &#x26;&#x26; target !== null) {
-    for (let key in target) {
-      result[key] = copyObject(target[key]);
-    }
-  } else {
-    result = target;
-  }
-  return result;
-};
-
-const user5 = copyObject(user);
-user5.url.twitter = 'https://twitter.com/pete';
-console.log(user5 === user); // false
-console.log(user5.url.twitter === user.url.twitter); // false
-</code></pre>
-<h3>lodash.js cloneDeep 메서드 사용</h3>
-<p>많이 사용하는 라이브러리인 lodash의 cloneDeep 메서드를 사용하는 방법이다.</p>
-<pre><code class="language-js">var objects = [{ a: 1 }, { b: 2 }];
-
-var deep = _.cloneDeep(objects);
-console.log(deep[0] === objects[0]);
-// => false
-</code></pre>
-<h3>immer.js 또는 Immutable.js 라이브러리 사용</h3>
-<pre><code class="language-js">import { produce } from 'immer';
-
-const nextState = produce(baseState, (draft) => {
-  draft[1].done = true;
-  draft.push({ title: 'Tweet about it' });
-});
-</code></pre>
-<p>Immutable.js 는 페이스북에서 만든 패키지인데, 요샌 immer.js를 많이 사용한다고 한다.</p>]]></content:encoded>
-            <author>jintagi@gmail.com (Nostrss)</author>
-            <category>javascript</category>
-            <category>shallow</category>
-            <category>deep</category>
-            <category>copy</category>
         </item>
         <item>
             <title><![CDATA[Next.js 다크모드 적용하기]]></title>
