@@ -30,6 +30,11 @@ export default function RootLayout({ children }: IPropsChildren) {
   return (
     <html lang='kr'>
       <Analytics />
+      <script
+        async
+        src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4551649509417014'
+        crossOrigin='anonymous'
+      ></script>
       <meta
         name='naver-site-verification'
         content='40eb1acd72283d4af68831e5fe08661b57a10c72'
