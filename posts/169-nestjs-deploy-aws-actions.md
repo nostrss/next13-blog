@@ -9,6 +9,8 @@ tags: nestjs docker aws github-actions
 
 강의를 따라서 진행했었지만, 나혼자 직접 배포를 하는 연습도 해볼겸 정리해보려고 한다.
 
+[📌 깃허브 레파지토리 바로가기 📌](https://github.com/nostrss/nestjs-study)
+
 ## Nest.js 프로젝트 생성하기
 
 배포할 Nest.js 프로젝트를 하나 생성해서 준비하자.
