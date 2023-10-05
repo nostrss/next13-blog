@@ -1,8 +1,8 @@
 ---
 title: Nest.js에 Postgres DB를 연결해보자.
-description: Docker Container에 Postgres를 설치하고 Nest.js와 연동해보자
+description: Docker Container에 Postgres를 설치하고 typeorm으로 Nest.js와 연동해보자
 date: 2023-10-04
-tags: nestjs docker postgres
+tags: nestjs docker postgres typeorm
 ---
 
 이제 `Nest.js`에서 사용할 DB를 설치 및 연결해보려고 한다.
