@@ -13,7 +13,7 @@ const blurDataUrl =
 export default function MarkDownViewer({ content }: { content: string }) {
   return (
     <ReactMarkdown
-      className='prose max-w-none dark:text-white '
+      className='prose w-full max-w-[880px] dark:text-white '
       remarkPlugins={[remarkGfm]}
       rehypePlugins={[rehypeRaw]}
       components={{
@@ -48,40 +48,58 @@ export default function MarkDownViewer({ content }: { content: string }) {
           />
         ),
         h1: ({ children, ...props }) => (
-          <h1 className='prose text-2xl dark:text-white' {...props}>
+          <h1
+            className='prose text-2xl dark:text-white w-full max-w-[880px]'
+            {...props}
+          >
             {children}
           </h1>
         ),
         h2: ({ children, ...props }) => (
-          <h2 className='prose text-xl dark:text-white' {...props}>
+          <h2
+            className='prose text-xl dark:text-white w-full max-w-[880px]'
+            {...props}
+          >
             {children}
           </h2>
         ),
         h3: ({ children, ...props }) => (
-          <h3 className='prose text-lg dark:text-white' {...props}>
+          <h3
+            className='prose text-lg dark:text-white w-full max-w-[880px]'
+            {...props}
+          >
             {children}
           </h3>
         ),
         p: ({ children, ...props }) => (
-          <p className='prose dark:text-white' {...props}>
+          <p className='prose dark:text-white w-full max-w-[880px]' {...props}>
             {children}
           </p>
         ),
         li: ({ children, ...props }) => {
           const liProps = { ...props, ordered: 'false' };
           return (
-            <li className='prose dark:text-white' {...liProps}>
+            <li
+              className='prose dark:text-white w-full max-w-[880px]'
+              {...liProps}
+            >
               {children}
             </li>
           );
         },
         strong: ({ children, ...props }) => (
-          <strong className='prose dark:text-white' {...props}>
+          <strong
+            className='prose dark:text-white w-full max-w-[880px]'
+            {...props}
+          >
             {children}
           </strong>
         ),
         a: ({ children, ...props }) => (
-          <a className='prose dark:text-blue-300' {...props}>
+          <a
+            className='prose dark:text-blue-300 w-full max-w-[880px]'
+            {...props}
+          >
             {children}
           </a>
         ),
