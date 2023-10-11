@@ -45,7 +45,7 @@ const getAllPostData = async () => {
     feed.addItem({
       title: json.title,
       id: json.currentPostId,
-      link: `${BASE_URL}/${json.currentPostId}`,
+      link: `${BASE_URL}/blog/${json.currentPostId}`,
       description: json.description,
       content: json.content.toString(),
       author: [master],
