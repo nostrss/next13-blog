@@ -225,11 +225,11 @@ const Button = styled.button`
 
 <img width="714" alt="스크린샷 2023-10-24 오전 12 59 51" src="https://github.com/nostrss/next13-blog/assets/56717167/6ad20de3-eca1-466a-85e4-db14c4576ee0">
 
-### Sphere 클릭 시
+### Box 클릭 시
 
 <img width="714" alt="스크린샷 2023-10-24 오전 1 00 02" src="https://github.com/nostrss/next13-blog/assets/56717167/ffbac887-2545-4f17-9e53-289c01a564e2">
 
-### Box 클릭 시
+### Sphere 클릭 시
 
 <img width="714" alt="스크린샷 2023-10-24 오전 12 59 58" src="https://github.com/nostrss/next13-blog/assets/56717167/c75c9348-898e-40bf-ac76-eae4d3bbd04d">
 
