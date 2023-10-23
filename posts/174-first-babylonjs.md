@@ -219,6 +219,8 @@ const Button = styled.button`
 
 ## 결과
 
+[📌 결과보기 📌](https://babylon-sample.vercel.app/)
+
 ### 초기화면
 
 <img width="714" alt="스크린샷 2023-10-24 오전 12 59 51" src="https://github.com/nostrss/next13-blog/assets/56717167/6ad20de3-eca1-466a-85e4-db14c4576ee0">
