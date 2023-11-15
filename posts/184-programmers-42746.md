@@ -18,11 +18,6 @@ function solution(numbers) {
     .sort((a, b) => b + a - (a + b))
     .join('');
 
-  console.log(
-    numbers.map((number) => String(number)).sort((a, b) => b + a - (a + b))
-  );
-  console.log(result);
-
   return result[0] === '0' ? '0' : result;
 }
 ```
