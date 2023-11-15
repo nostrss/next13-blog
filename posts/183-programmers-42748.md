@@ -2,7 +2,7 @@
 title: [프로그래머스] 정렬 - k번째 수
 description: 원본배열을 변경하는 메소드를 조심하자.
 date: 2023-11-15
-tags: programmers, algorithm, javascript, stack, queue
+tags: programmers, algorithm, javascript, sort
 ---
 
 [📌 정렬 - k번째 수 문제 보러가기 📌](https://school.programmers.co.kr/learn/courses/30/lessons/42748)
