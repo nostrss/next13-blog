@@ -1,7 +1,7 @@
 ---
 title: [프로그래머스] 정렬 - k번째 수
 description: 원본배열을 변경하는 메소드를 조심하자.
-date: 2023-11-14
+date: 2023-11-15
 tags: programmers, algorithm, javascript, stack, queue
 ---
 
