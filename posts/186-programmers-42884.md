@@ -5,7 +5,7 @@ date: 2023-11-16
 tags: programmers, algorithm, javascript, greedy
 ---
 
-[📌 탐욕법(Greedy) 보러가기 📌](https://school.programmers.co.kr/learn/courses/30/lessons/42884)
+[📌 탐욕법(Greedy) - 단속카메라 보러가기 📌](https://school.programmers.co.kr/learn/courses/30/lessons/42884)
 
 ## 나의 풀이
 
