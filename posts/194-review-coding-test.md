@@ -1,6 +1,6 @@
 ---
 title: 코딩테스트와 코딩과제가 이런 것이구나..
-description: 오히려 코딩테스트와 코딩과제를 통해 배우는 것들
+description: 시험을 보면서도 배우는 것이 많았던 것 같다.
 date: 2023-11-25
 tags: coding-test review
 ---
