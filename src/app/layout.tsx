@@ -9,12 +9,14 @@ import RssIcon from '@/components/Icon/RssIcon';
 import StorybookIcon from '@/components/Icon/StorybookIcon';
 import GithubIcon from '@/components/Icon/GithubIcon';
 import Header from '@/components/Header';
-import TagBox from '@/components/TagBox';
 import Analytics from '@/components/Analytics';
 import Footer from '@/components/Footer';
+import NavItem from '@/components/NavItem';
+import { BASE_URL } from '@/constant';
 
 const sans = Open_Sans({ subsets: ['latin'] });
 export const menus = [
+  { menu: <NavItem itemName='Blog' url={`${BASE_URL}/blog`} /> },
   { menu: <DarkModeToggle /> },
   { menu: <StorybookIcon /> },
   { menu: <GithubIcon /> },
@@ -45,7 +47,6 @@ export default function RootLayout({ children }: IPropsChildren) {
           <div className='w-full flex flex-col items-center'>
             <section className='w-full max-w-[1192px] flex flex-row justify-center'>
               {children}
-              <TagBox />
             </section>
           </div>
           <Footer />

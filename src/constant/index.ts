@@ -3,6 +3,8 @@ export const BASE_URL =
     ? 'http://localhost:3000'
     : 'https://nostrss.me';
 
+export const BLOG_BASE_URL = `${BASE_URL}/blog`;
+
 export const POSTS_FILE_PATH = 'posts';
 export const DARK_MODE = 'dark';
 export const LIGHT_MODE = 'light';

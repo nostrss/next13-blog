@@ -3,6 +3,7 @@ import CommentList from '@/components/CommentList';
 import MarkDownViewer from '@/components/MarkDownViewer';
 import { PostSlug } from '@/type/common';
 import { API } from '@/util/API';
+import TagBox from '@/components/TagBox';
 
 export default async function BlogDetail({
   params: { slug },
@@ -20,6 +21,7 @@ export default async function BlogDetail({
         <MarkDownViewer content={data.content} />
         <CommentList />
       </article>
+      <TagBox />
     </section>
   );
 }
