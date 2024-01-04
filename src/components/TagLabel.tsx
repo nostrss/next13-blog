@@ -22,7 +22,7 @@ function TagLabel({
   };
 
   const onClickTag = () => {
-    router.push(`/tag/${tagName}`);
+    router.push(`/blog/tag/${tagName}`);
   };
   return (
     <button
