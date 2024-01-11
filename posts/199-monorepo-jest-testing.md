@@ -1,7 +1,7 @@
 ---
 title: [Turborepo] 모노레포에 Next.js에 테스트 환경 추가하기
 description: 모노레포에 Jest를 이용한 테스팅 환경을 만들어보자
-date: 2024-01-10
+date: 2024-01-11
 tags: turborepo monorepo  next jest testing 
 ---
 

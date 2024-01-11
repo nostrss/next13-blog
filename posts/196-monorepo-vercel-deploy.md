@@ -1,5 +1,5 @@
 ---
-title: 모노레포에 있는 2개의 Next.js 프로젝트를 Vercel에 각각 배포하기
+title: [Turborepo] 모노레포에 있는 2개의 Next.js 프로젝트를 Vercel에 각각 배포하기
 description: Turborepo를 이용해 Monorepo를 생성하고 Vercel로 배포해보자
 date: 2024-01-05
 tags: nextjs turborepo monorepo vercel deploy
