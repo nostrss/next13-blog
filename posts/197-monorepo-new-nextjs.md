@@ -2,7 +2,7 @@
 title: [Turborepo] 모노레포에 새로운 Next.js 프로젝트 추가하기
 description: 모노레포에 내가 원하는 환경을 세팅해보자
 date: 2024-01-10
-tags: nextjs turborepo monorepo storybook jest vercel deploy
+tags: nextjs turborepo monorepo vercel deploy
 ---
 
 ## Monorepo 생성하기
