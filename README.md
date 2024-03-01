@@ -64,7 +64,7 @@ SiteMap : `https://www.nostrss.me/sitemap.xml`
 - commit/push
 - Vercel > NEXT.JS 빌드 > RSS 빌드 > Vercel 배포완료
 
-## 스토리북 배포
+## 스토리북 배포 방법
 
 스토리북은 빌드 타임이 길어서 별도로 배포를 하고 있습니다.
 
